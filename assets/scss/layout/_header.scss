@@ -1,0 +1,135 @@
+img {
+    width: 100px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    padding: 15px;
+    padding-bottom: 50px;
+        > a {
+            font-size: 3em;
+            font-weight: bolder;
+            font-family: 'Belligerent Madness', sans-serif;
+        }
+        .panier-logo {
+            font-size: 50px;
+            background: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(#9356dc),
+            to(#ff79da)
+            );
+            background-clip: border-box;
+            background-clip: border-box;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+        }
+}
+
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 5%;
+    align-items: center;
+    background: white;
+}
+
+/*texte du menu*/
+ul li {
+    display: inline;
+        a {
+            padding: 8px 30px;
+            border-radius: 7px;
+            transition: all .3s ease;
+                i {
+                    font-size: 20px;
+                    background: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    from(#9356dc),
+                    to(#ff79da)
+                    );
+                    background-clip: border-box;
+                    background-clip: border-box;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    z-index: 1;
+                }
+        }
+}
+
+ul li a:hover,
+ul li a.active {
+    color: pink;
+}
+/* end texte du menu*/
+#icon {
+    background-color: white;
+    padding: 5px 7px 3px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 30px;
+}
+
+.icon-initial,
+.icon-focus {
+    color: red;
+    transition: all .3s ease;
+}
+
+.icon-initial:hover,
+.icon-focus:hover {
+    background: greenyellow;
+}
+
+#checkbox,
+#icon {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    header nav div ul {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        background-color: green;
+        left: 0;
+        top: 0;
+        text-align: center;
+        display: none;
+        margin-top: 71px;
+            li {
+                display: flex;
+                padding: 10px 15px;
+                a {
+                    display: flex;
+                    padding: 0px 0;
+                }
+            }
+    }
+
+    #icon {
+        display: block;
+    }
+    #checkbox:checked~ul {
+        display: block;
+    }
+}
+
+/*menu hamburger*/
+.icon-navigation span:nth-child(2) {
+    display: none; 
+}
+.icon-navigation:hover span:nth-child(1) {
+display: none;
+}
+.icon-navigation:hover span:nth-child(2) {
+display: block;
+}
+/*menu hamburger*/
