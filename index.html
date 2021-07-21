@@ -61,9 +61,9 @@
       name="twitter:image"
       content="#"
     /> <!--mettre l'url du logo du site-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="./assets/dist/css/home.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
     <title>Orinoco</title>
 </head>
@@ -78,14 +78,7 @@
         <a href="./index.html"><i class="fas fa-shopping-cart panier-logo"></i>Orinoco</a>
             <nav class="navigation">
               <div>
-                <input type="checkbox" id="checkbox">
-                <label for="checkbox" id="icon">
-                    <span class="icon-navigation">
-                        <span class="app-menu-icon-initial"><i class="fas fa-bars icon-initial"></i></span>
-                        <span class="app-menu-icon-focus"><i class="fas fa-hamburger icon-focus"></i></span>   
-                    </span>
-                </label>
-                <ul class="list-navigation">
+                <ul>
                     <li>
                         <a href="./index.html"><i class="fas fa-home"></i>Home</a>
                     </li>
@@ -96,15 +89,7 @@
                         <a href="./index.html"><i class="fas fa-user-circle"></i>Mon compte</a>
                     </li>
                     <li>
-                        <a href="#">
-                            <div>
-                                <span>0</span>
-                                <span><i class="fas fa-shopping-cart"></i></span>
-                            </div>
-                            <div>
-                                <span>Panier</span>
-                            </div>
-                        </a>
+                        <a href="./pages/cart.html"><i class="fas fa-shopping-cart"></i>Panier <span class="counter">0</span></a>
                     </li>
                 </ul>
               </div>
@@ -119,90 +104,97 @@
           <p>
             Découvrez tous nos produits par application thématiques.
           </p>
-          <a href="#applications">Explorer nos applications thématiques</a>
-        </section>
-        <section>
-          <div>
-            <h3>Nos applications thématiques</h3>
-            <ol>
-              <li>
-                <a href="#">
-                    <i class="fas fa-baby"></i>
-                  <p>Nounours</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                    <i class="fas fa-camera-retro"></i>
-                  <p>Photographie</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                    <i class="fas fa-tree"></i>
-                  <p>Mobilier bois</p>
-                </a>
-              </li>
-            </ol>
-          </div>
+          <a href="#applications">Venez découvrir nos appareils photos</a>
         </section>
 
         <section id="applications">
-            <h2>Les tops catégories</h2>
+            <h2>Les appareils photos</h2>
+
             <article>
-              <figure>
-                <a href="#">
+              <a href="./pages/product.html">
+                <figure>
                   <img
-                    src="./assets/img/oak_4.jpg"
-                    alt="Des bastaings de bois brut"
+                    src="./assets/img/vcam_1.jpg"
+                    alt="Appareil photo vintage sur un gard-corp bois en extérieur"
                   />
-                </a>
-              </figure>
-              <div>
-                <a href="#">
-                  <div>
-                    <h3>Mobilier Bois</h3>
-                    <p>Tables, Chaises, tabourets,...</p>
-                  </div>
-                </a>  
-              </div>
+                </figure>
+                <div>
+                  <h3>ZEISS IKON</h3>
+                  <p>Petit et compact. Il sera votre allié lors de vos promenades hors des sentiers battus.
+                    Voyagez autrement.
+                  </p>
+                  <p>890<b>€</b></p>
+                </div>
+              </a>
             </article>
             <article>
+              <a href="./pages/product.html">
                 <figure>
-                  <a href="#">
-                    <img
-                      src="./assets/img/teddy_5.jpg"
-                      alt="Un ours en peluche de dos"
-                    />
-                  </a>
+                  <img
+                    src="./assets/img/vcam_2.jpg"
+                    alt="Photo en noir et blanc d'un appareil photo"
+                  />
                 </figure>
                 <div>
-                  <a href="#">
-                    <div>
-                      <h3>Les ours en peluche</h3>
-                      <p>Des peluches de toutes tailles pour vos enfants.</p>
-                    </div>
-                  </a>  
+                  <h3>Circular PL</h3>
+                  <p>Notre préférer, car cet appareil est polyvalent. Son design rétro et moderne 
+                    vont plaire à ceux que vous allez prendre en photo.</p>
+                  <p>790<b>€</b></p>
                 </div>
-              </article>
-              <article>
+              </a>
+            </article>
+            <article>
+              <a href="./pages/product.html">
                 <figure>
-                  <a href="#">
-                    <img
-                      src="./assets/img/vcam_5.jpg"
-                      alt="Un appareil photo vintage face à l'objectif"
-                    />
-                  </a>
+                  <img
+                    src="./assets/img/vcam_3.jpg"
+                    alt="Appareil photo rétro sur tissu blanc"
+                  />
                 </figure>
                 <div>
-                  <a href="#">
-                    <div>
-                      <h3>Les appareil photos</h3>
-                      <p>Des appareils photo vintage ou dernières génération.</p>
-                    </div>
-                  </a>  
+                  <h3>Eastman KODAK CQ.</h3>
+                  <p>Appareil photo dans son jus d'époque. 
+                    Toutes les pièces sont d'origine et certifié par un numéro de série. 
+                    Ne fonctionne pas.</p>
+                  <p>2790<b>€</b></p>
                 </div>
-              </article>
+              </a>
+            </article>
+            <article>
+              <a href="./pages/product.html">
+                <figure>
+                  <img
+                    src="./assets/img/vcam_4.jpg"
+                    alt="Appareil photo pris de face sur une table effet miroir"
+                  />
+                </figure>
+                <div>
+                  <h3>Minolta XGS MD ROKKOR</h3>
+                  <p>L'appareil est en parfait état et il fonctionne. 
+                    Les pièces sont d'origine made in japon.
+                    La sacoche pour le transport est disponible.
+                  </p>
+                  <p>1090<b>€</b></p>
+                </div>
+              </a>
+            </article>
+            <article>
+              <a href="./pages/product.html">
+                <figure>
+                  <img
+                    src="./assets/img/vcam_5.jpg"
+                    alt="Appareil photo pris de face sur une table effet miroir"
+                  />
+                </figure>
+                <div>
+                  <h3>Samsung 103515</h3>
+                  <p>Les photos que vous allez prendre seront tout simplement magnifique. 
+                    Chacune d'entre elles sera unique et le souvenir aussi.
+                  </p>
+                  <p>1290<b>€</b></p>
+                </div>
+              </a>
+            </article>
         </section>
         <section>
             <a href="./index.html"><i class="fas fa-shopping-cart"></i>Orinoco</a>
@@ -250,3 +242,4 @@
 
 </body>
 </html>
+
