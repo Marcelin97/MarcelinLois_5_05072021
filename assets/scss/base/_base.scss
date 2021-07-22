@@ -5,4 +5,12 @@
   section {
     padding: 25px 15px;
   }
-  
+/*common to several elements*/
+header,
+main,
+footer > div {
+  max-width: 1440px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/*common to several elements*/

@@ -1,0 +1,17 @@
+@mixin buttons {
+    background: linear-gradient(175deg, #9356dc, #ff79da);
+    color: white;
+    border-radius: 10px;
+    line-height: 50px;
+    width: 500px;
+    min-width: 210px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    filter: drop-shadow(2px 3px 6px #cfcfcf);
+    cursor: pointer;
+    min-width: 150px;
+    margin: 0 auto;
+  }
+  
+  /*end of button*/

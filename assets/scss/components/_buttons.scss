@@ -1,0 +1,15 @@
+/*Button*/
+
+.btn {
+    @include buttons; 
+    opacity: 1;
+    transition: all 400ms;
+      &:hover {
+        opacity: 0.8;
+        filter: drop-shadow(6px 14px 4px #cfcfcf);
+        transition: all 900ms;
+    }
+  }
+  
+  /*Button*/
+  
