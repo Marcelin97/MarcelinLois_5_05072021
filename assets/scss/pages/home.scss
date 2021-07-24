@@ -1,0 +1,155 @@
+@import "../main.scss";
+
+/*section titre*/
+#titre {
+  h1 {
+    font-size: 3em;
+    font-weight: bolder;
+    font-family: "Belligerent Madness", sans-serif;
+    margin-bottom: 20px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}
+#titre a {
+  text-align: center;
+}
+/*end section titre*/
+/*section applications*/
+#applications {
+  background-color: $light-grey;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  div {
+    @include dflex_col;
+    @media only screen and (min-width: 576px) {
+      flex-flow: row wrap;
+      margin: 0 auto;
+    }
+    h2 {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 20px 0px 20px 5px;
+      @media only screen and (min-width: 576px) {
+        flex-basis: 100%;
+      }
+    }
+    article {
+      @include dflex_col;
+      margin: 10px 0px;
+      height: 300px;
+      box-shadow: 0px 5px 5px $shadow;
+      border-radius: 15px;
+      background-color: white;
+      transition: all 200ms ease-in;
+      @media only screen and (min-width: 576px) {
+        height: 290px;
+        flex-basis: 49%;
+        margin: 10px auto;
+      }
+      figure {
+        @include dflex_col;
+        height: 50%;
+        a {
+          position: relative;
+          height: 100%;
+          img {
+            border-radius: 15px 15px 0px 0px;
+            max-height: 100%;
+            object-fit: cover;
+            width: 100%;
+            object-position: 50% 65%;
+            border: 8px solid white;
+          }
+        }
+      }
+      > div {
+        @include dflex_col;
+        a {
+          position: relative;
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          div {
+            h3 {
+              font-weight: bold;
+              padding-bottom: 7px;
+              font-size: 1.2em;
+            }
+            p {
+              font-weight: 300;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#applications article:hover {
+  transform: scale(1.02);
+}
+
+/*Le prix*/
+#applications span {
+  text-align: right;
+  font-style: italic;
+  position: absolute;
+  background-color: gold;
+  top: 120px;
+  right: 20px;
+}
+/*Le prix*/
+/*end of section application*/
+
+/*bas de page*/
+.moreinformations {
+  background-color: #f2f2f2;
+  > a {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bolder;
+    font-family: "Belligerent Madness", sans-serif;
+  }
+  .panier-logo {
+    font-size: 25px;
+    padding: 10px;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#9356dc),
+      to(#ff79da)
+    );
+    background-clip: border-box;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+  }
+}
+
+.moreinformations h4 {
+  font-weight: bold;
+  padding: 15px 0px 15px 0px;
+}
+
+.moreinformations div a {
+  color: #0065fc;
+}
+
+@media only screen and (min-width: 768px) {
+  .moreinformations div {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    div {
+      flex-direction: column;
+    }
+  }
+}
+/* end bas de page*/

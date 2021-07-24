@@ -1,0 +1,22 @@
+/*Button*/
+
+.btn {
+  @include buttons;
+  opacity: 1;
+  transition: all 400ms;
+  &:hover {
+    opacity: 0.8;
+    filter: drop-shadow(6px 14px 4px #cfcfcf);
+    transition: all 900ms;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .btn {
+    font-size: 1.5em;
+    padding: 10px;
+    margin: 30px auto;
+  }
+}
+
+/*Button*/
