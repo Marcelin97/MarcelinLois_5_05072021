@@ -1,36 +1,36 @@
 footer {
-    background: black;
-    div {
-        padding: 25px 15px;
-        p {
-            font-weight: bolder;
-            margin-bottom: 20px;
-            color: white;
-        }
+  background: black;
+  div {
+    padding: 25px 15px;
+    p {
+      font-weight: bolder;
+      margin-bottom: 20px;
+      color: white;
     }
-    
-    ul {
-        display: flex;
-        flex-direction: column;
-        font-weight: 300;
-        margin-bottom: 40px;
-            li {
-                padding-top: 10px;
-                    a   {
-                        color: white;
-                    }
-            }
+  }
 
+  ul {
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    margin-bottom: 40px;
+    li {
+      padding-top: 10px;
+      a {
+        color: white;
+      }
     }
+  }
 }
 @media only screen and (min-width: 768px) {
-    footer ul {
-        display: flex;
-        flex-direction: row;
-            li {
-                padding-right: 20px;
-            }
+  footer ul {
+    display: flex;
+    flex-direction: row;
+    li {
+      padding-right: 20px;
     }
-    footer div p, ul {
-    }
+  }
+  footer div p,
+  ul {
+  }
 }

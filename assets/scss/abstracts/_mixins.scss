@@ -1,17 +1,26 @@
 @mixin buttons {
-    background: linear-gradient(175deg, #9356dc, #ff79da);
-    color: white;
-    border-radius: 10px;
-    line-height: 50px;
-    width: 500px;
-    min-width: 210px;
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    filter: drop-shadow(2px 3px 6px #cfcfcf);
-    cursor: pointer;
-    min-width: 150px;
-    margin: 0 auto;
-  }
-  
-  /*end of button*/
+  background: linear-gradient(175deg, #9356dc, #ff79da);
+  color: white;
+  border-radius: 10px;
+  line-height: 30px;
+  width: fit-content;
+  flex-wrap: wrap;
+  padding: 5px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  filter: drop-shadow(2px 3px 6px #cfcfcf);
+  cursor: pointer;
+  min-width: 150px;
+  margin: 20px auto;
+}
+
+/*end of button*/
+/*display:flex et flex-direction:column*/
+
+@mixin dflex_col {
+  display: flex;
+  flex-direction: column;
+}
+
+/*display:flex et flex-direction:column*/
