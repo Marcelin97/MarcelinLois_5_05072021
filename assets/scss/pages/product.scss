@@ -1,1 +1,105 @@
 @import "../main.scss";
+
+/*img produit*/
+#product {
+  background-color: $light-grey;
+  flex-direction: column;
+  div {
+    @media only screen and (min-width: 576px) {
+      display: flex;
+    }
+  }
+}
+
+#container {
+  max-width: 1024px;
+  margin: auto;
+}
+.col-1 {
+  justify-content: center;
+  flex-basis: 60%;
+}
+.col-1 div {
+  img {
+    border-radius: 15px 15px 0px 0px;
+    border: 8px solid white;
+    object-fit: cover;
+    object-position: 50% 65%;
+    margin: auto;
+    width: 300px;
+    transition: all 1s ease-in;
+    display: flex;
+    align-content: center;
+    @media only screen and (min-width: 576px) {
+      border-radius: 15px 0px 0px 15px;
+      align-self: center;
+      width: 500px;
+    }
+  }
+}
+
+/*img produit*/
+/*info produit*/
+
+.col-2 {
+  margin: 10px;
+  flex-basis: 40%;
+  display: flex;
+}
+.col-2 > div {
+  @include dflex_col;
+  max-width: 400px;
+  margin: auto;
+  h1 {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 2px solid $purple;
+    width: 90px;
+    padding-bottom: 5px;
+    ~ div {
+      font-weight: bold;
+      font-style: italic;
+      height: 2em;
+      padding: 0.5em 1.5em;
+      margin-bottom: 1em;
+      margin-top: 1em;
+      border-radius: 0.5em;
+      border: 2px solid $purple;
+      color: $purple;
+      width: 90px;
+      align-self: flex-end;
+      b {
+        color: $purple;
+      }
+    }
+  }
+}
+
+form {
+  @include dflex_col;
+  border: 2px solid $purple;
+  border-radius: 0.5em;
+  padding: 15px;
+  fieldset legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+.quantity {
+  @include dflex_col;
+}
+
+#options,
+#quantity {
+  padding: 0px 2px 1px;
+  min-height: 2em;
+  line-height: 2em;
+  flex-basis: 100%;
+  margin: 10px 0px;
+  width: 200px;
+  border: none;
+  &:focus {
+    outline: 2px solid $purple;
+  }
+}

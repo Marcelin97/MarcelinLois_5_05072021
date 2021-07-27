@@ -18,7 +18,7 @@ header {
       linear,
       left top,
       left bottom,
-      from(#9356dc),
+      from($purple),
       to(#ff79da)
     );
     background-clip: border-box;
@@ -42,10 +42,10 @@ header nav ul {
 header nav ul li {
   display: flex;
   flex-basis: 25%;
-  border-bottom: 3px solid #f2f2f2;
+  border-bottom: 2px solid #f2f2f2;
   align-items: center;
   &:hover {
-    border-bottom: 3px solid #0065fc;
+    border-bottom: 2px solid $purple;
   }
 }
 
@@ -68,11 +68,11 @@ header nav ul li a {
     }
   }
   header nav ul li {
-    border-bottom: 3px solid transparent;
-    border-top: 3px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-top: 2px solid transparent;
     align-items: center;
     &:hover {
-      border-top: 3px solid #0065fc;
+      border-top: 2px solid $purple;
       border-radius: 10px;
     }
     a i {

@@ -4,6 +4,7 @@
   @include buttons;
   opacity: 1;
   transition: all 400ms;
+  animation: scroll 2s linear infinite;
   &:hover {
     opacity: 0.8;
     filter: drop-shadow(6px 14px 4px #cfcfcf);
@@ -11,9 +12,28 @@
   }
 }
 
+.btn i {
+  font-size: 1.5em;
+  margin-left: 10px;
+  
+
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(2px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(2px);
+  }
+}
+
 @media only screen and (min-width: 576px) {
   .btn {
-    font-size: 1.5em;
+    font-size: 1em;
     padding: 10px;
     margin: 30px auto;
   }
