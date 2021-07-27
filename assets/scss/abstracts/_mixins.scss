@@ -1,11 +1,11 @@
 @mixin buttons {
-  background: linear-gradient(175deg, #9356dc, #ff79da);
+  background: $purple;
   color: white;
   border-radius: 10px;
   line-height: 30px;
   width: fit-content;
   flex-wrap: wrap;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   align-self: center;
   justify-content: center;
