@@ -119,6 +119,7 @@
           <div class="header-cart">
             <h1>Mon panier</h1>
           </div>
+          <div class="main">
           <div class="main-cart">
             <div>
               <ul>
@@ -137,19 +138,24 @@
                         <div class="info-items-desc">
                           <p>ZEISS IKON</p>
                           <div>
-                            <span>890<b>€</b></span>
+                            <span>890€</span>
                           </div>
                         </div>
                         <div class="info-items-quantity">
-                          <input type="number" id="quantity" value="1">
+                          <div>
+                              <div class="cart-update">
+                                <button type="button" class="btn-update"><i class="fas fa-minus"></i></button>
+                                <input type="number" id="quantity" value="1">
+                                <button type="button" class="btn-update"><i class="fas fa-plus"></i></button>
+                              </div>
+                              <div class="info-items-total">
+                                <span>890€</span>
+                              </div>
+                          </div>
+                          <div class="info-items-remove">
+                            <a href="#">Supprimer</a>
+                          </div>
                         </div>
-                        <div class="info-items-total">
-                          <span>890<b>€</b></span>
-                        </div>
-                        <div class="info-items-remove">
-                          <a href="#">Supprimer</a>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </li>
@@ -160,6 +166,7 @@
               <a href="../index.html">Continuer mes achats</a>
             </div>
           </div>
+        </div>
           <div class="sidebar-cart">
             <div class="summury-cart">
               <h2>Récapitulatif</h2>
@@ -179,17 +186,17 @@
                   </div>
                   <div>
                     <span>Taxes incluses</span>
-                    <span></span>
+                    <span>20%</span>
                   </div>
                 </div>
                 <div>
                   <div>
-                    <span>Total</span>
+                    <span>Total TTC</span>
                     <span>890<b>€</b></span>
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="order">
                 <a href="#">
                   <span>Commander</span>
                 </a>

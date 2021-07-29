@@ -9,18 +9,15 @@
   display: flex;
   align-self: center;
   justify-content: center;
-  filter: drop-shadow(2px 3px 6px #cfcfcf);
+  filter: drop-shadow(2px 3px 6px $shadow);
   cursor: pointer;
   min-width: 150px;
   margin: 20px auto;
 }
 
 /*end of button*/
-/*display:flex et flex-direction:column*/
 
 @mixin dflex_col {
   display: flex;
   flex-direction: column;
 }
-
-/*display:flex et flex-direction:column*/
