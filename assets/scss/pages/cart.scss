@@ -51,14 +51,8 @@ h1 {
         outline: 1px solid $border;
         object-fit: cover;
         object-position: 50% 65%;
-        &:hover {
-          width: 110px;
-        }
         @media only screen and (min-width: 576px) {
           width: 300px;
-          &:hover {
-            width: 310px;
-          }
         }
       }
     }
@@ -137,6 +131,9 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   a {
     text-decoration: underline;
+      &:hover {
+        color: red;
+      }
   }
 }
 /*remove items*/
@@ -157,6 +154,12 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   a {
     color: $purple;
+    cursor: pointer;
+    &:hover {
+      padding-bottom: 2px;
+      border-bottom: solid;
+    }
+      
   }
 }
 /*Continuer mes achats*/
@@ -175,12 +178,17 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 20px 20px 40px;
   background-color: $light-grey;
   height: auto;
-  width: 210px;
+  width: auto;
+    @media only screen and (min-width: 768px) {
+      width: 300px;
+    }
   h2 {
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 20px;
     line-height: 1.1875;
+    padding-bottom: 8px;
+    border-bottom: 4px solid white;
   }
   div {
     display: table;
@@ -188,6 +196,8 @@ input[type="number"]::-webkit-outer-spin-button {
     span {
       display: table-cell;
       padding: 3px 0px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid white;
     }
     span:nth-last-child(1) {
       display: table-cell;
