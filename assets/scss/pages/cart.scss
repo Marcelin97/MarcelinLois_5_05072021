@@ -1,1 +1,241 @@
 @import "../main.scss";
+.container-cart {
+  padding-left: 20px;
+  padding-right: 20px;
+  > div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 768px;
+  }
+}
+
+//titre
+.header-cart {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+}
+h1 {
+  line-height: 1.2em;
+  text-transform: uppercase;
+  font-size: 2.2em;
+  justify-content: center;
+  flex-basis: 100%;
+}
+//titre
+
+.main {
+  @media only screen and (min-width: 576px) {
+    float: left;
+    margin: auto;
+  }
+}
+
+.main-cart {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-items {
+  width: 100%;
+  margin-left: 15px;
+  .details-items-img {
+    div {
+      padding: 20px 0px;
+      img {
+        height: auto;
+        width: 100px;
+        border: 8px solid white;
+        outline: 1px solid $border;
+        object-fit: cover;
+        object-position: 50% 65%;
+        @media only screen and (min-width: 576px) {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
+
+.info-items {
+  padding-bottom: 20px;
+}
+
+.info-items-desc {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  p {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+    font-weight: 500;
+  }
+}
+
+.info-items-desc div span {
+  color: $purple;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-radius: 0.5em;
+  border: 2px solid $purple;
+  line-height: 2em;
+  padding: 0.5em 1.5em;
+  width: 90px;
+}
+
+.info-items-quantity {
+  margin-bottom: 20px;
+  div {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+}
+
+.cart-update {
+  border: 1px solid black;
+  width: 120px;
+}
+
+#quantity {
+  min-height: 2em;
+  line-height: 2em;
+  border: none;
+  text-align: center;
+  width: 40px;
+  margin: 0;
+}
+
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
+/* it will support chrome and firefox */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
+
+.info-items-total {
+  line-height: 2em;
+  display: inline-block;
+  width: 50%;
+  margin-left: 80px;
+  align-items: center;
+  font-weight: bold;
+}
+
+/*remove items*/
+.info-items-remove {
+  position: static;
+  display: flex;
+  a {
+    text-decoration: underline;
+      &:hover {
+        color: red;
+      }
+  }
+}
+/*remove items*/
+
+/*Continuer mes achats*/
+.back-to-home {
+  height: 30px;
+  font-weight: bold;
+  @media only screen and (min-width: 576px) {
+    margin-left: 10px;
+    font-size: 1.2em;
+  }
+  span i {
+    color: $purple;
+    width: 11px;
+    height: 15px;
+    margin-right: 5px;
+  }
+  a {
+    color: $purple;
+    cursor: pointer;
+    &:hover {
+      padding-bottom: 2px;
+      border-bottom: solid;
+    }
+      
+  }
+}
+/*Continuer mes achats*/
+
+/*récap*/
+.sidebar-cart {
+  width: auto;
+  margin-bottom: 40px;
+  @media only screen and (min-width: 576px) {
+    float: right;
+    margin: 90px auto;
+  }
+}
+
+.summury-cart {
+  padding: 20px 20px 40px;
+  background-color: $light-grey;
+  height: auto;
+  width: auto;
+    @media only screen and (min-width: 768px) {
+      width: 300px;
+    }
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    line-height: 1.1875;
+    padding-bottom: 8px;
+    border-bottom: 4px solid white;
+  }
+  div {
+    display: table;
+    width: 100%;
+    span {
+      display: table-cell;
+      padding: 3px 0px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid white;
+    }
+    span:nth-last-child(1) {
+      display: table-cell;
+      text-align: right;
+      font-weight: bold;
+    }
+  }
+}
+/*récap*/
+
+/*order*/
+.order {
+  margin-top: 25px;
+  text-align: center;
+  a {
+    background-color: white;
+    border: 3px solid $purple;
+    width: 100%;
+    height: 60px;
+    line-height: 2em;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    &:hover {
+      background-color: $purple;
+      span {
+        color: white;
+      }
+    }
+    span {
+      width: 100%;
+      text-transform: uppercase;
+    }
+  }
+}
+
+footer {
+  @media only screen and (min-width: 576px) {
+    clear: both;
+  }
+}
