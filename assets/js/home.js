@@ -1,14 +1,15 @@
+import * as index from "./index";
+
 function getProducts(category){
-    return fetch("http://localhost:3000/api/"+category)
-  .then(function(res) {
-    res.json()
-  })
-  .then(function(datas) {
-    return datas;
-  })
-  .catch(function(err) {
-      console.log("An error occured : "+err)
-  });
+    return fetch('http://localhost:3000/api/' + category)
+    .then(response => response.json())
+    .then(datas => {
+        return datas;
+    })
+    .catch(error => {
+        console.log(error);
+        return error;
+    });
 }
 
 function renderProducts(products){
@@ -32,7 +33,7 @@ function renderProducts(products){
                       <h3>`+element.name+`</h3>
                       <p>`+element.description+`
                       </p>
-                      <span>890<b>€</b></span>
+                      <span>`+index.priceToEuros(element.price)+`</span>
                     </div>
                   </a>
                 </div>
