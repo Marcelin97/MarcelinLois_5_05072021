@@ -86,12 +86,8 @@ form {
     margin-bottom: 10px;
   }
 }
-.quantity {
-  @include dflex_col;
-}
 
-#options,
-#quantity {
+#options{
   padding: 0px 2px 1px;
   min-height: 2em;
   line-height: 2em;
@@ -104,3 +100,31 @@ form {
     outline: 2px solid $purple;
   }
 }
+.quantity {
+  @include dflex_col;
+    label {
+      font-weight: bold;
+      margin-bottom: 15px; 
+    }
+}
+.cart-update {
+  border: 1px solid black;
+  width: 120px;
+}
+
+#quantity {
+  min-height: 2em;
+  line-height: 2em;
+  border: none;
+  text-align: center;
+  width: 40px;
+  margin: 0;
+}
+
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
+/* it will support chrome and firefox */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
