@@ -21,3 +21,23 @@
   display: flex;
   flex-direction: column;
 }
+
+/*animation back to home*/
+@mixin back {
+    animation: shake 2.2s infinite;
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: $purple;
+}
+@mixin shakeHome {
+  @keyframes shake {
+    0% {transform: rotate(-8deg);}
+    8% {transform: rotate(8deg);}
+    16% {transform: rotate(-8deg);}
+    24% {transform: rotate(8deg);}
+    32% {transform: rotate(-8deg);}
+    40% {transform: rotate(8deg);}
+    48% {transform: rotate(0);}
+    100% {transform: rotate(0);}
+  }
+}

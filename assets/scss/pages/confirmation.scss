@@ -21,14 +21,13 @@ section div div p {
             flex-direction: row;
         }
         div {
-            border: 1px solid black;
+            border: 1px solid #cecece;
             border-radius: 15px;
             margin: 10px;
             padding: 15px;
             width: max-content;
             transition: border 600ms;
             &:hover {
-                
                 border: 1px solid white;
             }
             a {
@@ -38,24 +37,12 @@ section div div p {
             }
         }
 }
-.fa-angle-double-left {
-    animation: shake 2.2s infinite;
-    font-size: 1.5em;
-    margin-right: 10px;
-    color: $purple;
-}
 .fa-download {
     font-size: 1.5em;
     margin-right: 10px;
     color: $purple;
 }
-@keyframes shake {
-    0% {transform: rotate(-8deg);}
-    8% {transform: rotate(8deg);}
-    16% {transform: rotate(-8deg);}
-    24% {transform: rotate(8deg);}
-    32% {transform: rotate(-8deg);}
-    40% {transform: rotate(8deg);}
-    48% {transform: rotate(0);}
-    100% {transform: rotate(0);}
-}
+.backHome {
+    @include back
+    @include shakeHome
+  }
