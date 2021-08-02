@@ -78,6 +78,10 @@
   }
 }
 
+.col-2 div p {
+  margin-top: 1em;
+}
+
 form {
   @include dflex_col;
   border: 2px solid $purple;
@@ -96,18 +100,15 @@ form fieldset label {
 }
 
 #options{
-  padding: 0px 2px 1px;
-  min-height: 2em;
   line-height: 2em;
   margin: 10px 0px;
   display: flex;
   flex: 1 1 auto;
-  line-height: 2em;
-  color: black;
   border: 1px solid #cecece;
   border-radius: 5px;
   padding: 5px;
   outline: none;
+  align-items: center;
     &:focus {
       border: none;
       outline: 2px solid $purple;
