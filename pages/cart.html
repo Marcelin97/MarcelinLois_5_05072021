@@ -92,7 +92,7 @@
         <div>
           <ul>
             <li>
-              <a href="../index.html"><i class="fas fa-home"></i>Home</a>
+              <a href="../index.html">Accueil</a>
             </li>
             <li>
               <a href="./product.html">Nos produits</a>
@@ -121,22 +121,33 @@
           </div>
           <div class="main">
           <div class="main-cart">
+            <div class="back-to-home">
+              <a href="../index.html">
+                <i class="fas fa-angle-double-left backHome"></i>
+                <span>Continuer mes achats</span>
+              </a>
+            </div>
             <div>
               <ul>
                 <li>
                   <div class="details-items">
                     <div class="details-items-img">
                       <div>
-                        <img 
-                        src="../assets/img/vcam_1.jpg" 
-                        alt="Appareil photo vintage sur un gard-corp bois en extérieur"
-                        >
+                        <a href="./product.html">
+                          <img 
+                          src="../assets/img/vcam_1.jpg" 
+                          alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+                          >
+                        </a>
                       </div>
                     </div>
                     <div class="info-items">
                       <div>
                         <div class="info-items-desc">
                           <p>ZEISS IKON</p>
+                          <p>Petit et compact. Il sera votre allié lors de vos promenades hors des sentiers battus.
+                            Voyagez autrement.
+                            </p>
                           <div>
                             <span>890€</span>
                           </div>
@@ -160,10 +171,6 @@
                   </div>
                 </li>
               </ul>
-            </div>
-            <div class="back-to-home">
-              <span><i class="fas fa-angle-double-left"></i></span>
-              <a href="../index.html">Continuer mes achats</a>
             </div>
           </div>
         </div>
@@ -196,14 +203,61 @@
                   </div>
                 </div>
               </div>
-              <div class="order">
-                <a href="#">
-                  <span>Commander</span>
-                </a>
+            </div>
+          </div>    
+          <div class="finish">
+            <div>
+            <form action="GET">
+              <h3>Finalisez votre commande</h3>
+              <div>
+
+                <label for="last-name">
+                  <input type="text" placeholder=" " name="last-name" id="last-name">
+                  <p>Nom</p>
+                </label>
+
+                <label for="fisrtname">
+                  <input type="text" placeholder=" " name="fisrtname" id="firstname">
+                  <p>Prénom</p>
+                </label>
+
+                <label class="label" for="address">
+                  <input type="text" placeholder=" " name="address" id="address">
+                  <p>Adresse</p>
+                </label>
+                <label class="label" for="postal-code">
+                  <input type="number" placeholder=" " name="postal-code" id="postal-code">
+                  <p>Code postal</p>
+                </label>
+                <label class="label" for="city">
+                  <input type="text" placeholder=" " name="city" id="city">
+                  <p>Ville</p>
+                </label>
+                <label class="label" for="phone">
+                  <input type="number" placeholder=" " name="phone" id="phone">
+                  <p>Téléphone</p>
+                </label>
+                <label class="label" for="email">
+                  <input type="email" placeholder=" " name="email" id="email">
+                  <p>E-mail</p>
+                </label>
               </div>
+            </form>
             </div>
           </div>
-
+          <div class="action">
+            <div class="back-to-home">
+              <a href="../index.html">
+                <i class="fas fa-angle-double-left backHome"></i>
+                <span>Continuer mes achats</span>
+              </a>
+            </div>
+            <div class="order">
+              <a href="#">
+                <span>Commander</span><i class="fas fa-check"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
       </div>

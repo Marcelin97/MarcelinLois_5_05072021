@@ -44,6 +44,7 @@ header nav ul li {
   flex-basis: 25%;
   border-bottom: 2px solid $border;
   align-items: center;
+  transition: border 600ms;
   &:hover {
     border-bottom: 2px solid $purple;
   }
@@ -71,6 +72,8 @@ header nav ul li a {
     border-bottom: 2px solid transparent;
     border-top: 2px solid transparent;
     align-items: center;
+    transition: border 600ms;
+    border-radius: 10px;
     &:hover {
       border-top: 2px solid $purple;
       border-radius: 10px;

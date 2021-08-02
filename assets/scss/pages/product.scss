@@ -33,7 +33,9 @@
     @media only screen and (min-width: 576px) {
       border-radius: 15px 0px 0px 15px;
       align-self: center;
-      width: 500px;
+    }
+    @media only screen and (min-width: 768px) {
+      width: 450px;
     }
   }
 }
@@ -76,31 +78,86 @@
   }
 }
 
+.col-2 div p {
+  margin-top: 1em;
+}
+
 form {
   @include dflex_col;
   border: 2px solid $purple;
   border-radius: 0.5em;
   padding: 15px;
+  background-color: white;
   fieldset legend {
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
+  }
+}
+form fieldset label {
+  justify-content: center;
+  display: flex;
+}
+
+#options {
+  line-height: 2em;
+  margin: 10px 0px;
+  display: flex;
+  flex: 1 1 auto;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  align-items: center;
+  &:focus {
+    border: none;
+    outline: 2px solid $purple;
   }
 }
 .quantity {
   @include dflex_col;
-}
-
-#options,
-#quantity {
-  padding: 0px 2px 1px;
-  min-height: 2em;
-  line-height: 2em;
-  flex-basis: 100%;
-  margin: 10px 0px;
-  width: 200px;
-  border: none;
-  text-align: center;
-  &:focus {
-    outline: 2px solid $purple;
+  align-items: center;
+  @media only screen and (min-width: 425px) {
+    flex-direction: row;
+  }
+  @media only screen and (min-width: 576px) {
+    justify-content: center;
+  }
+  label {
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    @media only screen and (min-width: 425px) {
+      justify-content: center;
+      margin-bottom: 0;
+      margin-right: 67px;
+      align-items: center;
+    }
+    @media only screen and (min-width: 576px) {
+      margin-right: 30px;
+    }
   }
 }
+.cart-update {
+  border: 1px solid #cecece;
+  width: 120px;
+  display: flex;
+  border-radius: 5px;
+}
+
+#quantity {
+  min-height: 2em;
+  line-height: 2em;
+  border: none;
+  text-align: center;
+  width: 40px;
+  margin: 0;
+}
+
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
+/* it will support chrome and firefox */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+/*faire disporaitre les petite flèches d'incrémentation à côté de la quantité*/
