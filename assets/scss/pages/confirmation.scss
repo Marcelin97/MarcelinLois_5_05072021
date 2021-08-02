@@ -1,48 +1,46 @@
 @import "../main.scss";
 
 h1 {
-    font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1.375rem + 1.5vw);
 }
 section {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 section div div p {
-    margin: 0px 20px 20px 0px;
-    font-weight: 500;
-    line-height: 2em;
+  margin: 0px 20px 20px 0px;
+  font-weight: 500;
+  line-height: 2em;
 }
 .customer-action {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-        @media only screen and (min-width:576px){
-            flex-direction: row;
-        }
-        div {
-            border: 1px solid #cecece;
-            border-radius: 15px;
-            margin: 10px;
-            padding: 15px;
-            width: max-content;
-            transition: border 600ms;
-            &:hover {
-                border: 1px solid white;
-            }
-            a {
-                display: flex;
-                align-items: center;
-                    
-            }
-        }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (min-width: 576px) {
+    flex-direction: row;
+  }
+  div {
+    border: 1px solid #cecece;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    width: max-content;
+    transition: border 600ms;
+    &:hover {
+      border: 1px solid white;
+    }
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 .fa-download {
-    font-size: 1.5em;
-    margin-right: 10px;
-    color: $purple;
+  font-size: 1.5em;
+  margin-right: 10px;
+  color: $purple;
 }
 .backHome {
-    @include back
-    @include shakeHome
-  }
+  @include back @include shakeHome;
+}
