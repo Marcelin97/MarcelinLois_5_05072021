@@ -12,14 +12,14 @@ function getProducts(category){
     });
 }
 
-function renderProducts(products){
+function renderProducts(products, category){
     let container=document.getElementById("container");
     let content="";
     products.forEach(element => {
         content+=`
         <article>
                 <figure>
-                  <a href="./pages/product.html">
+                  <a href="./pages/product.html?id=`+element._id+`&?category=`+category+`">
                   <img
                     src="`+element.imageUrl+`"
                     alt="Appareil photo vintage sur un gard-corp bois en extérieur"
@@ -44,5 +44,5 @@ function renderProducts(products){
 }
 console.log(getProducts("cameras"));
 getProducts("cameras").then(result => {
-    renderProducts(result);
+    renderProducts(result,"cameras");
 });

@@ -16,8 +16,9 @@ function displayError() {
 //message in case of error
 
 
-function getProducts(category){
-    return fetch('http://localhost:3000/api/ ' + category + '/' + _id)
+function getProduct(){
+    const url=new URL("window.location.href");
+    return fetch('http://localhost:3000/api/ ' + url.searchParams.get("category")+ '/' + url.searchParams.get("id"))
     // Convert this data to JSON
     .then(response => response.json())
     .then(datas => {
@@ -30,54 +31,50 @@ function getProducts(category){
     });
 }
 
-function renderProducts(products){
+function renderProduct(product){
     let container=document.getElementById("container");
-    let content="";
-    products.forEach(element => {
-        content+=`
-        <div class="col-1">
-            <div>
-              <img src="`+element.imageUrl+`"
-              alt="Appareil photo vintage sur un gard-corp bois en extérieur"
-              />
-            </div>
-          </div>
-
-          <div class="col-2">
-            <div>
-              <h1>`+element.name+`</h1>
-              <p>`+element.description+`</p>
-              <div>`+index.priceToEuros(element.price)+`</div>
-              <form action="#" method="post">
-                <fieldset>
-                  <legend>Personnalisation du produit</legend>
-                  <label for="options">Choisir une option</label>
-                  <div>
-                    <select name="option" id="options">
-                      <option value="hidden">Veuillez choisir une option</option>
-                      <option value="sacoche">sacoche</option>
-                      <option value="sacoche et pied">sacoche et pied</option>
-                    </select>
-                  </div>
-                  <div class="quantity">
-                    <label for="quantity">Quantité</label>
-                    <div class="cart-update">
-                      <button type="button" class="btn-update"><i class="fas fa-minus"></i></button>
-                      <input type="number" id="quantity" value="1">
-                      <button type="button" class="btn-update"><i class="fas fa-plus"></i></button>
-                    </div>
-                  </div>
-                </fieldset>
-                <button class="btn" type="submit" title="ajouter au panier" value="ajouter au panier">Ajouter au panier<i class="fas fa-shopping-cart"></i></button>
-              </form>
-            </div>
-          </div>
+    let content=`
+    <div class="col-1">
+        <div>
+          <img src="`+element.imageUrl+`"
+          alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+          />
         </div>
-        `;
-    });
+      </div>
+
+      <div class="col-2">
+        <div>
+          <h1>`+element.name+`</h1>
+          <p>`+element.description+`</p>
+          <div>`+index.priceToEuros(element.price)+`</div>
+          <form action="#" method="post">
+            <fieldset>
+              <legend>Personnalisation du produit</legend>
+              <label for="options">Choisir une option</label>
+              <div>
+                <select name="option" id="options">
+                  <option value="hidden">Veuillez choisir une option</option>
+                  <option value="sacoche">sacoche</option>
+                  <option value="sacoche et pied">sacoche et pied</option>
+                </select>
+              </div>
+              <div class="quantity">
+                <label for="quantity">Quantité</label>
+                <div class="cart-update">
+                  <button type="button" class="btn-update"><i class="fas fa-minus"></i></button>
+                  <input type="number" id="quantity" value="1">
+                  <button type="button" class="btn-update"><i class="fas fa-plus"></i></button>
+                </div>
+              </div>
+            </fieldset>
+            <button class="btn" type="submit" title="ajouter au panier" value="ajouter au panier">Ajouter au panier<i class="fas fa-shopping-cart"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    `;
     container.innerHTML=content;
 }
-console.log(getProducts("cameras"));
-getProducts("cameras").then(result => {
+getProduct().then(result => {
     renderProducts(result);
 });
