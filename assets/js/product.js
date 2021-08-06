@@ -17,8 +17,8 @@ function displayError() {
 
 
 function getProduct(){
-    const url=new URL("window.location.href");
-    return fetch('http://localhost:3000/api/ ' + url.searchParams.get("category")+ '/' + url.searchParams.get("id"))
+    const url=new URL(window.location.href);
+    return fetch('http://localhost:3000/api/' + url.searchParams.get("category")+ '/' + url.searchParams.get("id"))
     // Convert this data to JSON
     .then(response => response.json())
     .then(datas => {
@@ -36,7 +36,7 @@ function renderProduct(product){
     let content=`
     <div class="col-1">
         <div>
-          <img src="`+element.imageUrl+`"
+          <img src="`+product.imageUrl+`"
           alt="Appareil photo vintage sur un gard-corp bois en extérieur"
           />
         </div>
@@ -44,9 +44,9 @@ function renderProduct(product){
 
       <div class="col-2">
         <div>
-          <h1>`+element.name+`</h1>
-          <p>`+element.description+`</p>
-          <div>`+index.priceToEuros(element.price)+`</div>
+          <h1>`+product.name+`</h1>
+          <p>`+product.description+`</p>
+          <div>`+index.priceToEuros(product.price)+`</div>
           <form action="#" method="post">
             <fieldset>
               <legend>Personnalisation du produit</legend>
@@ -76,5 +76,5 @@ function renderProduct(product){
     container.innerHTML=content;
 }
 getProduct().then(result => {
-    renderProducts(result);
+    renderProduct(result);
 });
