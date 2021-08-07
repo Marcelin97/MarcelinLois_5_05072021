@@ -19,7 +19,7 @@ function renderProducts(products, category){
         content+=`
         <article>
                 <figure>
-                  <a href="./pages/product.html?id=`+element._id+`&?category=`+category+`">
+                  <a href="./pages/product.html?id=`+element._id+`&category=`+category+`">
                   <img
                     src="`+element.imageUrl+`"
                     alt="Appareil photo vintage sur un gard-corp bois en extérieur"
