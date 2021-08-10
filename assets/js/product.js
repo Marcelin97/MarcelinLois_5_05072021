@@ -3,8 +3,7 @@ import * as index from "./index";
 //message in case of error
 function displayError() {
   let mainContent = document.getElementById("container");
-  mainContent.innerHTML = "";
-  mainContent.innerHTML += `
+  mainContent.innerHTML = `
   <section id="titre">
     <div>
         <h1>Ce produit n'existe pas</h1>
@@ -14,7 +13,6 @@ function displayError() {
     </div>
   </section>
   `;
-  container.innerHTML = content;
 }
 //message in case of error
 
@@ -28,73 +26,44 @@ function getProduct() {
         url.searchParams.get("id")
     )
       // Convert this data to JSON
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Product not found");
+        }
+        return response.json();
+      })
       .then((datas) => {
+        document
+          .getElementsByTagName("form")[0]
+          .addEventListener("submit", () => {
+            //Add product to localstorage
+          });
+
         return datas;
       })
       //catch in case of error which resumes the "displayError" function
       .catch((error) => {
-        displayError();
-        return error;
+        return false;
       })
   );
-}
+      }
 
 function renderProduct(product) {
   let container = document.getElementById("container");
-  let content =
-    `
-    <div class="col-1">
-        <div>
-          <img src="` +
-    product.imageUrl +
-    `"
-          alt="Appareil photo vintage sur un gard-corp bois en extérieur"
-          />
-        </div>
-      </div>
-
-      <div class="col-2">
-        <div>
-          <h1>` +
-    product.name +
-    `</h1>
-          <p>` +
-    product.description +
-    `</p>
-          <div>` +
-    index.priceToEuros(product.price) +
-    `</div>
-          <form action="#" method="post">
-            <fieldset>
-              <legend>Personnalisation du produit</legend>
-              <label for="options">Choisir une option</label>
-              <div>
-                <select name="option" id="options">
-                  <option value="hidden">Veuillez choisir une option</option>
-                  ` +
-    getOptions(product[getCustomisation(product)]) +
-    `
-                </select>
-              </div>
-              <div class="quantity">
-                <label for="quantity">Quantité</label>
-                <div class="cart-update">
-                  <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
-                  <input type="number" min="0" id="quantity" value="1">
-                  <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
-                </div>
-              </div>
-            </fieldset>
-            <button class="btn" type="submit" title="ajouter au panier" value="ajouter au panier">Ajouter au panier<i class="fas fa-shopping-cart"></i></button>
-          </form>
-        </div>
-      </div>
-    </div>
-    `;
-  container.innerHTML = content;
+  document.getElementsByTagName("img")[0].src = product.imageUrl;
+  document.getElementsByTagName("h1")[0].innerHTML = product.name;
+  document.getElementsByTagName("select")[0].innerHTML =
+    '<option value="hidden">Veuillez choisir une option</option>' +
+    getOptions(product[getCustomisation(product)]);
+  document.getElementsByName("price")[0].innerHTML = index.priceToEuros(
+    product.price
+  );
 }
+
 getProduct().then((result) => {
+      if (!result) {
+        throw new Error("Product not found");
+      }
   renderProduct(result);
 });
 
@@ -116,8 +85,10 @@ function getOptions(options) {
   return content;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
 
+//Button drecrement and increment with my input
+
+document.addEventListener("DOMContentLoaded", () => {
   let btnIncrement = document.getElementById("increment");
   let input = document.getElementById("quantity");
   let btnDecrement = document.getElementById("decrement");
@@ -127,7 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnDecrement.addEventListener("click", () => {
-    input.value = parseInt(input.value) - 1;
+    if (input.value > 0) {
+      input.value = parseInt(input.value) - 1;
+    }
   });
-  
 });
+
+//Button drecrement and increment with my input

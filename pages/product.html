@@ -119,8 +119,42 @@
     <!-- End of header-->
     <main>
       <section id="product">
-        <div id="container">
+                <div id="container">
+          <div class="col-1">
+            <div>
+              <img src="" alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+              />
+            </div>
+          </div>
 
+          <div class="col-2">
+            <div>
+              <h1></h1>
+              <p></p>
+              <div name="price"></div>
+              <form action="#" method="post">
+                <fieldset>
+                  <legend>Personnalisation du produit</legend>
+                  <label for="options">Choisir une option</label>
+                  <div>
+                    <select name="option" id="options">
+
+                    </select>
+                  </div>
+                  <div class="quantity">
+                    <label for="quantity">Quantité</label>
+                    <div class="cart-update">
+                      <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
+                      <input type="number" min="0" id="quantity" value="1">
+                      <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
+                    </div>
+                  </div>
+                </fieldset>
+                <button class="btn" type="submit" title="ajouter au panier" value="ajouter au panier">Ajouter au panier<i class="fas fa-shopping-cart"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
     </main>
