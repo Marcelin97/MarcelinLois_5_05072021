@@ -80,9 +80,9 @@ function renderProduct(product) {
               <div class="quantity">
                 <label for="quantity">Quantité</label>
                 <div class="cart-update">
-                  <button type="button" class="btn-update" id="decrement" value="-1" onClick="modifier(-1)">-</button>
+                  <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
                   <input type="number" min="0" id="quantity" value="1">
-                  <button type="button" class="btn-update" id="increment" value="+1" onClick="modifier(1)"><i class="fas fa-plus"></i></button>
+                  <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
                 </div>
               </div>
             </fieldset>
@@ -116,14 +116,22 @@ function getOptions(options) {
   return content;
 }
 
-let btnIncrement = document.querySelector("#increment");
-let input = document.querySelector("#quantity");
-let btnDecrement = document.querySelector("#decrement");
 
-btnIncrement.addEventListener("click", () => {
-  input.value = parseInt(input.value) + 1;
-});
+window.addEventListener("DOMContentLoaded", () => {
 
-btnDecrement.addEventListener("click", () => {
-  input.value = parseInt(input.value) - 1;
+  let btnIncrement = document.getElementById("#increment");
+  let input = document.getElementById("#quantity");
+  let btnDecrement = document.getElementById("#decrement");
+
+  let count = 0;
+
+  btnIncrement.addEventListener("click", () => {
+    count++;
+    quantity.innerHTML = count;
+  });
+
+  btnDecrement.addEventListener("click", () => {
+    count--;
+    quantity.innerHTML = count;
+  });
 });
