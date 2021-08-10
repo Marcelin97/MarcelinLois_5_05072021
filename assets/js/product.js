@@ -116,22 +116,18 @@ function getOptions(options) {
   return content;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener("DOMContentLoaded", () => {
-
-  let btnIncrement = document.getElementById("#increment");
-  let input = document.getElementById("#quantity");
-  let btnDecrement = document.getElementById("#decrement");
-
-  let count = 0;
+  let btnIncrement = document.getElementById("increment");
+  let input = document.getElementById("quantity");
+  let btnDecrement = document.getElementById("decrement");
 
   btnIncrement.addEventListener("click", () => {
-    count++;
-    quantity.innerHTML = count;
+    input.value = parseInt(input.value) + 1;
   });
 
   btnDecrement.addEventListener("click", () => {
-    count--;
-    quantity.innerHTML = count;
+    input.value = parseInt(input.value) - 1;
   });
+  
 });
