@@ -60,7 +60,7 @@ function renderProduct(product) {
   );
 }
 
-getProduct().then((result) => {
+getProduct().then((result) => { // déclaration d'une promise
       if (!result) {
         throw new Error("Product not found");
       }
@@ -69,16 +69,15 @@ getProduct().then((result) => {
     // Envoie valeur à localStorage après soumission du formulaire
 
     event.preventDefault(); //on stop la propagation
-    let cart = {};
-    if (localStorage.getItem("cart") != null) {
-      cart = JSON.parse(localStorage.getItem("cart"));
+
+    let cart = []; //on déclare le panier en tableau et non pas en objet
+
+    if (localStorage.getItem("cart") !== null) { //si le panier est différent en type et en valeur de null
+      cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
     }
 
-    let key = result.name + "-" + document.getElementById("options").value;
-    key = key.replace(" ", "_");
-
     let product = {
-      // Cette fonction assigne les valeurs à envoyer à localStorage
+      // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
       _id: result._id,
       name: result.name,
       description: result.description,
@@ -87,27 +86,69 @@ getProduct().then((result) => {
       optionValue: document.getElementById("options").value,
       qty: Number(document.getElementById("quantity").value),
     };
-    cart[key] = product;
-    localStorage.setItem("cart", JSON.stringify(cart));
+
+    //fonction si le produit existe déjà dans le panier
+    function isProductExist (product) {
+      const isProduct = cart.find(
+        (element) =>
+          element._id === product._id &&
+          element.optionValue === product.optionValue
+      );
+      if (isProduct === undefined) {
+        //si le produit n'existe pas déjà dans le panier, alors ajoute le
+        cart.push(product); //pour ajouté au panier
+        localStorage.setItem("cart", JSON.stringify(cart)); //ajoute au localStorage
+      } else {
+        //sinon
+        const newCart = cart.map(element => {
+          if (element._id === product._id) {
+            element.qty = product.qty + isProduct.qty;
+          }
+          return element;
+        });
+        console.log(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart)); //ajoute au localStorage
+      }
+    }
+    isProductExist(product);
+    
+    console.log(isProduct);
   });
 });
 
+// getProduct().then((result) => {
+//   if (!result) {
+//     throw new Error("Product not found");
+//   }
+//   renderProduct(result);
+//   document
+//     .getElementsByTagName("form")[0]
+//     .addEventListener("submit", function (event) {
+//       // Envoie valeur à localStorage après soumission du formulaire
 
-//fonction pour ajouter un article déjà existante dans mon panier en ajoutant uniquement la quantité à mon localStorage et pas l'article complet
-function ModifyItem () {
-        let key = result.name + "-" + document.getElementById("options").value;
-    // vérifie si le produit existe déjà dans le panier
-  
-// Vérifie si la clé existe.
-            if (localStorage.getItem ("key")!= null)
-            {
-              //mettre à jour
-              localStorage.setItem (qty);
-              document.getElementById("quantity").value = localStorage.getItem (qty);
-            }
-        
-    doShowAll ();
-}
+//       event.preventDefault(); //on stop la propagation
+//       let cart = {};
+//       if (localStorage.getItem("cart") != null) {
+//         cart = JSON.parse(localStorage.getItem("cart"));
+//       }
+
+//       let key = result.name + "-" + document.getElementById("options").value;
+//       key = key.replace(" ", "_");
+
+//       let product = {
+//         // Cette fonction assigne les valeurs à envoyer à localStorage
+//         _id: result._id,
+//         name: result.name,
+//         description: result.description,
+//         imageUrl: result.imageUrl,
+//         price: result.price,
+//         optionValue: document.getElementById("options").value,
+//         qty: Number(document.getElementById("quantity").value),
+//       };
+//       cart[key] = product;
+//       localStorage.setItem("cart", JSON.stringify(cart));
+//     });
+// });
 
 function getCustomisation(product) {
   if ("colors" in product) return "colors";
@@ -128,7 +169,7 @@ function getOptions(options) {
 }
 
 
-//Button drecrement and increment with my input
+//Button decrement and increment with my input
 
 document.addEventListener("DOMContentLoaded", () => {
   let btnIncrement = document.getElementById("increment");
@@ -146,5 +187,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//Button drecrement and increment with my input
+//Button decrement and increment with my input
 
