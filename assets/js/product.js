@@ -60,60 +60,63 @@ function renderProduct(product) {
   );
 }
 
-getProduct().then((result) => { // déclaration d'une promise
-      if (!result) {
-        throw new Error("Product not found");
+getProduct().then((result) => {
+  // déclaration d'une promise
+  if (!result) {
+    throw new Error("Product not found");
+  }
+  renderProduct(result); //j'appel ma fonction pour l'exécuté
+  document
+    .getElementsByTagName("form")[0]
+    .addEventListener("submit", function (event) {
+      // Envoie valeur à localStorage après soumission du formulaire
+
+      event.preventDefault(); //on stop la propagation
+
+      let cart = []; //on déclare le panier en tableau (pas en objet)
+
+      if (localStorage.getItem("cart") !== null) {
+        //si le panier est différent en type et en valeur de null
+        cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
       }
-  renderProduct(result);
-  document.getElementsByTagName('form')[0].addEventListener('submit', function (event) {
-    // Envoie valeur à localStorage après soumission du formulaire
 
-    event.preventDefault(); //on stop la propagation
+      let product = {
+        // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
+        _id: result._id,
+        name: result.name,
+        description: result.description,
+        imageUrl: result.imageUrl,
+        price: result.price,
+        optionValue: document.getElementById("options").value,
+        qty: Number(document.getElementById("quantity").value),
+      };
 
-    let cart = []; //on déclare le panier en tableau et non pas en objet
-
-    if (localStorage.getItem("cart") !== null) { //si le panier est différent en type et en valeur de null
-      cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
-    }
-
-    let product = {
-      // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
-      _id: result._id,
-      name: result.name,
-      description: result.description,
-      imageUrl: result.imageUrl,
-      price: result.price,
-      optionValue: document.getElementById("options").value,
-      qty: Number(document.getElementById("quantity").value),
-    };
-
-    //fonction si le produit existe déjà dans le panier
-    function isProductExist (product) {
-      const isProduct = cart.find(
-        (element) =>
-          element._id === product._id &&
-          element.optionValue === product.optionValue
-      );
-      if (isProduct === undefined) {
-        //si le produit n'existe pas déjà dans le panier, alors ajoute le
-        cart.push(product); //pour ajouté au panier
-        localStorage.setItem("cart", JSON.stringify(cart)); //ajoute au localStorage
-      } else {
-        //sinon
-        const newCart = cart.map(element => {
-          if (element._id === product._id) {
-            element.qty = product.qty + isProduct.qty;
-          }
-          return element;
-        });
-        console.log(newCart);
-        localStorage.setItem("cart", JSON.stringify(newCart)); //ajoute au localStorage
+      //fonction si le produit existe déjà dans le panier
+      function isProductExist(product) {
+        const isProduct = cart.find( //on déclare une constante produit est = trouvé dans le panier
+          (element) => //element 
+            element._id === product._id && // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+            element.optionValue === product.optionValue
+        );
+        if (isProduct === undefined) {
+          //si le produit n'existe pas déjà dans le panier, alors ajoute le
+          cart.push(product); //pour ajouté au panier
+          localStorage.setItem("cart", JSON.stringify(cart)); //ensuite ajoute au localStorage
+        } else {
+          //sinon
+          const newCart = cart.map((element) => { //On crée un panier temporaire pour stocker le panier actuel 
+            if (element._id === product._id) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
+              element.qty = product.qty + isProduct.qty; //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
+            }
+            return element; //retourne moi le nouvelle élément à jour
+          });
+          console.log(newCart);
+          localStorage.setItem("cart", JSON.stringify(newCart)); //ajoute le au localStorage
+        }
       }
-    }
-    isProductExist(product);
-    
-    console.log(isProduct);
-  });
+      isProductExist(product); //j'appel ma fonction pour l'exécuté
+      console.log(isProduct);
+    });
 });
 
 // getProduct().then((result) => {
@@ -167,7 +170,6 @@ function getOptions(options) {
   });
   return content;
 }
-
 
 //Button decrement and increment with my input
 
