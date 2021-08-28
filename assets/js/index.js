@@ -4,3 +4,29 @@ export function priceToEuros(price){
     //we return this new price by adding the euro symbol 
     return price+"€";
 }
+
+
+
+////////////////////////////////////////////////
+//Button decrement and increment with my input//
+////////////////////////////////////////////////
+export function incrementDecrement() {
+    document.addEventListener("DOMContentLoaded", () => {
+      let btnIncrement = document.getElementById("increment");
+      let input = document.getElementById("quantity");
+      let btnDecrement = document.getElementById("decrement");
+
+      btnIncrement.addEventListener("click", () => {
+        input.value = parseInt(input.value) + 1;
+      });
+
+      btnDecrement.addEventListener("click", () => {
+        if (input.value > 0) {
+          input.value = parseInt(input.value) - 1;
+        }
+      });
+    });
+}
+////////////////////////////////////////////////
+//Button decrement and increment with my input//
+////////////////////////////////////////////////

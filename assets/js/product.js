@@ -33,16 +33,11 @@ function getProduct() {
         return response.json();
       })
       .then((datas) => {
-        document
-          .getElementsByTagName("form")[0]
-          .addEventListener("submit", () => {
-            //Add product to localstorage
-          });
-
         return datas;
       })
       //catch in case of error which resumes the "displayError" function
       .catch((error) => {
+        displayError();
         return false;
       })
   );
@@ -80,7 +75,7 @@ getProduct().then((result) => {
         cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
       }
 
-      let product = {
+      let newProduct = {
         // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
         _id: result._id,
         name: result.name,
@@ -100,7 +95,7 @@ getProduct().then((result) => {
         );
         if (isProduct === undefined) {
           //si le produit n'existe pas déjà dans le panier, alors ajoute le
-          cart.push(product); //pour ajouté au panier
+          cart.push(newProduct); //pour ajouté au panier
           localStorage.setItem("cart", JSON.stringify(cart)); //ensuite ajoute au localStorage
         } else {
           //sinon
@@ -115,44 +110,13 @@ getProduct().then((result) => {
         }
       }
       isProductExist(product); //j'appel ma fonction pour l'exécuté
-      console.log(isProduct);
     });
 });
 
-// getProduct().then((result) => {
-//   if (!result) {
-//     throw new Error("Product not found");
-//   }
-//   renderProduct(result);
-//   document
-//     .getElementsByTagName("form")[0]
-//     .addEventListener("submit", function (event) {
-//       // Envoie valeur à localStorage après soumission du formulaire
 
-//       event.preventDefault(); //on stop la propagation
-//       let cart = {};
-//       if (localStorage.getItem("cart") != null) {
-//         cart = JSON.parse(localStorage.getItem("cart"));
-//       }
-
-//       let key = result.name + "-" + document.getElementById("options").value;
-//       key = key.replace(" ", "_");
-
-//       let product = {
-//         // Cette fonction assigne les valeurs à envoyer à localStorage
-//         _id: result._id,
-//         name: result.name,
-//         description: result.description,
-//         imageUrl: result.imageUrl,
-//         price: result.price,
-//         optionValue: document.getElementById("options").value,
-//         qty: Number(document.getElementById("quantity").value),
-//       };
-//       cart[key] = product;
-//       localStorage.setItem("cart", JSON.stringify(cart));
-//     });
-// });
-
+////////////////////////////////////////////////
+///////////////////Options//////////////////////
+////////////////////////////////////////////////
 function getCustomisation(product) {
   if ("colors" in product) return "colors";
 
@@ -170,24 +134,14 @@ function getOptions(options) {
   });
   return content;
 }
+////////////////////////////////////////////////
+///////////////////Options//////////////////////
+////////////////////////////////////////////////
 
-//Button decrement and increment with my input
-
-document.addEventListener("DOMContentLoaded", () => {
-  let btnIncrement = document.getElementById("increment");
-  let input = document.getElementById("quantity");
-  let btnDecrement = document.getElementById("decrement");
-
-  btnIncrement.addEventListener("click", () => {
-    input.value = parseInt(input.value) + 1;
-  });
-
-  btnDecrement.addEventListener("click", () => {
-    if (input.value > 0) {
-      input.value = parseInt(input.value) - 1;
-    }
-  });
-});
-
-//Button decrement and increment with my input
-
+////////////////////////////////////////////////
+//Button decrement and increment with my input//
+////////////////////////////////////////////////
+index.incrementDecrement();
+////////////////////////////////////////////////
+//Button decrement and increment with my input//
+////////////////////////////////////////////////
