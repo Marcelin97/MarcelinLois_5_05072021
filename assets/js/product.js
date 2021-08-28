@@ -105,7 +105,7 @@ getProduct().then((result) => {
         } else {
           //sinon
           const newCart = cart.map((element) => { //On crée un panier temporaire pour stocker le panier actuel 
-            if (element._id === product._id) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
+            if (element._id === product._id && element.optionValue === product.optionValue) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
               element.qty = product.qty + isProduct.qty; //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
             }
             return element; //retourne moi le nouvelle élément à jour
