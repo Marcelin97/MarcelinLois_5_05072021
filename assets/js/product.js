@@ -1,21 +1,9 @@
 import * as index from "./index";
 
-//message in case of error
-function displayError() {
-  let mainContent = document.getElementById("container");
-  mainContent.innerHTML = `
-  <section id="titre">
-    <div>
-        <h1>Ce produit n'existe pas</h1>
-        <p>Il semblerait que vous essayez d'accéder à un produit qui n'est pas ou plus dans notre catalogue. <br> 
-        Pour ce faire, vous pouvez consulter la liste de nos produits actuellement disponibles veuillez cliquer sur le bouton suivant : </p>
-        <a class="btn" href="../index.html">Notre catalogue</a>
-    </div>
-  </section>
-  `;
-}
-//message in case of error
 
+////////////////////////////////////////////
+/////////////////getProduct/////////////////
+////////////////////////////////////////////
 function getProduct() {
   const url = new URL(window.location.href);
   return (
@@ -33,15 +21,44 @@ function getProduct() {
         return response.json();
       })
       .then((datas) => {
+        document
+          .getElementsByTagName("form")[0]
+          .addEventListener("submit", () => {
+            //Add product to localstorage
+          });
+
         return datas;
       })
       //catch in case of error which resumes the "displayError" function
       .catch((error) => {
-        displayError();
         return false;
       })
   );
       }
+////////////////////////////////////////////
+/////////////////getProduct/////////////////
+////////////////////////////////////////////
+
+
+////////////////////////////////////////////
+//////////message in case of error//////////
+////////////////////////////////////////////
+function displayError() {
+  let mainContent = document.getElementById("container");
+  mainContent.innerHTML = `
+  <section id="titre">
+    <h1>Ce produit n'existe pas</h1>
+        <p>Il semblerait que vous essayez d'accéder à un produit qui n'est pas ou plus dans notre catalogue. <br> 
+        Pour ce faire, vous pouvez consulter la liste de nos produits actuellement disponibles veuillez cliquer sur le bouton suivant : </p>
+      <a class="btn" href="../index.html">Notre catalogue</a>
+  </section>
+  `;
+}
+////////////////////////////////////////////
+//////////message in case of error//////////
+////////////////////////////////////////////
+
+
 
 function renderProduct(product) {
   let container = document.getElementById("container");
@@ -75,7 +92,7 @@ getProduct().then((result) => {
         cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
       }
 
-      let newProduct = {
+      let product = {
         // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
         _id: result._id,
         name: result.name,
@@ -95,12 +112,12 @@ getProduct().then((result) => {
         );
         if (isProduct === undefined) {
           //si le produit n'existe pas déjà dans le panier, alors ajoute le
-          cart.push(newProduct); //pour ajouté au panier
+          cart.push(product); //pour ajouté au panier
           localStorage.setItem("cart", JSON.stringify(cart)); //ensuite ajoute au localStorage
         } else {
           //sinon
           const newCart = cart.map((element) => { //On crée un panier temporaire pour stocker le panier actuel 
-            if (element._id === product._id && element.optionValue === product.optionValue) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
+            if (element._id === product._id) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
               element.qty = product.qty + isProduct.qty; //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
             }
             return element; //retourne moi le nouvelle élément à jour
@@ -110,13 +127,12 @@ getProduct().then((result) => {
         }
       }
       isProductExist(product); //j'appel ma fonction pour l'exécuté
+      console.log(isProduct);
     });
 });
 
 
-////////////////////////////////////////////////
-///////////////////Options//////////////////////
-////////////////////////////////////////////////
+
 function getCustomisation(product) {
   if ("colors" in product) return "colors";
 
@@ -134,14 +150,14 @@ function getOptions(options) {
   });
   return content;
 }
-////////////////////////////////////////////////
-///////////////////Options//////////////////////
-////////////////////////////////////////////////
 
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
-index.incrementDecrement();
+
+console.log(index.incrementDecrement());
+
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
+
