@@ -1,6 +1,5 @@
 import * as index from "./index";
 
-
 ////////////////////////////////////////////
 /////////////////getProduct/////////////////
 ////////////////////////////////////////////
@@ -24,9 +23,8 @@ function getProduct() {
         document
           .getElementsByTagName("form")[0]
           .addEventListener("submit", () => {
-            //Add product to localstorage
+            //Add product to local storage
           });
-
         return datas;
       })
       //catch in case of error which resumes the "displayError" function
@@ -34,7 +32,7 @@ function getProduct() {
         return false;
       })
   );
-      }
+} 
 ////////////////////////////////////////////
 /////////////////getProduct/////////////////
 ////////////////////////////////////////////
@@ -59,7 +57,9 @@ function displayError() {
 ////////////////////////////////////////////
 
 
-
+////////////////////////////////////////////
+////////////////renderProduct///////////////
+////////////////////////////////////////////
 function renderProduct(product) {
   let container = document.getElementById("container");
   document.getElementsByTagName("img")[0].src = product.imageUrl;
@@ -71,29 +71,39 @@ function renderProduct(product) {
     product.price
   );
 }
+////////////////////////////////////////////
+////////////////renderProduct///////////////
+////////////////////////////////////////////
 
+
+////////////////////////////////////////////
+////////////////isProductExist//////////////
+////////////////////////////////////////////
 getProduct().then((result) => {
   // déclaration d'une promise
   if (!result) {
     throw new Error("Product not found");
   }
-  renderProduct(result); //j'appel ma fonction pour l'exécuté
+  //j'appel ma fonction pour l'exécuté
+  renderProduct(result);
+
+  // Envoie valeur à localStorage après soumission du formulaire
   document
     .getElementsByTagName("form")[0]
     .addEventListener("submit", function (event) {
-      // Envoie valeur à localStorage après soumission du formulaire
+      //on stop la propagation
+      event.preventDefault();
+      //on déclare le panier en tableau (pas en objet)
+      let cart = [];
 
-      event.preventDefault(); //on stop la propagation
-
-      let cart = []; //on déclare le panier en tableau (pas en objet)
-
+      //si le panier est différent en type et en valeur de null
       if (localStorage.getItem("cart") !== null) {
-        //si le panier est différent en type et en valeur de null
-        cart = JSON.parse(localStorage.getItem("cart")); //mets à jour le panier
+        //mets à jour le panier
+        cart = JSON.parse(localStorage.getItem("cart"));
       }
 
+      // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
       let product = {
-        // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
         _id: result._id,
         name: result.name,
         description: result.description,
@@ -105,34 +115,50 @@ getProduct().then((result) => {
 
       //fonction si le produit existe déjà dans le panier
       function isProductExist(product) {
-        const isProduct = cart.find( //on déclare une constante produit est = trouvé dans le panier
-          (element) => //element 
-            element._id === product._id && // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+        //on déclare une constante produit est = trouvé dans le panier
+        const isProduct = cart.find(
+          (element) =>
+            // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+            element._id === product._id &&
             element.optionValue === product.optionValue
         );
+        //si le produit n'existe pas déjà dans le panier, alors ajoute le
         if (isProduct === undefined) {
-          //si le produit n'existe pas déjà dans le panier, alors ajoute le
-          cart.push(product); //pour ajouté au panier
-          localStorage.setItem("cart", JSON.stringify(cart)); //ensuite ajoute au localStorage
-        } else {
+          //pour ajouté au panier
+          cart.push(product);
+          // Send data back to storage as a STRING
+          localStorage.setItem("cart", JSON.stringify(cart));
           //sinon
-          const newCart = cart.map((element) => { //On crée un panier temporaire pour stocker le panier actuel 
-            if (element._id === product._id) { //si l'élément dans la panier est identique au produit que l'on veut ajouter
-              element.qty = product.qty + isProduct.qty; //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
+        } else {
+          //On crée un panier temporaire pour stocker le panier actuel
+          const newCart = cart.map((element) => {
+            //si l'élément dans la panier est identique au produit que l'on veut ajouter
+            if (element._id === product._id) {
+              //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
+              element.qty = product.qty + isProduct.qty;
             }
-            return element; //retourne moi le nouvelle élément à jour
+            //retourne moi le nouvelle élément à jour
+            return element;
           });
+          //get the new cart
           console.log(newCart);
-          localStorage.setItem("cart", JSON.stringify(newCart)); //ajoute le au localStorage
+          // Send data back to storage as a STRING
+          localStorage.setItem("cart", JSON.stringify(newCart));
         }
       }
-      isProductExist(product); //j'appel ma fonction pour l'exécuté
+      //j'appel ma fonction pour l'exécuté
+      isProductExist(product);
       console.log(isProduct);
     });
 });
+////////////////////////////////////////////
+////////////////isProductExist//////////////
+////////////////////////////////////////////
 
 
-
+////////////////////////////////////////////////
+///////////////Options of product///////////////
+////////////////////////////////////////////////
 function getCustomisation(product) {
   if ("colors" in product) return "colors";
 
@@ -150,13 +176,15 @@ function getOptions(options) {
   });
   return content;
 }
+////////////////////////////////////////////////
+///////////////Options of product///////////////
+////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
-
 console.log(index.incrementDecrement());
-
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
