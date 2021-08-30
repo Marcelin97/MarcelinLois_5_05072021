@@ -122,36 +122,33 @@
         <div id="container">
           <div class="col-1">
             <div>
-              <img src="../assets/img/vcam_1.jpg"
-              alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+              <img src="" alt="Appareil photo vintage sur un gard-corp bois en extérieur"
               />
             </div>
           </div>
+          
+                      <!-- JavaScript product.js -->
 
           <div class="col-2">
             <div>
-              <h1>ZEISS IKON</h1>
-              <p>Petit et compact. Il sera votre allié lors de vos promenades hors des sentiers battus.
-                Voyagez autrement.
-                </p>
-              <div>890<b>€</b></div>
+              <h1></h1>
+              <p></p>
+              <div name="price"></div>
               <form action="#" method="post">
                 <fieldset>
                   <legend>Personnalisation du produit</legend>
                   <label for="options">Choisir une option</label>
                   <div>
-                    <select name="option" id="options">
-                      <option value="hidden">Veuillez choisir une option</option>
-                      <option value="sacoche">sacoche</option>
-                      <option value="sacoche et pied">sacoche et pied</option>
+                    <select name="option" id="options" required>
+
                     </select>
                   </div>
                   <div class="quantity">
                     <label for="quantity">Quantité</label>
                     <div class="cart-update">
-                      <button type="button" class="btn-update"><i class="fas fa-minus"></i></button>
-                      <input type="number" id="quantity" value="1">
-                      <button type="button" class="btn-update"><i class="fas fa-plus"></i></button>
+                      <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
+                      <input type="number" min="0" id="quantity" value="1">
+                      <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
                     </div>
                   </div>
                 </fieldset>
@@ -160,8 +157,8 @@
             </div>
           </div>
         </div>
+        </div>
       </section>
-    </div>
     </main>
     <!-- Footer-->
     <footer>
@@ -183,3 +180,5 @@
     <!-- les scripts-->
   </body>
 </html>
+
+

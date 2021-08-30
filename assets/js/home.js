@@ -1,27 +1,43 @@
 import * as index from "./index";
 
-function getProducts(category){
-    return fetch('http://localhost:3000/api/' + category)
-    .then(response => response.json())
-    .then(datas => {
-        return datas;
+////////////////////////////////////////////
+/////////////getProducts from API///////////
+////////////////////////////////////////////
+function getProducts(category) {
+  return fetch("http://localhost:3000/api/" + category)
+    .then((response) => response.json())
+    .then((datas) => {
+      return datas;
     })
-    .catch(error => {
-        console.log(error);
-        return error;
+    .catch((error) => {
+      console.log(error);
+      return error;
     });
 }
+////////////////////////////////////////////
+/////////////getProducts from API///////////
+////////////////////////////////////////////
 
-function renderProducts(products){
-    let container=document.getElementById("container");
-    let content="";
-    products.forEach(element => {
-        content+=`
+////////////////////////////////////////////
+////////////renderProducts in HTML//////////
+////////////////////////////////////////////
+function renderProducts(products, category) {
+  let container = document.getElementById("container");
+  let content = "";
+  products.forEach((element) => {
+    content +=
+      `
         <article>
                 <figure>
-                  <a href="./pages/product.html">
+                  <a href="./pages/product.html?id=` +
+      element._id +
+      `&category=` +
+      category +
+      `">
                   <img
-                    src="`+element.imageUrl+`"
+                    src="` +
+      element.imageUrl +
+      `"
                     alt="Appareil photo vintage sur un gard-corp bois en extérieur"
                   />
                   <div><i class="fas fa-plus"></i></div>
@@ -30,19 +46,28 @@ function renderProducts(products){
                 <div>
                   <a href="./pages/product.html">
                     <div>
-                      <h3>`+element.name+`</h3>
-                      <p>`+element.description+`
+                      <h3>` +
+      element.name +
+      `</h3>
+                      <p>` +
+      element.description +
+      `
                       </p>
-                      <span>`+index.priceToEuros(element.price)+`</span>
+                      <span>` +
+      index.priceToEuros(element.price) +
+      `</span>
                     </div>
                   </a>
                 </div>
             </article>
         `;
-    });
-    container.innerHTML=content;
+  });
+  container.innerHTML = content;
 }
 console.log(getProducts("cameras"));
-getProducts("cameras").then(result => {
-    renderProducts(result);
+getProducts("cameras").then((result) => {
+  renderProducts(result, "cameras");
 });
+////////////////////////////////////////////
+////////////renderProducts in HTML//////////
+////////////////////////////////////////////
