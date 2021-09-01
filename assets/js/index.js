@@ -34,3 +34,14 @@ export function incrementDecrement() {
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
+
+export function getCart() {
+  //on déclare le panier en tableau (pas en objet)
+  let cart = [];
+
+  //si le panier est différent en type et en valeur de null
+  if (localStorage.getItem("cart") !== null) {
+    //mets à jour le panier
+    cart = JSON.parse(localStorage.getItem("cart"));
+  }
+}
