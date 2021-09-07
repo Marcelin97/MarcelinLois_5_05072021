@@ -28,11 +28,10 @@ function getProduct() {
         return false;
       })
   );
-} 
+}
 ////////////////////////////////////////////
 /////////////////getProduct/////////////////
 ////////////////////////////////////////////
-
 
 ////////////////////////////////////////////
 //////////message in case of error//////////
@@ -52,7 +51,6 @@ function displayError() {
 //////////message in case of error//////////
 ////////////////////////////////////////////
 
-
 ////////////////////////////////////////////
 ////////////////renderProduct///////////////
 ////////////////////////////////////////////
@@ -70,7 +68,6 @@ function renderProduct(product) {
 ////////////////////////////////////////////
 ////////////////renderProduct///////////////
 ////////////////////////////////////////////
-
 
 ////////////////////////////////////////////
 ////////////////isProductExist//////////////
@@ -91,12 +88,11 @@ getProduct().then((result) => {
       event.preventDefault();
 
       addToCart(result);
-
+    });
 });
 ////////////////////////////////////////////
 ////////////////isProductExist//////////////
 ////////////////////////////////////////////
-
 
 ////////////////////////////////////////////////
 ///////////////Options of product///////////////
@@ -122,60 +118,55 @@ function getOptions(options) {
 ///////////////Options of product///////////////
 ////////////////////////////////////////////////
 
-
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
-console.log(index.incrementDecrement());
+index.incrementDecrement();
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
 
-function addToCart(product) {
-        let cart = index.getCart();
+function addToCart(result) {
+  let cart = index.getCart(); //j'appel mon panier qui est stocké dans une fonction dans mon index.js
 
-      // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
-      let product = {
-        _id: result._id,
-        name: result.name,
-        description: result.description,
-        imageUrl: result.imageUrl,
-        price: result.price,
-        optionValue: document.getElementById("options").value,
-        qty: Number(document.getElementById("quantity").value),
-      };
+  // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
+  let product = {
+    _id: result._id,
+    name: result.name,
+    description: result.description,
+    imageUrl: result.imageUrl,
+    price: result.price,
+    optionValue: document.getElementById("options").value,
+    qty: Number(document.getElementById("quantity").value),
+  };
 
-        //on déclare une constante produit est = trouvé dans le panier
-        const isProduct = cart.find(
-          (element) =>
-            // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
-            element._id === product._id &&
-            element.optionValue === product.optionValue
-        );
-        //si le produit n'existe pas déjà dans le panier, alors ajoute le
-        if (isProduct === undefined) {
-          //pour ajouté au panier
-          cart.push(product);
-          // Send data back to storage as a STRING
-          localStorage.setItem("cart", JSON.stringify(cart));
-          //sinon
-        } else {
-          //On crée un panier temporaire pour stocker le panier actuel
-          const newCart = cart.map((element) => {
-            //si l'élément dans la panier est identique au produit que l'on veut ajouter
-            if (element._id === product._id) {
-              //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
-              element.qty = product.qty + isProduct.qty;
-            }
-            //retourne moi le nouvelle élément à jour
-            return element;
-          });
-          //get the new cart
-          console.log(newCart);
-          // Send data back to storage as a STRING
-          localStorage.setItem("cart", JSON.stringify(newCart));
-        }
-
-      //j'appel ma fonction pour l'exécuté
-      console.log(isProduct);
-    };
+  //on déclare une constante produit est = trouvé dans le panier
+  const isProduct = cart.find(
+    (element) =>
+      // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+      element._id === product._id && element.optionValue === product.optionValue
+  );
+  //si le produit n'existe pas déjà dans le panier, alors ajoute le
+  if (isProduct === undefined) {
+    //pour ajouté au panier
+    cart.push(product);
+    // Send data back to storage as a STRING
+    localStorage.setItem("cart", JSON.stringify(cart));
+    //sinon
+  } else {
+    //On crée un panier temporaire pour stocker le panier actuel
+    const newCart = cart.map((element) => {
+      //si l'élément dans la panier est identique au produit que l'on veut ajouter
+      if (element._id === product._id) {
+        //ajoute la quantité = doit être égale au produit existant + le produit que l'on ajoute
+        element.qty = product.qty + isProduct.qty;
+      }
+      //retourne moi le nouvelle élément à jour
+      return element;
+    });
+    //get the new cart
+    // Send data back to storage as a STRING
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  }
+  index.setCounterCart();
+}
