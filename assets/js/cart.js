@@ -177,6 +177,13 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const prixTotal = priceTotalCart.reduce(reducer, 0);
 console.log(index.priceToEuros(prixTotal));
 
+//Je crée une fonction pour insérer mon prix total dans mon html
+function totalProduct() {
+  let summury = document.getElementsByClassName("summury-cart");
+  document.getElementsByClassName("total")[0].textContent = index.priceToEuros(prixTotal);
+}
+totalProduct(); //j'appel ma fonction pour l'exécuté
+
 // ///////////////////////////////////////////////
 // ///////////////Price Total Cart////////////////
 // ///////////////////////////////////////////////
