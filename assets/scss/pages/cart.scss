@@ -360,3 +360,32 @@ footer {
     clear: both;
   }
 }
+
+/*panier vide*/
+.empty-cart {
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  margin: 30px 10px;
+}
+
+.clear-cart {
+  margin: 30px 0px;
+  cursor: pointer;
+  @media only screen and (min-width: 576px) {
+    margin-left: 10px;
+    font-size: 1.2em;
+  }
+  a {
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 15px;
+    transition: border 600ms;
+    &:hover {
+      border: 1px solid white;
+    }
+    span {
+      color: red;
+    }
+  }
+}

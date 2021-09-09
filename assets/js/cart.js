@@ -1,5 +1,6 @@
 import * as index from "./index";
 
+
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
@@ -7,6 +8,7 @@ index.incrementDecrement();
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
+
 
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
@@ -16,6 +18,7 @@ let cart = index.getCart(); //je stocke mon panier dans une variable pour pouvoi
 //si mon index.getCart() est vide mettre un message 'votre panier est vide'
 if (cart.length === 0) {
   console.log("le panier est vide");
+  emptyCart(); //j'appel ma fonction emptyCart
 } else {
   //sinon parcours tout le panier
   cart.map((element) => {
@@ -26,13 +29,32 @@ if (cart.length === 0) {
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
 
+
+// ///////////////////////////////////////////////
+// ///////////////////Empty Cart//////////////////
+// ///////////////////////////////////////////////
+function emptyCart() {
+    let mainCart = document.getElementById("items");
+  mainCart.innerHTML = `
+  <section id="titre" class="back-to-home">
+    <h2>Votre panier est tristement vide.</h2><br>
+    <span><i class="far fa-frown empty-cart"></i></span>
+        <p>En manque d'inspiration ?</p>
+      <a class="btn" href="../index.html">Trouver des idées</a>
+  </section>
+  `;
+}
+// ///////////////////////////////////////////////
+// ///////////////////Empty Cart//////////////////
+// ///////////////////////////////////////////////
+
+
 // ///////////////////////////////////////////////
 // ////dynamic display of products in the cart/////
 // ///////////////////////////////////////////////
 function renderCartProduct(product) {
   let containerCart = document.getElementsByClassName("main-cart");
-  let cart = index.getCart();
-  //alert(cart.length);
+  let cart = index.getCart(); //je récupère mon panier
   let fullPanier = [];
   for (let i = 0; i < cart.length; i++) {
     fullPanier += `              <ul>
@@ -100,8 +122,6 @@ function renderCartProduct(product) {
 // ///////////////////////////////////////////////
 
 
-// function removeItemFromCart(name) {
-
 // ///////////////////////////////////////////////
 // ////////////removeOneItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
@@ -124,15 +144,22 @@ btnRemove.forEach(function (element, index, array) {
 // ////////////removeOneItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
 
-// function clearCarts() {
-//   // Remove all datas in localStorage
-//   localStorage.clear();
 
-//   // Remove each element in the cart view
-//   document.querySelectorAll("artilcle").forEach((element) => {
-//     element.remove();
-//   });
+// ///////////////////////////////////////////////
+// //////////clear all products in cart///////////
+// ///////////////////////////////////////////////
+let positionBtnClearCart = document.querySelectorAll("#clear");
+positionBtnClearCart.forEach(function (element, index, array) {
+  positionBtnClearCart[index].addEventListener("click", function () {
+    if (cart.length > 1) {
+      localStorage.removeItem("cart");
+        alert("le panier a été vider");
 
-//   document.getElementById("cart-container").innerHTML =
-//     "<p>Votre panier est vide.</p>";
-// }
+      location.reload();
+    }
+  })
+})
+// ///////////////////////////////////////////////
+// //////////clear all products in cart///////////
+// ///////////////////////////////////////////////
+
