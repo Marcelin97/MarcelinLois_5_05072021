@@ -1,6 +1,5 @@
 import * as index from "./index";
 
-
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
@@ -8,7 +7,6 @@ index.incrementDecrement();
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
-
 
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
@@ -29,12 +27,11 @@ if (cart.length === 0) {
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
 
-
 // ///////////////////////////////////////////////
 // ///////////////////Empty Cart//////////////////
 // ///////////////////////////////////////////////
 function emptyCart() {
-    let mainCart = document.getElementById("items");
+  let mainCart = document.getElementById("items");
   mainCart.innerHTML = `
   <section id="titre" class="back-to-home">
     <h2>Votre panier est tristement vide.</h2><br>
@@ -47,7 +44,6 @@ function emptyCart() {
 // ///////////////////////////////////////////////
 // ///////////////////Empty Cart//////////////////
 // ///////////////////////////////////////////////
-
 
 // ///////////////////////////////////////////////
 // ////dynamic display of products in the cart/////
@@ -121,7 +117,6 @@ function renderCartProduct(product) {
 // ////dynamic display of products in the cart/////
 // ///////////////////////////////////////////////
 
-
 // ///////////////////////////////////////////////
 // ////////////removeOneItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
@@ -138,12 +133,11 @@ btnRemove.forEach(function (element, index, array) {
       localStorage.removeItem("cart");
       location.reload();
     }
-  })
-})
+  });
+});
 // ///////////////////////////////////////////////
 // ////////////removeOneItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
-
 
 // ///////////////////////////////////////////////
 // //////////clear all products in cart///////////
@@ -153,13 +147,36 @@ positionBtnClearCart.forEach(function (element, index, array) {
   positionBtnClearCart[index].addEventListener("click", function () {
     if (cart.length > 1) {
       localStorage.removeItem("cart");
-        alert("le panier a été vider");
-
+      alert("Le panier a été vider");
       location.reload();
     }
-  })
-})
+  });
+});
 // ///////////////////////////////////////////////
 // //////////clear all products in cart///////////
 // ///////////////////////////////////////////////
 
+// ///////////////////////////////////////////////
+// ///////////////Price Total Cart////////////////
+// ///////////////////////////////////////////////
+//Déclaration d'une variable pour pouvoir y mettre les prix qui sont dans présent dans le panier
+let priceTotalCart = [];
+
+//Je récupère les prix dans le panier
+for (let m = 0; m < cart.length; m++) {
+  let priceProductCart = cart[m].price * cart[m].qty;
+
+  //Mettre les prix du panier dans la variable "priceTotalCart"
+  priceTotalCart.push(priceProductCart);
+
+  console.log(priceTotalCart);
+}
+
+//Additionner les prix qu'il y a dans le tableau de la variable "priceTotalCart" avec la méthode reduce
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const prixTotal = priceTotalCart.reduce(reducer, 0);
+console.log(index.priceToEuros(prixTotal));
+
+// ///////////////////////////////////////////////
+// ///////////////Price Total Cart////////////////
+// ///////////////////////////////////////////////
