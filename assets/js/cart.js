@@ -5,7 +5,7 @@ import * as index from "./index";
 ////////////////////////////////////////////////
 index.incrementDecrement();
 ////////////////////////////////////////////////
-//Button decrement and increment with my input//
+//End Button decrement and increment with my input
 ////////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -24,7 +24,7 @@ if (cart.length === 0) {
   });
 }
 // ///////////////////////////////////////////////
-// ////////I get my cart from LocalStorage////////
+// //////End I get my cart from LocalStorage//////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -42,7 +42,7 @@ function emptyCart() {
   `;
 }
 // ///////////////////////////////////////////////
-// ///////////////////Empty Cart//////////////////
+// /////////////////End Empty Cart////////////////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -53,7 +53,8 @@ function renderCartProduct(product) {
   let cart = index.getCart(); //je récupère mon panier
   let fullPanier = [];
   for (let i = 0; i < cart.length; i++) {
-    fullPanier += `              <ul>
+    fullPanier += `
+              <ul>
                 <li>
                   <div class="details-items">
                     <div class="details-items-img">
@@ -114,7 +115,7 @@ function renderCartProduct(product) {
   }
 }
 // ///////////////////////////////////////////////
-// ////dynamic display of products in the cart/////
+// /End dynamic display of products in the cart///
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -136,7 +137,7 @@ btnRemove.forEach(function (element, index, array) {
   });
 });
 // ///////////////////////////////////////////////
-// ////////////removeOneItemsOnTheCart/////////////
+// /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -153,7 +154,7 @@ positionBtnClearCart.forEach(function (element, index, array) {
   });
 });
 // ///////////////////////////////////////////////
-// //////////clear all products in cart///////////
+// ////////End clear all products in cart/////////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -179,11 +180,294 @@ console.log(index.priceToEuros(prixTotal));
 
 //Je crée une fonction pour insérer mon prix total dans mon html
 function totalProduct() {
-  let summury = document.getElementsByClassName("summury-cart");
-  document.getElementsByClassName("total")[0].textContent = index.priceToEuros(prixTotal);
+  let positionSummury = document.getElementsByClassName("summury-cart");
+  document.getElementsByClassName("total")[0].textContent =
+    index.priceToEuros(prixTotal);
 }
 totalProduct(); //j'appel ma fonction pour l'exécuté
 
 // ///////////////////////////////////////////////
-// ///////////////Price Total Cart////////////////
+// /////////////End Price Total Cart//////////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// /////////////////Display form//////////////////
+// ///////////////////////////////////////////////
+
+const displayForm = () => {
+  //sélection élément du DOM pour le positionnement du form dans le HTML
+  let positionForm = document.querySelector("#form");
+  let formHtml = `
+            <div>
+              <form action="GET">
+                <h3>Finalisez votre commande</h3>
+                <div>
+                  <label for="last-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="last-name"
+                      id="last-name"
+                    />
+                    <p>Nom</p>
+                  </label>
+
+                  <label for="first-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="first-name"
+                      id="first-name"
+                    />
+                    <p>Prénom</p>
+                  </label>
+
+                  <label class="label" for="address">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="address"
+                      id="address"
+                    />
+                    <p>Adresse</p>
+                  </label>
+                  <label class="label" for="postal-code">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="postal-code"
+                      id="postal-code"
+                    />
+                    <p>Code postal</p>
+                  </label>
+                  <label class="label" for="city">
+                    <input type="text" placeholder=" " name="city" id="city" />
+                    <p>Ville</p>
+                  </label>
+                  <label class="label" for="phone">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="phone"
+                      id="phone"
+                    />
+                    <p>Téléphone</p>
+                  </label>
+                  <label class="label" for="email">
+                    <input
+                      type="email"
+                      placeholder=" "
+                      name="email"
+                      id="email"
+                    />
+                    <p>E-mail</p>
+                  </label>
+                </div>
+              </form>
+            </div>
+  `;
+  positionForm.innerHTML = formHtml;
+};
+
+//J'appel ma fonction pour mon formulaire dans mon HTML
+displayForm();
+
+// ///////////////////////////////////////////////
+// ///////////////End Display form////////////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// //////////Value form in localStorage///////////
+// ///////////////////////////////////////////////
+
+//selectionner du bouton "commander" pour envoyer le formulaire
+let order = document.querySelector("#order");
+
+//addEventListener pour que le formulaire soit envoyé au localStorage à la commande
+//je récupère mon bouton et j'écoute le click
+order.addEventListener("click", () => {
+  //récupération des valeurs du formulaire pour les mettre dans le localStorage via une key
+  let formValues = {
+    "last-name": document.querySelector("#last-name").value,
+    "first-name": document.querySelector("#first-name").value,
+    address: document.querySelector("#address").value,
+    "postal-code": document.querySelector("#postal-code").value,
+    city: document.querySelector("#city").value,
+    phone: document.querySelector("#phone").value,
+    email: document.querySelector("#email").value,
+  };
+  console.log("formValues");
+  console.log(formValues);
+
+  // localStorage.setItem("last-name", document.querySelector("#last-name").value);
+  // localStorage.setItem(
+  //   "first-name",
+  //   document.querySelector("#first-name").value
+  // );
+  // localStorage.setItem("address", document.querySelector("#address").value);
+  // localStorage.setItem(
+  //   "postal-code",
+  //   document.querySelector("#postal-code").value
+  // );
+  // localStorage.setItem("city", document.querySelector("#city").value);
+  // localStorage.setItem("phone", document.querySelector("#phone").value);
+  // localStorage.setItem("email", document.querySelector("#email").value);
+
+  // ///////////////////////////////////////////////
+  // ////////////////validation form////////////////
+  // ///////////////////////////////////////////////
+
+  ////////////////////////////name & first name//////////////////////////////
+
+  //Je crée une variable d'expession de fonction pour stocker mon regex sur le prénom, le nom et la ville
+  //je vais pouvoir utiliser cette variable dans mes fonctions
+  const regexFirstnameLastname = (value) => {
+    return /^[A-Za-zÀ-ÿ .-]{2,20}$/.test(value);
+  };
+
+  //je crée une variable d'expression de fonction avec mon "text alert"
+  const textAlert = (value) => {
+    return `${value}: ne doit pas comporter des chiffres et symboles. \n Il doit avoir un minimum de 2 caractères et ne doit pas dépasser 20 caractères.`;
+  };
+
+  function valideName() {
+    //controle de la validité du nom de famille
+    let leNom = formValues["last-name"];
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    if (regexFirstnameLastname(leNom)) {
+      return true;
+    } else {
+      //j'appel ma variable d'expression de fonction "text alert"
+      //je remplace ma value par mon paramètre changeant
+      alert(textAlert("Le nom "));
+      return false;
+    }
+  }
+
+  function valideFirstName() {
+    //contrôle de la validité du nom de famille
+    let lePrenom = formValues["first-name"];
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    if (regexFirstnameLastname(lePrenom)) {
+      return true;
+    } else {
+      //j'appel ma variable d'expression de fonction "text alert"
+      //je remplace ma value par mon paramètre changeant
+      alert(textAlert("Le prénom "));
+      return false;
+    }
+  }
+  ///////////////////////////End name & first name////////////////////////////////////
+
+  ///////////////////////////////Address//////////////////////////////////////////
+  const regexAddress = (value) => {
+    return /^([0-9]{1,4}) ([a-z]+) ([ A-Za-zÀ-ÿ\-']+)$/.test(value);
+  };
+
+  function valideAddress() {
+    //contrôle de la validité du nom de famille
+    let ladresse = formValues.address;
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    if (regexAddress(ladresse)) {
+      return true;
+    } else {
+      //j'appel ma variable d'expression de fonction "text alert"
+      //je remplace ma value par mon paramètre changeant
+      alert("L'adresse ne doit pas comporter de caractère spéciaux.");
+      return false;
+    }
+  }
+  /////////////////////////////End Address////////////////////////////////////////
+
+  ////////////////////////////////////City///////////////////////////////////////////
+
+  const regexCity = (value) => {
+    return /^([a-zA-ZÀ-ÿ]+(?:. |-| |'))$/.test(value);
+  };
+
+  function valideCity() {
+    //contrôle de la validité du nom de famille
+    let laVille = formValues.city;
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    if (regexCity(laVille)) {
+      return true;
+    } else {
+      //j'appel ma variable d'expression de fonction "text alert"
+      //je remplace ma value par mon paramètre changeant
+      alert("La ville ne doit pas comporter de caractère spéciaux.");
+      return false;
+    }
+  }
+  ///////////////////////////////////End City//////////////////////////////////////////
+
+  ///////////////////////////////Postal Code//////////////////////////////////////////
+
+  //Je crée une variable d'expression de fonction pour stocker mon regex pour le CP
+  //je vais pouvoir utiliser cette variable dans ma fonction
+  const regexPostalCode = (value) => {
+    //Regex : je contrôle les chiffres de 0 à 9 et je veux 5 chiffres
+    return /^[0-9]{5}$/.test(value);
+  };
+
+  function validePostal() {
+    //contrôle de la validité du code postal de famille
+    let leCodePostal = formValues["postal-code"];
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    if (regexPostalCode(leCodePostal)) {
+      return true;
+    } else {
+      //j'appel ma variable d'expression de fonction "text alert"
+      //je remplace ma value par mon paramètre changeant
+      alert("Le code-postal doit être composé de 5 chiffres. ");
+      return false;
+    }
+  }
+  ///////////////////////////////End Postal Code//////////////////////////////////////////
+
+  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+  if (
+    valideName() &&
+    valideFirstName() &&
+    validePostal() &&
+    valideCity() &&
+    valideAddress()
+  ) {
+    //mettre l'objet formValues dans le localStorage
+    localStorage.setItem("formValues", JSON.stringify(formValues));
+  } else {
+    alert("Veuillez remplir correctement le formulaire");
+  }
+  // ///////////////////////////////////////////////
+  // //////////////End validation form//////////////
+  // ///////////////////////////////////////////////
+
+  // //mettre les value du formulaire dans un objet
+  // let formulaire = {
+  //   "last-name": localStorage.getItem("last-name"),
+  //   "first-name": localStorage.getItem("first-name"),
+  //   address: localStorage.getItem("address"),
+  //   "postal-code": localStorage.getItem("postal-code"),
+  //   city: localStorage.getItem("city"),
+  //   phone: localStorage.getItem("phone"),
+  //   email: localStorage.getItem("email"),
+  // };
+  // console.log("Voici le formulaire :");
+  // console.log(formulaire);
+
+  //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
+  let valuesServeur = {
+    cart,
+    formValues,
+  };
+  console.log("Voici les valeurs envoyé vers le serveurs :");
+  console.log(valuesServeur);
+});
+
+// ///////////////////////////////////////////////
+// ////////End Value form in localStorage/////////
 // ///////////////////////////////////////////////

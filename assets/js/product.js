@@ -84,7 +84,7 @@ getProduct().then((result) => {
   document
     .getElementsByTagName("form")[0]
     .addEventListener("submit", function (event) {
-      //on stop la propagation
+      //on stop la propagation du click
       event.preventDefault();
 
       addToCart(result);
