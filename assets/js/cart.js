@@ -11,7 +11,9 @@ index.incrementDecrement();
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
-let cart = index.getCart(); //je stocke mon panier dans une variable pour pouvoir la réutiliser
+
+//je stocke mon panier dans une variable pour pouvoir la réutiliser
+let cart = index.getCart(); 
 
 //si mon index.getCart() est vide mettre un message 'votre panier est vide'
 if (cart.length === 0) {
@@ -209,7 +211,7 @@ const displayForm = () => {
                       name="last-name"
                       id="last-name"
                     />
-                    <p>Nom</p>
+                    <p>Nom</p><span id="errorName" class="errorInput"></span>
                   </label>
 
                   <label for="first-name">
@@ -269,7 +271,7 @@ const displayForm = () => {
   positionForm.innerHTML = formHtml;
 };
 
-//J'appel ma fonction pour mon formulaire dans mon HTML
+//J'appel ma fonction pour injecter mon formulaire dans mon HTML
 displayForm();
 
 // ///////////////////////////////////////////////
@@ -322,7 +324,7 @@ order.addEventListener("click", () => {
   //Je crée une variable d'expession de fonction pour stocker mon regex sur le prénom, le nom et la ville
   //je vais pouvoir utiliser cette variable dans mes fonctions
   const regexFirstnameLastname = (value) => {
-    return /^[A-Za-zÀ-ÿ .-]{2,20}$/.test(value);
+    return /^([a-zA-ZÀ-ÿ\-']{2,20})$/.test(value);
   };
 
   //je crée une variable d'expression de fonction avec mon "text alert"
@@ -334,10 +336,12 @@ order.addEventListener("click", () => {
     //controle de la validité du nom de famille
     let leNom = formValues["last-name"];
     //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(leNom)) {
       return true;
     } else {
+      //Je vais récupérer mon span HTML avec l'id "errorName"
+      document.querySelector("#errorName").textContent = "Veuillez bien renseigner votre nom de famille.";
       //j'appel ma variable d'expression de fonction "text alert"
       //je remplace ma value par mon paramètre changeant
       alert(textAlert("Le nom "));
@@ -349,7 +353,7 @@ order.addEventListener("click", () => {
     //contrôle de la validité du nom de famille
     let lePrenom = formValues["first-name"];
     //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(lePrenom)) {
       return true;
     } else {
@@ -363,7 +367,7 @@ order.addEventListener("click", () => {
 
   ///////////////////////////////Address//////////////////////////////////////////
   const regexAddress = (value) => {
-    return /^([0-9]{1,4}) ([a-z]+) ([ A-Za-zÀ-ÿ\-']+)$/.test(value);
+    return /^([0-9]*) ?([a-zA-Z,\. ]*)$/.test(value);
   };
 
   function valideAddress() {
@@ -374,35 +378,33 @@ order.addEventListener("click", () => {
     if (regexAddress(ladresse)) {
       return true;
     } else {
-      //j'appel ma variable d'expression de fonction "text alert"
-      //je remplace ma value par mon paramètre changeant
-      alert("L'adresse ne doit pas comporter de caractère spéciaux.");
+      //je crée un message d'alerte
+      alert("Veuillez entrer votre adresse au bon format.");
       return false;
     }
   }
   /////////////////////////////End Address////////////////////////////////////////
 
-  ////////////////////////////////////City///////////////////////////////////////////
+  //////////////////////////////City///////////////////////////////////////////
 
   const regexCity = (value) => {
-    return /^([a-zA-ZÀ-ÿ]+(?:. |-| |'))$/.test(value);
+    return /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value);
   };
 
   function valideCity() {
-    //contrôle de la validité du nom de famille
+    //contrôle de la validité de la ville
     let laVille = formValues.city;
     //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    //avec un argument "value" qui sera ma variable "city"
     if (regexCity(laVille)) {
       return true;
     } else {
-      //j'appel ma variable d'expression de fonction "text alert"
-      //je remplace ma value par mon paramètre changeant
-      alert("La ville ne doit pas comporter de caractère spéciaux.");
+      //je crée un message d'alerte
+      alert("Veuillez entrer votre ville de résidence au bon format.");
       return false;
     }
   }
-  ///////////////////////////////////End City//////////////////////////////////////////
+  ////////////////////////////////End City//////////////////////////////////////////
 
   ///////////////////////////////Postal Code//////////////////////////////////////////
 
@@ -414,20 +416,61 @@ order.addEventListener("click", () => {
   };
 
   function validePostal() {
-    //contrôle de la validité du code postal de famille
+    //contrôle de la validité du code postal
     let leCodePostal = formValues["postal-code"];
     //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
+    //avec un argument "value" qui sera ma variable "leCodePostal"
     if (regexPostalCode(leCodePostal)) {
       return true;
     } else {
-      //j'appel ma variable d'expression de fonction "text alert"
-      //je remplace ma value par mon paramètre changeant
+      //je crée un message d'alerte
       alert("Le code-postal doit être composé de 5 chiffres. ");
       return false;
     }
   }
   ///////////////////////////////End Postal Code//////////////////////////////////////////
+
+  ///////////////////////////////Phone//////////////////////////////////////////
+  const regexPhone = (value) => {
+    return /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(value);
+  };
+
+  function validePhone() {
+    //contrôle de la validité de l'email
+    let phone = formValues.phone;
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable "email"
+    if (regexPhone(phone)) {
+      return true;
+    } else {
+      //je crée un message d'alerte
+      alert("Veuillez entrer votre numéro de téléphone au bon format.");
+      return false;
+    }
+  }
+  /////////////////////////////End Phone////////////////////////////////////////
+
+  ///////////////////////////////Email//////////////////////////////////////////
+  const regexEmail = (value) => {
+    return /^[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)*@[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)+$/i.test(
+      value
+    );
+  };
+
+  function valideEmail() {
+    //contrôle de la validité de l'email
+    let email = formValues.email;
+    //dans mon if j'appel ma variable d'expression de fonction
+    //avec un argument "value" qui sera ma variable "email"
+    if (regexEmail(email)) {
+      return true;
+    } else {
+      //je crée un message d'alerte
+      alert("Veuillez entrer votre e-mail au bon format.");
+      return false;
+    }
+  }
+  /////////////////////////////End Email////////////////////////////////////////
 
   //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
   if (
@@ -435,7 +478,9 @@ order.addEventListener("click", () => {
     valideFirstName() &&
     validePostal() &&
     valideCity() &&
-    valideAddress()
+    valideAddress() &&
+    valideEmail() &&
+    validePhone()
   ) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
