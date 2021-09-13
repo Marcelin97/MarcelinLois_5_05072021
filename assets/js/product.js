@@ -80,7 +80,7 @@ getProduct().then((result) => {
   //j'appel ma fonction pour l'exécuté
   renderProduct(result);
 
-  // Envoie valeur à localStorage après soumission du formulaire
+  // Envoie valeur à localStorage après 'ajout au panier'
   document
     .getElementsByTagName("form")[0]
     .addEventListener("submit", function (event) {
@@ -150,6 +150,9 @@ function addToCart(result) {
   if (isProduct === undefined) {
     //pour ajouté au panier
     cart.push(product);
+    alert("Le produit est dans le panier ! ");
+            window.location = "cart.html";
+
     // Send data back to storage as a STRING
     localStorage.setItem("cart", JSON.stringify(cart));
     //sinon
@@ -162,6 +165,8 @@ function addToCart(result) {
         element.qty = product.qty + isProduct.qty;
       }
       //retourne moi le nouvelle élément à jour
+      alert("Le panier a été mis a jour ! ");
+      window.location = "cart.html";
       return element;
     });
     //get the new cart

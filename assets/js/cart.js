@@ -13,7 +13,7 @@ index.incrementDecrement();
 // ///////////////////////////////////////////////
 
 //je stocke mon panier dans une variable pour pouvoir la réutiliser
-let cart = index.getCart(); 
+let cart = index.getCart();
 
 //si mon index.getCart() est vide mettre un message 'votre panier est vide'
 if (cart.length === 0) {
@@ -142,22 +142,23 @@ btnRemove.forEach(function (element, index, array) {
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
 
-// ///////////////////////////////////////////////
-// //////////clear all products in cart///////////
-// ///////////////////////////////////////////////
-let positionBtnClearCart = document.querySelectorAll("#clear");
-positionBtnClearCart.forEach(function (element, index, array) {
-  positionBtnClearCart[index].addEventListener("click", function () {
-    if (cart.length > 1) {
-      localStorage.removeItem("cart");
-      alert("Le panier a été vider");
-      location.reload();
-    }
+
+  // ///////////////////////////////////////////////
+  // //////////clear all products in cart///////////
+  // ///////////////////////////////////////////////
+  let positionBtnClearCart = document.querySelectorAll("#clear");
+  positionBtnClearCart.forEach(function (element, index, array) {
+    positionBtnClearCart[index].addEventListener("click", function () {
+      if (cart.length > 1) {
+        localStorage.removeItem("cart");
+        alert("Le panier a été vider");
+        location.reload();
+      }
+    });
   });
-});
-// ///////////////////////////////////////////////
-// ////////End clear all products in cart/////////
-// ///////////////////////////////////////////////
+  // ///////////////////////////////////////////////
+  // ////////End clear all products in cart/////////
+  // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ///////////////Price Total Cart////////////////
@@ -221,7 +222,7 @@ const displayForm = () => {
                       name="first-name"
                       id="first-name"
                     />
-                    <p>Prénom</p>
+                    <p>Prénom</p><span id="errorFirstName" class="errorInput"></span>
                   </label>
 
                   <label class="label" for="address">
@@ -231,7 +232,7 @@ const displayForm = () => {
                       name="address"
                       id="address"
                     />
-                    <p>Adresse</p>
+                    <p>Adresse</p><span id="errorAddress" class="errorInput"></span>
                   </label>
                   <label class="label" for="postal-code">
                     <input
@@ -240,11 +241,15 @@ const displayForm = () => {
                       name="postal-code"
                       id="postal-code"
                     />
-                    <p>Code postal</p>
+                    <p>Code postal</p><span id="errorPostalCode" class="errorInput"></span>
                   </label>
                   <label class="label" for="city">
-                    <input type="text" placeholder=" " name="city" id="city" />
-                    <p>Ville</p>
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="city"
+                      id="city" />
+                    <p>Ville</p><span id="errorCity" class="errorInput"></span>
                   </label>
                   <label class="label" for="phone">
                     <input
@@ -253,7 +258,7 @@ const displayForm = () => {
                       name="phone"
                       id="phone"
                     />
-                    <p>Téléphone</p>
+                    <p>Téléphone</p><span id="errorPhone" class="errorInput"></span>
                   </label>
                   <label class="label" for="email">
                     <input
@@ -262,7 +267,7 @@ const displayForm = () => {
                       name="email"
                       id="email"
                     />
-                    <p>E-mail</p>
+                    <p>E-mail</p><span id="errorEmail" class="errorInput"></span>
                   </label>
                 </div>
               </form>
@@ -290,10 +295,10 @@ let order = document.querySelector("#order");
 order.addEventListener("click", () => {
   //récupération des valeurs du formulaire pour les mettre dans le localStorage via une key
   let formValues = {
-    "last-name": document.querySelector("#last-name").value,
-    "first-name": document.querySelector("#first-name").value,
+    lastName: document.querySelector("#last-name").value,
+    firstName: document.querySelector("#first-name").value,
     address: document.querySelector("#address").value,
-    "postal-code": document.querySelector("#postal-code").value,
+    postalCode: document.querySelector("#postal-code").value,
     city: document.querySelector("#city").value,
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
@@ -301,23 +306,26 @@ order.addEventListener("click", () => {
   console.log("formValues");
   console.log(formValues);
 
-  // localStorage.setItem("last-name", document.querySelector("#last-name").value);
-  // localStorage.setItem(
-  //   "first-name",
-  //   document.querySelector("#first-name").value
-  // );
-  // localStorage.setItem("address", document.querySelector("#address").value);
-  // localStorage.setItem(
-  //   "postal-code",
-  //   document.querySelector("#postal-code").value
-  // );
-  // localStorage.setItem("city", document.querySelector("#city").value);
-  // localStorage.setItem("phone", document.querySelector("#phone").value);
-  // localStorage.setItem("email", document.querySelector("#email").value);
-
   // ///////////////////////////////////////////////
   // ////////////////validation form////////////////
   // ///////////////////////////////////////////////
+
+  ////////////////////////////Text alert input//////////////////////////////
+
+  //Fonction pour gérer l'affichage du texte alerte à côté de l'input
+  //pour indiquer à l'utilisateur qu'il faut bien remplir le champ
+  function emptyEntryEmptyText(querySelectorId) {
+    // if yes, display a small icon to let the client know that the input value is correct
+    document.querySelector(`#${querySelectorId}`).innerHTML = "";
+  }
+
+  function emptyEntryText(querySelectorId) {
+    // if not, display a small message to let the client know what's going wrong
+    document.querySelector(`#${querySelectorId}`).textContent =
+      "Veuillez bien renseigner ce champ.";
+  }
+
+  ////////////////////////////Text alert input//////////////////////////////
 
   ////////////////////////////name & first name//////////////////////////////
 
@@ -338,10 +346,12 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(leNom)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorName");
       return true;
     } else {
-      //Je vais récupérer mon span HTML avec l'id "errorName"
-      document.querySelector("#errorName").textContent = "Veuillez bien renseigner votre nom de famille.";
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorName");
       //j'appel ma variable d'expression de fonction "text alert"
       //je remplace ma value par mon paramètre changeant
       alert(textAlert("Le nom "));
@@ -355,8 +365,12 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(lePrenom)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorFirstName");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorFirstName");
       //j'appel ma variable d'expression de fonction "text alert"
       //je remplace ma value par mon paramètre changeant
       alert(textAlert("Le prénom "));
@@ -376,8 +390,12 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable leNom | lePrenom | city
     if (regexAddress(ladresse)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorAddress");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorAddress");
       //je crée un message d'alerte
       alert("Veuillez entrer votre adresse au bon format.");
       return false;
@@ -397,8 +415,12 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable "city"
     if (regexCity(laVille)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorCity");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorCity");
       //je crée un message d'alerte
       alert("Veuillez entrer votre ville de résidence au bon format.");
       return false;
@@ -421,8 +443,12 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable "leCodePostal"
     if (regexPostalCode(leCodePostal)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorPostalCode");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorPostalCode");
       //je crée un message d'alerte
       alert("Le code-postal doit être composé de 5 chiffres. ");
       return false;
@@ -431,6 +457,7 @@ order.addEventListener("click", () => {
   ///////////////////////////////End Postal Code//////////////////////////////////////////
 
   ///////////////////////////////Phone//////////////////////////////////////////
+
   const regexPhone = (value) => {
     return /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(value);
   };
@@ -441,16 +468,22 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable "email"
     if (regexPhone(phone)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorPhone");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorPhone");
       //je crée un message d'alerte
       alert("Veuillez entrer votre numéro de téléphone au bon format.");
       return false;
     }
   }
+
   /////////////////////////////End Phone////////////////////////////////////////
 
   ///////////////////////////////Email//////////////////////////////////////////
+
   const regexEmail = (value) => {
     return /^[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)*@[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)+$/i.test(
       value
@@ -463,13 +496,18 @@ order.addEventListener("click", () => {
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable "email"
     if (regexEmail(email)) {
+      //j'appel ma fonction "text alert input" à coté de l'input
+      emptyEntryEmptyText("errorEmail");
       return true;
     } else {
+      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
+      emptyEntryText("errorEmail");
       //je crée un message d'alerte
       alert("Veuillez entrer votre e-mail au bon format.");
       return false;
     }
   }
+
   /////////////////////////////End Email////////////////////////////////////////
 
   //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
@@ -484,6 +522,9 @@ order.addEventListener("click", () => {
   ) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
+    alert(
+      "Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande.\n Nous vous feront parvenir une confirmation de commande dès que votre commande sera traitée."
+    );
   } else {
     alert("Veuillez remplir correctement le formulaire");
   }
@@ -491,26 +532,58 @@ order.addEventListener("click", () => {
   // //////////////End validation form//////////////
   // ///////////////////////////////////////////////
 
-  // //mettre les value du formulaire dans un objet
-  // let formulaire = {
-  //   "last-name": localStorage.getItem("last-name"),
-  //   "first-name": localStorage.getItem("first-name"),
-  //   address: localStorage.getItem("address"),
-  //   "postal-code": localStorage.getItem("postal-code"),
-  //   city: localStorage.getItem("city"),
-  //   phone: localStorage.getItem("phone"),
-  //   email: localStorage.getItem("email"),
-  // };
-  // console.log("Voici le formulaire :");
-  // console.log(formulaire);
+  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
 
-  //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
-  let valuesServeur = {
-    cart,
-    formValues,
+  let cart = index.getCart(); //je récupère mon panier
+  let panierGetProductId = [];
+  for (let i = 0; i < cart.length; i++) {
+    let idProduct = cart[i]._id;
+    alert(idProduct);
+    panierGetProductId.push(idProduct);
+  }
+
+  const elementToSend = { contact: formValues, products: panierGetProductId };
+  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+
+  // //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
+  // let valuesServeur = {
+  //   cart,
+  //   formValues,
+  // };
+  // console.log("Voici les valeurs envoyé vers le serveurs :");
+  // console.log(valuesServeur);
+
+  //envoi des valuesServeur vers le serveur avec fetch et post
+  let promise = "http://localhost:3000/api/cameras/order";
+  let fetchData = {
+    method: "POST",
+    body: JSON.stringify(elementToSend),
+    headers: { "Content-Type": "application/json" },
   };
-  console.log("Voici les valeurs envoyé vers le serveurs :");
-  console.log(valuesServeur);
+
+  fetch(promise, fetchData)
+    .then(async (response) => {
+      try {
+        console.log(response);
+        const dataResponse = await response.json();
+        console.log("OK");
+        if (response.ok) {
+          alert(dataResponse.orderId);
+          // localStorage.setItem("formValues", dataResponse.orderValues);
+          localStorage.setItem("idresponse", dataResponse.orderId);
+          window.location = "confirmation.html";
+        } else {
+          console.log("KO");
+        }
+      } catch (e) {
+        console.log(e);
+        console.log("KO");
+      }
+    })
+    .catch(function (error) {
+      alert(`Erreur, impossible de transmettre la requête au serveur`);
+      console.log(error);
+    });
 });
 
 // ///////////////////////////////////////////////
