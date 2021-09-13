@@ -117,76 +117,40 @@
       <div class="container-cart">
         <div>
           <div class="header-cart">
-            <h1>Mon panier</h1>
+            <h1 id="titre-cart">Mon panier</h1>
           </div>
           <div class="main">
-          <div class="main-cart">
-            <div class="back-to-home">
-              <a href="../index.html">
-                <i class="fas fa-angle-double-left backHome"></i>
-                <span>Continuer mes achats</span>
-              </a>
-            </div>
-            <div>
-              <ul>
-                <li>
-                  <div class="details-items">
-                    <div class="details-items-img">
-                      <div>
-                        <a href="./product.html">
-                          <img 
-                          src="../assets/img/vcam_1.jpg" 
-                          alt="Appareil photo vintage sur un gard-corp bois en extérieur"
-                          >
-                        </a>
-                      </div>
-                    </div>
-                    <div class="info-items">
-                      <div>
-                        <div class="info-items-desc">
-                          <p id="titre-product"></p>
-                          <p id="description">Petit et compact. Il sera votre allié lors de vos promenades hors des sentiers battus.
-                            Voyagez autrement.
-                            </p>
-                          <div>
-                            <span>890€</span>
-                          </div>
-                        </div>
-                        <div class="info-items-quantity">
-                          <div>
-                              <div class="cart-update">
-                                <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
-                                <input type="number" id="quantity" value="1">
-                                <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
-                              </div>
-                              <div class="info-items-total">
-                                <span>890€</span>
-                              </div>
-                          </div>
-                          <div class="info-items-remove">
-                            <a href="#">Supprimer</a>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+            <div class="main-cart">
+              <div class="back-to-home">
+                <a href="../index.html">
+                  <i class="fas fa-angle-double-left backHome"></i>
+                  <span>Continuer mes achats</span>
+                </a>
+              </div>
+              <div id="items">
+                <!-- cart.js -->
+                <!-- renderCartProduct -->
+                <!-- cart.js -->
+              </div>
+              <div id="clear">
+                <div class="clear-cart">
+                  <a href="#">
+                    <span>Vider le panier</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
           <div class="sidebar-cart">
             <div class="summury-cart">
               <h2>Récapitulatif</h2>
               <div>
-                <span>1 article</span>
-                <span>890<b>€</b></span>
+                <span class="counter"></span>
+                <span>article(s) dans mon panier</span>
               </div>
               <div>
                 <div>
-                  <div>
-                    <span>Sous-total</span>
-                    <span>890<b>€</b></span>
-                  </div>
+                 
                   <div>
                     <span>Livraison</span>
                     <span>gratuit</span>
@@ -199,51 +163,14 @@
                 <div>
                   <div>
                     <span>Total TTC</span>
-                    <span>890<b>€</b></span>
+                    <span class="total"></span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>    
-          <div class="finish">
-            <div>
-            <form action="GET">
-              <h3>Finalisez votre commande</h3>
-              <div>
-
-                <label for="last-name">
-                  <input type="text" placeholder=" " name="last-name" id="last-name">
-                  <p>Nom</p>
-                </label>
-
-                <label for="fisrtname">
-                  <input type="text" placeholder=" " name="fisrtname" id="firstname">
-                  <p>Prénom</p>
-                </label>
-
-                <label class="label" for="address">
-                  <input type="text" placeholder=" " name="address" id="address">
-                  <p>Adresse</p>
-                </label>
-                <label class="label" for="postal-code">
-                  <input type="number" placeholder=" " name="postal-code" id="postal-code">
-                  <p>Code postal</p>
-                </label>
-                <label class="label" for="city">
-                  <input type="text" placeholder=" " name="city" id="city">
-                  <p>Ville</p>
-                </label>
-                <label class="label" for="phone">
-                  <input type="number" placeholder=" " name="phone" id="phone">
-                  <p>Téléphone</p>
-                </label>
-                <label class="label" for="email">
-                  <input type="email" placeholder=" " name="email" id="email">
-                  <p>E-mail</p>
-                </label>
-              </div>
-            </form>
-            </div>
+          </div>
+          <div id="form" class="finish">
+            <!-- form cart.js -->
           </div>
           <div class="action">
             <div class="back-to-home">
@@ -252,14 +179,13 @@
                 <span>Continuer mes achats</span>
               </a>
             </div>
-            <div class="order">
+            <div id="order" class="order">
               <a href="#">
                 <span>Commander</span><i class="fas fa-check"></i>
               </a>
             </div>
           </div>
         </div>
-
       </div>
     </main>
     <!-- Footer-->
