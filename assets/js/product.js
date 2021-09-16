@@ -126,8 +126,12 @@ index.incrementDecrement();
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
 
+////////////////////////////////////////////////
+/////////addToCart and if product exist/////////
+////////////////////////////////////////////////
 function addToCart(result) {
-  let cart = index.getCart(); //j'appel mon panier qui est stocké dans une fonction dans mon index.js
+  //j'appel mon panier qui est stocké dans une fonction dans mon index.js
+  let cart = index.getCart();
 
   // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
   let product = {
@@ -151,7 +155,7 @@ function addToCart(result) {
     //pour ajouté au panier
     cart.push(product);
     alert("Le produit est dans le panier ! ");
-            window.location = "cart.html";
+    window.location = "cart.html";
 
     // Send data back to storage as a STRING
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -175,3 +179,6 @@ function addToCart(result) {
   }
   index.setCounterCart();
 }
+////////////////////////////////////////////////
+/////////addToCart and if product exist/////////
+////////////////////////////////////////////////

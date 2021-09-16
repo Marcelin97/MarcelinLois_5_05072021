@@ -39,14 +39,14 @@ export function incrementDecrement() {
 ///////////function for cart storage///////////
 ////////////////////////////////////////////////
 export function getCart() {
-  //on déclare le panier en tableau (pas en objet)
+  // we declare the cart as an array (not as an object)
   let cart = [];
-  //si le panier est différent en type et en valeur de null
+  // if the cart is different in type and in value of null
   if (localStorage.getItem("cart") !== null) {
-    //récupère les élements stocker dans le panier
+    // get the items stored and put them in the cart
     cart = JSON.parse(localStorage.getItem("cart"));
   }
-  //retourne moi le panier
+  // return the cart to me
   return cart;
 }
 ////////////////////////////////////////////////
@@ -57,46 +57,46 @@ export function getCart() {
 ///////////function for cart counter////////////
 ////////////////////////////////////////////////
 
-//calcul du total d'articles dans le panier
+// calculate the total of items in the cart
 export function getTotalQty() {
-  //je récupère mon panier
+  // I collect my basket
   let cart = getCart();
-  //je déclare une variable pour le total qui démarre à 0
+  // I declare a variable for the total which starts at 0
   let totalQty = 0;
-  //je fais une boucle dans mon panier avec .map sur chaque element =>
+  // I make a loop in my cart with .map on each element =>
   cart.map((element) => {
     //totalQty = element.qty + totalQty
     totalQty += element.qty;
   });
-  //retourne moi la quantité total
+  // return me the total quantity
   return totalQty;
 }
 
 export function setCounterCart() {
-  //injecte dans tous les éléments html ayant pour class="counter"
+  // inject in all the html elements having for class = "counter"
   let counter = document.querySelectorAll(".counter");
-  console.log(counter);
-  //fait une boucle sur chaque element
+  // loop through each element
   counter.forEach((element) => {
-    //chaque element html = fonction de comptage en qty total
+    // each element html = count function in total qty
     element.innerHTML = getTotalQty();
   });
 }
 
-//j'appel ma fonction partout en j'en ai besoin
+// I call my function everywhere I need it
 setCounterCart();
 ////////////////////////////////////////////////
 ///////////function for cart counter////////////
 ////////////////////////////////////////////////
 
-
 ////////////////////////////////////////////////
 /////////function total price by items//////////
 ////////////////////////////////////////////////
 export function totalPriceByItems(qty, price) {
-  let totalPrice = qty * price; //je déclare une variable total price = qty * price
-  return priceToEuros(totalPrice); //retourne moi ma fonction de conversion du prix avec en arguments ma nouvel variable
-};
+  // I declare a variable total price = qty * price
+  let totalPrice = qty * price;
+  // return my price conversion function to me with my new variable as arguments
+  return priceToEuros(totalPrice);
+}
 ////////////////////////////////////////////////
 /////////function total price by items//////////
 ////////////////////////////////////////////////
