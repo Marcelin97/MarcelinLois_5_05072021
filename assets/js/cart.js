@@ -342,7 +342,7 @@ order.addEventListener("click", () => {
 
   function valideName() {
     //controle de la validité du nom de famille
-    let leNom = formValues["last-name"];
+    let leNom = formValues.lastName;
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(leNom)) {
@@ -361,7 +361,7 @@ order.addEventListener("click", () => {
 
   function valideFirstName() {
     //contrôle de la validité du nom de famille
-    let lePrenom = formValues["first-name"];
+    let lePrenom = formValues.firstName;
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable leNom | lePrenom
     if (regexFirstnameLastname(lePrenom)) {
@@ -439,7 +439,7 @@ order.addEventListener("click", () => {
 
   function validePostal() {
     //contrôle de la validité du code postal
-    let leCodePostal = formValues["postal-code"];
+    let leCodePostal = formValues.postalCode;
     //dans mon if j'appel ma variable d'expression de fonction
     //avec un argument "value" qui sera ma variable "leCodePostal"
     if (regexPostalCode(leCodePostal)) {
@@ -541,17 +541,10 @@ order.addEventListener("click", () => {
     alert(idProduct);
     panierGetProductId.push(idProduct);
   }
-
-  const elementToSend = { contact: formValues, products: panierGetProductId };
   //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
 
   // //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
-  // let valuesServeur = {
-  //   cart,
-  //   formValues,
-  // };
-  // console.log("Voici les valeurs envoyé vers le serveurs :");
-  // console.log(valuesServeur);
+  const elementToSend = { contact: formValues, products: panierGetProductId };
 
   //envoi des valuesServeur vers le serveur avec fetch et post
   let promise = "http://localhost:3000/api/cameras/order";

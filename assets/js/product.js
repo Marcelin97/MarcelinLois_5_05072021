@@ -147,7 +147,7 @@ function addToCart(result) {
   //on déclare une constante produit est = trouvé dans le panier
   const isProduct = cart.find(
     (element) =>
-      // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+      // Le nouvel élément avec son id et égale au produit avec son id ET son option et égale au produit
       element._id === product._id && element.optionValue === product.optionValue
   );
   //si le produit n'existe pas déjà dans le panier, alors ajoute le

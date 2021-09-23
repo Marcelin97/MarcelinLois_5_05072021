@@ -1,6 +1,5 @@
 let Id = localStorage.getItem("idresponse");
 // let ordersInformation = localStorage.getItem("formValues");
-// console.log("ordersInformation");
 
 document.querySelector(
   "#orderCommande"
