@@ -3,7 +3,7 @@ import * as index from "./index";
 ////////////////////////////////////////////////
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
-index.incrementDecrement();
+// index.incrementDecrement();
 ////////////////////////////////////////////////
 //End Button decrement and increment with my input
 ////////////////////////////////////////////////
@@ -89,11 +89,16 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn-update" id="decrement" value="-1"
+                                productId="${cart[i]._id}">
+                                  <i class="fas fa-minus"></i>
+                                </button>
                                 <input type="number" id="quantity" value="${
                                   cart[i].qty
                                 }">
-                                <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn-update" id="increment" value="+1"
+                                productId="${cart[i]._id}">
+                                  <i class="fas fa-plus"></i></button>
                               </div>
                               <div class="info-items-total">
                                 <span name="price">${
@@ -121,6 +126,64 @@ function renderCartProduct(product) {
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
+// ////////////updateItemsOnTheCart/////////////
+// ///////////////////////////////////////////////
+
+function updateItemsOnTheCart() {
+  document.addEventListener("DOMContentLoaded", () => {
+    let btnIncrement = document.getElementById("increment");
+    let input = document.getElementById("quantity");
+    let btnDecrement = document.getElementById("decrement");
+
+    btnIncrement.addEventListener("click", () => {
+      input.value = parseInt(input.value) + 1;
+      const productId = btnIncrement.getAttribute("productId");
+      // const productOption = btnIncrement.getAttribute("productOption");
+      //On crée un panier temporaire pour stocker le panier actuel
+      const newCart = cart.map((element) => {
+        //si l'élément dans la panier est identique au produit que l'on veut ajouter
+        if (element._id === productId) {
+          //ajoute la quantité
+          element.qty++;
+        }
+        //retourne moi le nouvelle élément à jour
+        alert("Un article de plus ! ");
+        return element;
+      });
+      //get the new cart
+      // Send data back to storage as a STRING
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      location.reload();
+    });
+
+    btnDecrement.addEventListener("click", () => {
+      input.value = parseInt(input.value) - 1;
+      const productId = btnDecrement.getAttribute("productId");
+      //On crée un panier temporaire pour stocker le panier actuel
+      const newCart = cart.map((element) => {
+        //si l'élément dans la panier est identique au produit que l'on veut ajouter
+        if (element._id === productId) {
+          //enlève la quantité
+          element.qty--;
+        }
+        //retourne moi le nouvelle élément à jour
+        alert("Un article de moins! ");
+        return element;
+      });
+      //get the new cart
+      // Send data back to storage as a STRING
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      location.reload();
+    });
+  });
+}
+updateItemsOnTheCart();
+
+// ///////////////////////////////////////////////
+// ////////////updateItemsOnTheCart/////////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
 // ////////////removeOneItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
 let btnRemove = document.querySelectorAll(".info-items-remove");
@@ -142,28 +205,27 @@ btnRemove.forEach(function (element, index, array) {
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
 
-
-  // ///////////////////////////////////////////////
-  // //////////clear all products in cart///////////
-  // ///////////////////////////////////////////////
-  let positionBtnClearCart = document.querySelectorAll("#clear");
-  positionBtnClearCart.forEach(function (element, index, array) {
-    positionBtnClearCart[index].addEventListener("click", function () {
-      if (cart.length > 1) {
-        localStorage.removeItem("cart");
-        alert("Le panier a été vider");
-        location.reload();
-      }
-    });
+// ///////////////////////////////////////////////
+// //////////clear all products in cart///////////
+// ///////////////////////////////////////////////
+let positionBtnClearCart = document.querySelectorAll("#clear");
+positionBtnClearCart.forEach(function (element, index, array) {
+  positionBtnClearCart[index].addEventListener("click", function () {
+    if (cart.length > 1) {
+      localStorage.removeItem("cart");
+      alert("Le panier a été vider");
+      location.reload();
+    }
   });
-  // ///////////////////////////////////////////////
-  // ////////End clear all products in cart/////////
-  // ///////////////////////////////////////////////
+});
+// ///////////////////////////////////////////////
+// ////////End clear all products in cart/////////
+// ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ///////////////Price Total Cart////////////////
 // ///////////////////////////////////////////////
-//Déclaration d'une variable pour pouvoir y mettre les prix qui sont dans présent dans le panier
+// Déclaration d'une variable pour pouvoir y mettre les prix qui sont dans présent dans le panier
 let priceTotalCart = [];
 
 //Je récupère les prix dans le panier
@@ -532,19 +594,28 @@ order.addEventListener("click", () => {
   // //////////////End validation form//////////////
   // ///////////////////////////////////////////////
 
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+  // ///////////////////////////////////////////////
+  // /////////////// Get id product ////////////////
+  // ///////////////////////////////////////////////
 
-  let cart = index.getCart(); //je récupère mon panier
+  //je récupère mon panier
+  let cart = index.getCart();
+  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
   let panierGetProductId = [];
   for (let i = 0; i < cart.length; i++) {
     let idProduct = cart[i]._id;
     alert(idProduct);
     panierGetProductId.push(idProduct);
   }
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
 
-  // //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
+  // ///////////////////////////////////////////////
+  // /////////////// Get id product ////////////////
+  // ///////////////////////////////////////////////
+
+  //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
   const elementToSend = { contact: formValues, products: panierGetProductId };
+  console.log("Voici les valeurs envoyé vers le serveurs :");
+  console.log(elementToSend);
 
   //envoi des valuesServeur vers le serveur avec fetch et post
   let promise = "http://localhost:3000/api/cameras/order";
@@ -562,8 +633,8 @@ order.addEventListener("click", () => {
         console.log("OK");
         if (response.ok) {
           alert(dataResponse.orderId);
-          // localStorage.setItem("formValues", dataResponse.orderValues);
-          localStorage.setItem("idresponse", dataResponse.orderId);
+          localStorage.setItem("formValues", dataResponse.formId);
+          localStorage.setItem("idResponse", dataResponse.orderId);
           window.location = "confirmation.html";
         } else {
           console.log("KO");

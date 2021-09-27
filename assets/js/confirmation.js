@@ -1,4 +1,4 @@
-let Id = localStorage.getItem("idresponse");
+let Id = localStorage.getItem("idResponse");
 // let ordersInformation = localStorage.getItem("formValues");
 
 document.querySelector(
@@ -6,16 +6,16 @@ document.querySelector(
 ).textContent = `Voici ton numéro de commande : ${Id} `;
 document.querySelector(
   "#orderCommandeText"
-).textContent = `Merci de ta récente commande n° "${Id}" chez Orinoco.`;
+).textContent = `Merci de ta récente commande n° "${Id}" chez Orinoco et pour tes informations "${ordersInformation}"`;
 
 function deleteKey(key) {
-  localStorage.removeItem(key);
+  localStorage.getItem(key);
 }
 
 deleteKey("cart");
-deleteKey("idresponse");
+deleteKey("idResponse");
 
 ///Retour sur la page d'accueil après actualisation de la page confirmation
-// if (cart == null || idresponse == null) {
+// if (cart == null || idResponse == null) {
 //   window.location = "index.html";
 // }

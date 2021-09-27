@@ -86,7 +86,6 @@ getProduct().then((result) => {
     .addEventListener("submit", function (event) {
       //on stop la propagation du click
       event.preventDefault();
-
       addToCart(result);
     });
 });
