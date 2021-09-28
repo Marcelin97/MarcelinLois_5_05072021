@@ -93,7 +93,7 @@ function renderCartProduct(product) {
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="number" id="quantity" value="${
+                                <input type="number" min="0" id="quantity" value="${
                                   cart[i].qty
                                 }">
                                 <button type="button" class="btn-update" id="increment" value="+1"
@@ -135,26 +135,29 @@ function updateItemsOnTheCart() {
     let input = document.getElementById("quantity");
     let btnDecrement = document.getElementById("decrement");
 
-    btnIncrement.addEventListener("click", () => {
-      input.value = parseInt(input.value) + 1;
-      const productId = btnIncrement.getAttribute("productId");
-      // const productOption = btnIncrement.getAttribute("productOption");
-      //On crée un panier temporaire pour stocker le panier actuel
-      const newCart = cart.map((element) => {
-        //si l'élément dans la panier est identique au produit que l'on veut ajouter
-        if (element._id === productId) {
-          //ajoute la quantité
-          element.qty++;
-        }
-        //retourne moi le nouvelle élément à jour
-        alert("Un article de plus ! ");
-        return element;
+    btnIncrement.forEach(function (element, index, array){
+      btnIncrement[index].addEventListener("click", function (){
+        input.value = parseInt(input.value) + 1;
+        const productId = btnIncrement.getAttribute("productId");
+        // const productOption = btnIncrement.getAttribute("productOption");
+        //On crée un panier temporaire pour stocker le panier actuel
+        const newCart = cart.map((element) => {
+          //si l'élément dans la panier est identique au produit que l'on veut ajouter
+          if (element._id === productId) {
+            //ajoute la quantité
+            element.qty++;
+          }
+          //retourne moi le nouvelle élément à jour
+          alert("Un article de plus ! ");
+          return element;
+        });
+        //get the new cart
+        // Send data back to storage as a STRING
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        location.reload();
       });
-      //get the new cart
-      // Send data back to storage as a STRING
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      location.reload();
     });
+    
 
     btnDecrement.addEventListener("click", () => {
       input.value = parseInt(input.value) - 1;
@@ -165,7 +168,7 @@ function updateItemsOnTheCart() {
         if (element._id === productId) {
           //enlève la quantité
           element.qty--;
-        }
+        } 
         //retourne moi le nouvelle élément à jour
         alert("Un article de moins! ");
         return element;
