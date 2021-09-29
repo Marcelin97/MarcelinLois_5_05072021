@@ -1,5 +1,5 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
@@ -27,7 +27,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
@@ -45,9 +45,7 @@ module.exports = {
   devServer: {
     host: "127.0.0.1",
     port: 8080,
-    static: {
-      directory: path.join(__dirname, ""),
-    },
+    writeToDisk: true,
   },
   plugins: [
     new MiniCssExtractPlugin({
