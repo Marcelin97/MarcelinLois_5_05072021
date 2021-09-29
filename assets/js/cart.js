@@ -267,7 +267,7 @@ const displayForm = () => {
   let positionForm = document.querySelector("#form");
   let formHtml = `
             <div>
-              <form action="GET">
+              <form method="GET">
                 <h3>Finalisez votre commande</h3>
                 <div>
                   <label for="last-name">
@@ -636,9 +636,11 @@ order.addEventListener("click", () => {
         console.log("OK");
         if (response.ok) {
           alert(dataResponse.orderId);
-          localStorage.setItem("formValues", dataResponse.formId);
-          localStorage.setItem("idResponse", dataResponse.orderId);
-          window.location = "confirmation.html";
+          // localStorage.setItem("dataResponse", dataResponse);
+
+          localStorage.setItem("products", dataResponse.products);
+          localStorage.setItem("idOrder", dataResponse.orderId);
+          // window.location = "confirmation.html";
         } else {
           console.log("KO");
         }

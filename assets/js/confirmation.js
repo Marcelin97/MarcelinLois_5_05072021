@@ -6,7 +6,7 @@ document.querySelector(
 ).textContent = `Voici ton numéro de commande : ${Id} `;
 document.querySelector(
   "#orderCommandeText"
-).textContent = `Merci de ta récente commande n° "${Id}" chez Orinoco et pour tes informations "${ordersInformation}"`;
+).textContent = `Merci de ta récente commande n° "${Id}" chez Orinoco.`;
 
 function deleteKey(key) {
   localStorage.getItem(key);
