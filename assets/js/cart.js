@@ -1,13 +1,5 @@
 import * as index from "./index";
 
-////////////////////////////////////////////////
-//Button decrement and increment with my input//
-////////////////////////////////////////////////
-// index.incrementDecrement();
-////////////////////////////////////////////////
-//End Button decrement and increment with my input
-////////////////////////////////////////////////
-
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
@@ -15,16 +7,16 @@ import * as index from "./index";
 //je stocke mon panier dans une variable pour pouvoir la réutiliser
 let cart = index.getCart();
 
-//si mon index.getCart() est vide mettre un message 'votre panier est vide'
+//si mon index.getCart() est vide...
 if (cart.length === 0) {
-  console.log("le panier est vide");
-  emptyCart(); //j'appel ma fonction emptyCart
+  //...j'appel ma fonction emptyCart
+  emptyCart();
 } else {
-  //sinon parcours tout le panier
+  //sinon parcours tout le panier pour me rendre les produits
   cart.map((element) => {
     renderCartProduct(element);
   });
-}
+};
 // ///////////////////////////////////////////////
 // //////End I get my cart from LocalStorage//////
 // ///////////////////////////////////////////////
@@ -42,7 +34,7 @@ function emptyCart() {
       <a class="btn" href="../index.html">Trouver des idées</a>
   </section>
   `;
-}
+};
 // ///////////////////////////////////////////////
 // /////////////////End Empty Cart////////////////
 // ///////////////////////////////////////////////
@@ -52,7 +44,8 @@ function emptyCart() {
 // ///////////////////////////////////////////////
 function renderCartProduct(product) {
   let containerCart = document.getElementsByClassName("main-cart");
-  let cart = index.getCart(); //je récupère mon panier
+  //je récupère mon panier
+  let cart = index.getCart();
   let fullPanier = [];
   for (let i = 0; i < cart.length; i++) {
     fullPanier += `
@@ -119,8 +112,8 @@ function renderCartProduct(product) {
                 </li>
               </ul>`;
     document.getElementById("items").innerHTML = fullPanier;
-  }
-}
+  };
+};
 // ///////////////////////////////////////////////
 // /End dynamic display of products in the cart///
 // ///////////////////////////////////////////////
@@ -135,11 +128,9 @@ function updateItemsOnTheCart() {
     let input = document.getElementById("quantity");
     let btnDecrement = document.getElementById("decrement");
 
-    btnIncrement.forEach(function (element, index, array){
-      btnIncrement[index].addEventListener("click", function (){
+      btnIncrement.addEventListener("click", function (){
         input.value = parseInt(input.value) + 1;
         const productId = btnIncrement.getAttribute("productId");
-        // const productOption = btnIncrement.getAttribute("productOption");
         //On crée un panier temporaire pour stocker le panier actuel
         const newCart = cart.map((element) => {
           //si l'élément dans la panier est identique au produit que l'on veut ajouter
@@ -148,7 +139,6 @@ function updateItemsOnTheCart() {
             element.qty++;
           }
           //retourne moi le nouvelle élément à jour
-          alert("Un article de plus ! ");
           return element;
         });
         //get the new cart
@@ -156,7 +146,7 @@ function updateItemsOnTheCart() {
         localStorage.setItem("cart", JSON.stringify(newCart));
         location.reload();
       });
-    });
+
     
 
     btnDecrement.addEventListener("click", () => {
@@ -170,7 +160,6 @@ function updateItemsOnTheCart() {
           element.qty--;
         } 
         //retourne moi le nouvelle élément à jour
-        alert("Un article de moins! ");
         return element;
       });
       //get the new cart
@@ -179,7 +168,8 @@ function updateItemsOnTheCart() {
       location.reload();
     });
   });
-}
+};
+//j'appel ma fonction pour l'exécuté
 updateItemsOnTheCart();
 
 // ///////////////////////////////////////////////
@@ -234,26 +224,22 @@ let priceTotalCart = [];
 //Je récupère les prix dans le panier
 for (let m = 0; m < cart.length; m++) {
   let priceProductCart = cart[m].price * cart[m].qty;
-
   //Mettre les prix du panier dans la variable "priceTotalCart"
   priceTotalCart.push(priceProductCart);
-
-  console.log(priceTotalCart);
-}
+};
 
 //Additionner les prix qu'il y a dans le tableau de la variable "priceTotalCart" avec la méthode reduce
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const prixTotal = priceTotalCart.reduce(reducer, 0);
-console.log(index.priceToEuros(prixTotal));
 
 //Je crée une fonction pour insérer mon prix total dans mon html
 function totalProduct() {
   let positionSummury = document.getElementsByClassName("summury-cart");
   document.getElementsByClassName("total")[0].textContent =
     index.priceToEuros(prixTotal);
-}
-totalProduct(); //j'appel ma fonction pour l'exécuté
-
+};
+//j'appel ma fonction pour l'exécuté
+totalProduct(); 
 // ///////////////////////////////////////////////
 // /////////////End Price Total Cart//////////////
 // ///////////////////////////////////////////////
@@ -261,7 +247,6 @@ totalProduct(); //j'appel ma fonction pour l'exécuté
 // ///////////////////////////////////////////////
 // /////////////////Display form//////////////////
 // ///////////////////////////////////////////////
-
 const displayForm = () => {
   //sélection élément du DOM pour le positionnement du form dans le HTML
   let positionForm = document.querySelector("#form");
@@ -340,18 +325,41 @@ const displayForm = () => {
   `;
   positionForm.innerHTML = formHtml;
 };
-
 //J'appel ma fonction pour injecter mon formulaire dans mon HTML
 displayForm();
-
 // ///////////////////////////////////////////////
 // ///////////////End Display form////////////////
 // ///////////////////////////////////////////////
 
+  // Get the modal
+  var modal = document.getElementById("confirmation");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("order");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function () {
+    modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
 // ///////////////////////////////////////////////
 // //////////Value form in localStorage///////////
 // ///////////////////////////////////////////////
-
 //selectionner du bouton "commander" pour envoyer le formulaire
 let order = document.querySelector("#order");
 
@@ -368,8 +376,6 @@ order.addEventListener("click", () => {
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
   };
-  console.log("formValues");
-  console.log(formValues);
 
   // ///////////////////////////////////////////////
   // ////////////////validation form////////////////
@@ -380,21 +386,20 @@ order.addEventListener("click", () => {
   //Fonction pour gérer l'affichage du texte alerte à côté de l'input
   //pour indiquer à l'utilisateur qu'il faut bien remplir le champ
   function emptyEntryEmptyText(querySelectorId) {
-    // if yes, display a small icon to let the client know that the input value is correct
+    // if yes, the input value is correct
     document.querySelector(`#${querySelectorId}`).innerHTML = "";
-  }
+  };
 
   function emptyEntryText(querySelectorId) {
     // if not, display a small message to let the client know what's going wrong
     document.querySelector(`#${querySelectorId}`).textContent =
       "Veuillez bien renseigner ce champ.";
-  }
+  };
 
   ////////////////////////////Text alert input//////////////////////////////
 
   ////////////////////////////name & first name//////////////////////////////
-
-  //Je crée une variable d'expession de fonction pour stocker mon regex sur le prénom, le nom et la ville
+  //Je crée une variable d'expression de fonction pour stocker mon regex sur le prénom, le nom et la ville
   //je vais pouvoir utiliser cette variable dans mes fonctions
   const regexFirstnameLastname = (value) => {
     return /^([a-zA-ZÀ-ÿ\-']{2,20})$/.test(value);
@@ -422,7 +427,7 @@ order.addEventListener("click", () => {
       alert(textAlert("Le nom "));
       return false;
     }
-  }
+  };
 
   function valideFirstName() {
     //contrôle de la validité du nom de famille
@@ -441,7 +446,7 @@ order.addEventListener("click", () => {
       alert(textAlert("Le prénom "));
       return false;
     }
-  }
+  };
   ///////////////////////////End name & first name////////////////////////////////////
 
   ///////////////////////////////Address//////////////////////////////////////////
@@ -465,11 +470,10 @@ order.addEventListener("click", () => {
       alert("Veuillez entrer votre adresse au bon format.");
       return false;
     }
-  }
+  };
   /////////////////////////////End Address////////////////////////////////////////
 
   //////////////////////////////City///////////////////////////////////////////
-
   const regexCity = (value) => {
     return /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value);
   };
@@ -490,11 +494,10 @@ order.addEventListener("click", () => {
       alert("Veuillez entrer votre ville de résidence au bon format.");
       return false;
     }
-  }
+  };
   ////////////////////////////////End City//////////////////////////////////////////
 
   ///////////////////////////////Postal Code//////////////////////////////////////////
-
   //Je crée une variable d'expression de fonction pour stocker mon regex pour le CP
   //je vais pouvoir utiliser cette variable dans ma fonction
   const regexPostalCode = (value) => {
@@ -518,11 +521,10 @@ order.addEventListener("click", () => {
       alert("Le code-postal doit être composé de 5 chiffres. ");
       return false;
     }
-  }
+  };
   ///////////////////////////////End Postal Code//////////////////////////////////////////
 
   ///////////////////////////////Phone//////////////////////////////////////////
-
   const regexPhone = (value) => {
     return /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(value);
   };
@@ -543,12 +545,10 @@ order.addEventListener("click", () => {
       alert("Veuillez entrer votre numéro de téléphone au bon format.");
       return false;
     }
-  }
-
+  };
   /////////////////////////////End Phone////////////////////////////////////////
 
   ///////////////////////////////Email//////////////////////////////////////////
-
   const regexEmail = (value) => {
     return /^[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)*@[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)+$/i.test(
       value
@@ -571,8 +571,7 @@ order.addEventListener("click", () => {
       alert("Veuillez entrer votre e-mail au bon format.");
       return false;
     }
-  }
-
+  };
   /////////////////////////////End Email////////////////////////////////////////
 
   //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
@@ -587,11 +586,9 @@ order.addEventListener("click", () => {
   ) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
-    alert(
-      "Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande.\n Nous vous feront parvenir une confirmation de commande dès que votre commande sera traitée."
-    );
+    alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
   } else {
-    alert("Veuillez remplir correctement le formulaire");
+    throw new Error();
   }
   // ///////////////////////////////////////////////
   // //////////////End validation form//////////////
@@ -603,13 +600,14 @@ order.addEventListener("click", () => {
 
   //je récupère mon panier
   let cart = index.getCart();
+
   //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
   let panierGetProductId = [];
   for (let i = 0; i < cart.length; i++) {
     let idProduct = cart[i]._id;
     alert(idProduct);
     panierGetProductId.push(idProduct);
-  }
+  };
 
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
@@ -617,8 +615,8 @@ order.addEventListener("click", () => {
 
   //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
   const elementToSend = { contact: formValues, products: panierGetProductId };
-  console.log("Voici les valeurs envoyé vers le serveurs :");
-  console.log(elementToSend);
+  // console.log("Voici les valeurs envoyé vers le serveurs :");
+  // console.log(elementToSend);
 
   //envoi des valuesServeur vers le serveur avec fetch et post
   let promise = "http://localhost:3000/api/cameras/order";
@@ -631,16 +629,18 @@ order.addEventListener("click", () => {
   fetch(promise, fetchData)
     .then(async (response) => {
       try {
-        console.log(response);
         const dataResponse = await response.json();
+        console.log(dataResponse);
         console.log("OK");
         if (response.ok) {
           alert(dataResponse.orderId);
-          // localStorage.setItem("dataResponse", dataResponse);
-
-          localStorage.setItem("products", dataResponse.products);
+          localStorage.setItem("contact", dataResponse.contact);
+          localStorage.setItem("products", dataResponse.product);
           localStorage.setItem("idOrder", dataResponse.orderId);
-          // window.location = "confirmation.html";
+          // index.popUp(e,"confirmation");
+          setTimeout(function () {
+            window.location = "confirmation.html";
+          }, 2000);
         } else {
           console.log("KO");
         }
