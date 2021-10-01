@@ -331,32 +331,6 @@ displayForm();
 // ///////////////End Display form////////////////
 // ///////////////////////////////////////////////
 
-  // Get the modal
-  var modal = document.getElementById("confirmation");
-
-  // Get the button that opens the modal
-  var btn = document.getElementById("order");
-
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks on the button, open the modal
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  };
-
 // ///////////////////////////////////////////////
 // //////////Value form in localStorage///////////
 // ///////////////////////////////////////////////
@@ -383,7 +357,7 @@ order.addEventListener("click", () => {
 
   ////////////////////////////Text alert input//////////////////////////////
 
-  //Fonction pour gérer l'affichage du texte alerte à côté de l'input
+  //Fonction pour gérer l'affichage du texte alert à côté de l'input
   //pour indiquer à l'utilisateur qu'il faut bien remplir le champ
   function emptyEntryEmptyText(querySelectorId) {
     // if yes, the input value is correct
@@ -586,7 +560,7 @@ order.addEventListener("click", () => {
   ) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
-    alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
+    // alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
   } else {
     throw new Error();
   }
@@ -605,7 +579,7 @@ order.addEventListener("click", () => {
   let panierGetProductId = [];
   for (let i = 0; i < cart.length; i++) {
     let idProduct = cart[i]._id;
-    alert(idProduct);
+    // alert(idProduct);
     panierGetProductId.push(idProduct);
   };
 
@@ -615,12 +589,10 @@ order.addEventListener("click", () => {
 
   //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
   const elementToSend = { contact: formValues, products: panierGetProductId };
-  // console.log("Voici les valeurs envoyé vers le serveurs :");
-  // console.log(elementToSend);
 
   //envoi des valuesServeur vers le serveur avec fetch et post
-  let promise = "http://localhost:3000/api/cameras/order";
-  let fetchData = {
+  const promise = "http://localhost:3000/api/cameras/order";
+  const fetchData = {
     method: "POST",
     body: JSON.stringify(elementToSend),
     headers: { "Content-Type": "application/json" },
@@ -630,14 +602,10 @@ order.addEventListener("click", () => {
     .then(async (response) => {
       try {
         const dataResponse = await response.json();
-        console.log(dataResponse);
         console.log("OK");
         if (response.ok) {
-          alert(dataResponse.orderId);
-          localStorage.setItem("contact", dataResponse.contact);
-          localStorage.setItem("products", dataResponse.product);
+          // alert(dataResponse.orderId);
           localStorage.setItem("idOrder", dataResponse.orderId);
-          // index.popUp(e,"confirmation");
           setTimeout(function () {
             window.location = "confirmation.html";
           }, 2000);
@@ -655,6 +623,40 @@ order.addEventListener("click", () => {
     });
 });
 
+
 // ///////////////////////////////////////////////
 // ////////End Value form in localStorage/////////
 // ///////////////////////////////////////////////
+
+
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
+  // Get the modal
+  var modal = document.getElementById("confirmation");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("order");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function () {
+    modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////

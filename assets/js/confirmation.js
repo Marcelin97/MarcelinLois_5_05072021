@@ -1,17 +1,11 @@
 import * as index from "./index";
 
-//je récupère mon panier
-let cart = index.getCart();
-
 //Voici le numéro de commande
 let id = localStorage.getItem("idOrder");
 
 //les informations du clients
 let ordersInformation = localStorage.getItem("formValues");
 ordersInformation = JSON.parse(ordersInformation);
-
-//les articles achetés
-let productsOrdered = localStorage.getItem("cart");
 
 document.querySelector(
   "#orderCommande"
@@ -34,15 +28,23 @@ function displayClientReferences() {
         </p>
     `;
 };
+displayClientReferences();
 
-// function deleteKey(key) {
-//   localStorage.getItem(key);
-// }
+
+function deleteKey(key) {
+  localStorage.clear(key);
+  //Retour sur la page d'accueil après actualisation un délai
+  setTimeout(function () {
+    window.location = "../index.html";
+  }, 5000);
+};
 
 // deleteKey("cart");
-// deleteKey("idResponse");
+deleteKey("idOrder");
 
-///Retour sur la page d'accueil après actualisation de la page confirmation
-// if (cart == null || idResponse == null) {
-//   window.location = "index.html";
-// }
+//Retour sur la page d'accueil après actualisation un délai
+// if (idOrder == null) {
+//   setTimeout(function () {
+//             window.location = "index.html";
+//           }, 3000);
+// };
