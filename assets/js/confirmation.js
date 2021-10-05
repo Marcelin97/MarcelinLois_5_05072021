@@ -36,15 +36,8 @@ function deleteKey(key) {
   //Retour sur la page d'accueil après actualisation un délai
   setTimeout(function () {
     window.location = "../index.html";
-  }, 5000);
+  }, 30000);
 };
 
 // deleteKey("cart");
 deleteKey("idOrder");
-
-//Retour sur la page d'accueil après actualisation un délai
-// if (idOrder == null) {
-//   setTimeout(function () {
-//             window.location = "index.html";
-//           }, 3000);
-// };

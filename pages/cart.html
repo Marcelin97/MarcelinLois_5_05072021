@@ -166,7 +166,80 @@
             </div>
           </div>
           <div id="form" class="finish">
-            <!-- form cart.js -->
+            <div>
+              <form method="GET">
+                <h3>Finalisez votre commande</h3>
+                <div>
+                  <label for="last-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="last-name"
+                      id="last-name"
+                    />
+                    <p>Nom</p>
+                    <span id="errorName" class="errorInput"></span>
+                  </label>
+
+                  <label for="first-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="first-name"
+                      id="first-name"
+                    />
+                    <p>Prénom</p>
+                    <span id="errorFirstName" class="errorInput"></span>
+                  </label>
+
+                  <label class="label" for="address">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="address"
+                      id="address"
+                    />
+                    <p>Adresse</p>
+                    <span id="errorAddress" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="postal-code">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="postal-code"
+                      id="postal-code"
+                    />
+                    <p>Code postal</p>
+                    <span id="errorPostalCode" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="city">
+                    <input type="text" placeholder=" " name="city" id="city" />
+                    <p>Ville</p>
+                    <span id="errorCity" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="phone">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="phone"
+                      id="phone"
+                    />
+                    <p>Téléphone</p>
+                    <span id="errorPhone" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="email">
+                    <input
+                      type="email"
+                      placeholder=" "
+                      name="email"
+                      id="email"
+                    />
+                    <p>E-mail</p>
+                    <span id="errorEmail" class="errorInput"></span>
+                  </label>
+                </div>
+              </form>
+            </div>
           </div>
           <div class="action">
             <div class="back-to-home">
@@ -186,14 +259,15 @@
     </main>
 
     <!-- Popup for confirmation of submission -->
-    <div role="alert" id="confirmation" class="modal">
+    <div role="alert" id="confirmation" class="modal" style="display: none">
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-          <h3>Votre commande est validée</h3><i class="fas fa-check"></i>
-            <p>
-              Vous allez être redirigé vers une page de confirmation de commande !
-            </p>
+        <h3>Votre commande est validée</h3>
+        <i class="fas fa-check"></i>
+        <p>
+          Vous allez être redirigé vers une page de confirmation de commande !
+        </p>
       </div>
     </div>
     <!-- Popup for confirmation of submission -->
