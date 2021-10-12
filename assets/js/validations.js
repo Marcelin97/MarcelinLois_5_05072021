@@ -14,20 +14,22 @@ function emptyEntryText(querySelectorId) {
 }
 ////////////////////////////Text alert input//////////////////////////////
 
-const street = "/^([0-9]*) ?([a-zA-Z,. ]*)$";
-const stringWithoutSpecials = "/^([a-zA-ZÀ-ÿ-']{1,20})$/";
-const email =
-  "/^[-!#-'*+/-9=?^-~]+(?:.[-!#-'*+/-9=?^-~]+)*@[-!#-'*+/-9=?^-~]+(?:.[-!#-'*+/-9=?^-~]+)+$/i";
-const postalCode = "/^[0-9]{5}$/";
-const phone = "/^(?:(?:+|00)33|0)s*[1-9](?:[s.-]*d{2}){4}$/";
+export const street = "^([0-9]*) ?([a-zA-Z,. ]*)$";
+export const stringWithoutSpecials = "^([a-zA-ZÀ-ÿ-']{1,20})$";
+export const email =
+  "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+export const postalCode = "^[0-9]{5}$";
+export const phone =
+  "^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$";
+
+export let errorStatus = false;
 
 export function checkWithRegex(regex, value, id) {
   const regexTest = new RegExp(regex).test(value);
   if (regexTest) {
     emptyEntryEmptyText(id);
-    return true;
   } else {
+    errorStatus = true;
     emptyEntryText(id);
-    return false;
   }
 }

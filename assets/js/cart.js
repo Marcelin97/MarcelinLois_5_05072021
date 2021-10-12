@@ -1,5 +1,13 @@
 import * as index from "./index";
 import * as validations from "./validations";
+import {
+  stringWithoutSpecials,
+  street,
+  postalCode,
+  email,
+  phone,
+  errorStatus,
+} from "./validations";
 
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
@@ -230,7 +238,6 @@ const prixTotal = priceTotalCart.reduce(reducer, 0);
 
 //Je crée une fonction pour insérer mon prix total dans mon html
 function totalProduct() {
-  let positionSummury = document.getElementsByClassName("summury-cart");
   document.getElementsByClassName("total")[0].textContent =
     index.priceToEuros(prixTotal);
 }
@@ -243,12 +250,13 @@ totalProduct();
 // ///////////////////////////////////////////////
 // //////////////////Value form///////////////////
 // ///////////////////////////////////////////////
-//selectionner du bouton "commander" pour envoyer le formulaire
-let order = document.querySelector("#order");
+//selection du formulaire
+let form = document.querySelector("form");
 
 //addEventListener pour que le formulaire soit envoyé au localStorage à la commande
 //je récupère mon bouton et j'écoute le click
-order.addEventListener("click", () => {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
   //récupération des valeurs du formulaire pour les mettre dans le localStorage via une key
   let formValues = {
     lastName: document.querySelector("#last-name").value,
@@ -259,74 +267,34 @@ order.addEventListener("click", () => {
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
   };
+
+  validForm(formValues);
   // ///////////////////////////////////////////////
   // //////////////////Value form //////////////////
   // ///////////////////////////////////////////////
+});
+// ///////////////////////////////////////////////
+// ////////Send data to the localStorage/////////
+// ///////////////////////////////////////////////
 
-  // ///////////////////////////////////////////////
-  // ////////////////Validation form////////////////
-  // ///////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
 
-  //je crée une variable d'expression de fonction avec mon "text alert"
-  // const textAlert = (value) => {
-  //   return `${value}: ne doit pas comporter des chiffres et symboles. \n Il doit avoir un minimum de 2 caractères et ne doit pas dépasser 20 caractères.`;
-  // };
-  function validForm() {
-    //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
-    if (
-      validations.checkWithRegex(
-        stringWithoutSpecials,
-        formValues.lastName,
-        "#errorName"
-      ) &&
-      validations.checkWithRegex(
-        stringWithoutSpecials,
-        formValues.firstName,
-        "#errorFirstName"
-      ) &&
-      validations.checkWithRegex(street, formValues.address, "#errorAddress") &&
-      validations.checkWithRegex(
-        stringWithoutSpecials,
-        formValues.city,
-        "#errorCity"
-      ) &&
-      validations.checkWithRegex(
-        postalCode,
-        formValues.postalCode,
-        "#errorPostalCode"
-      ) &&
-      validations.checkWithRegex(phone, formValues.phone, "#errorPhone") &&
-      validations.checkWithRegex(email, formValues.email, "#errorEmail")
-    ) {
-      //mettre l'objet formValues dans le localStorage
-      localStorage.setItem("formValues", JSON.stringify(formValues));
-      // alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
-      orderSuccess();
-    } else {
-      //scroll to the form to watch the error
-      throw new Error();
-    }
-  }
-  // ///////////////////////////////////////////////
-  // //////////////End validation form//////////////
-  // ///////////////////////////////////////////////
-
+function orderSuccess(formValues) {
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
+  //je récupère mon panier
+  let cart = index.getCart();
 
-    //je récupère mon panier
-    let cart = index.getCart();
-
-    //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
-    let panierGetProductId = [];
-    for (let i = 0; i < cart.length; i++) {
-      let idProduct = cart[i]._id;
-      // alert(idProduct);
-      panierGetProductId.push(idProduct);
-    }
-
-
+  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+  let panierGetProductId = [];
+  for (let i = 0; i < cart.length; i++) {
+    let idProduct = cart[i]._id;
+    // alert(idProduct);
+    panierGetProductId.push(idProduct);
+  }
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
@@ -369,29 +337,20 @@ order.addEventListener("click", () => {
       alert(`Erreur, impossible de transmettre la requête au serveur`);
       console.log(error);
     });
-});
-// ///////////////////////////////////////////////
-// ////////Send data to the localStorage/////////
-// ///////////////////////////////////////////////
 
-///////////////////////////////////////////////
-///////////////pop up message////////////////
-///////////////////////////////////////////////
-
-function orderSuccess() {
   // Get the modal
   var modal = document.getElementById("confirmation");
 
   // // Get the button that opens the modal
-  // var btn = document.getElementById("order");
+  var btn = document.getElementsByName("button");
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
   // // When the user clicks on the button, open the modal
-  // btn.onclick = function () {
-  //   modal.style.display = "block";
-  // };
+  btn.onclick = function () {
+    modal.style.display = "block";
+  };
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = function () {
@@ -409,3 +368,47 @@ function orderSuccess() {
 ///////////////////////////////////////////////
 ///////////////pop up message////////////////
 ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// ////////////////Validation form////////////////
+// ///////////////////////////////////////////////
+function validForm(formValues) {
+  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.lastName,
+    "errorName"
+  );
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.firstName,
+    "errorFirstName"
+  );
+  validations.checkWithRegex(street, formValues.address, "errorAddress");
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.city,
+    "errorCity"
+  );
+  validations.checkWithRegex(
+    postalCode,
+    formValues.postalCode,
+    "errorPostalCode"
+  );
+  validations.checkWithRegex(phone, formValues.phone, "errorPhone");
+  validations.checkWithRegex(email, formValues.email, "errorEmail");
+  //si je n'ai pas d'erreur dans mon formulaire
+  if (!errorStatus) {
+    //mettre l'objet formValues dans le localStorage
+    localStorage.setItem("formValues", JSON.stringify(formValues));
+    // alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
+    orderSuccess(formValues);
+  } else {
+    console.log("error");
+    //scroll to the form to watch the error
+    throw new Error();
+  }
+}
+// ///////////////////////////////////////////////
+// //////////////End validation form//////////////
+// ///////////////////////////////////////////////

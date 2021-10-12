@@ -7,8 +7,6 @@ let id = localStorage.getItem("idOrder");
 let ordersInformation = localStorage.getItem("formValues");
 ordersInformation = JSON.parse(ordersInformation);
 
-console.log(ordersInformation);
-
 document.querySelector(
   "#orderCommande"
 ).textContent = `Voici ton numéro de commande : ${id} `;
@@ -30,7 +28,10 @@ function displayClientReferences() {
         </p>
     `;
 };
-displayClientReferences();
+
+displayClientReferences().then(() => {
+  deleteKey("idOrder");
+});
 
 
 function deleteKey(key) {
@@ -40,6 +41,3 @@ function deleteKey(key) {
     window.location = "../index.html";
   }, 30000);
 };
-
-// deleteKey("cart");
-deleteKey("idOrder");
