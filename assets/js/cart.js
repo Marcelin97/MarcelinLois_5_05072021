@@ -1,5 +1,6 @@
 import * as index from "./index";
 import * as validations from "./validations";
+//importation des regex
 import {
   stringWithoutSpecials,
   street,
@@ -12,20 +13,19 @@ import {
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
+  //je stocke mon panier dans une variable pour pouvoir la réutiliser
+  let cart = index.getCart();
 
-//je stocke mon panier dans une variable pour pouvoir la réutiliser
-let cart = index.getCart();
-
-//si mon index.getCart() est vide...
-if (cart.length === 0) {
-  //...j'appel ma fonction emptyCart
-  emptyCart();
-} else {
-  //sinon parcours tout le panier pour me rendre les produits
-  cart.map((element) => {
-    renderCartProduct(element);
-  });
-}
+  //si mon index.getCart() est vide...
+  if (cart.length === 0) {
+    //...j'appel ma fonction emptyCart
+    emptyCart();
+  } else {
+    //sinon parcours tout le panier pour me rendre les produits
+    cart.map((element) => {
+      renderCartProduct(element);
+    });
+  }
 // ///////////////////////////////////////////////
 // //////End I get my cart from LocalStorage//////
 // ///////////////////////////////////////////////
@@ -49,7 +49,7 @@ function emptyCart() {
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
-// ////dynamic display of products in the cart/////
+// ////dynamic display of products in the cart////
 // ///////////////////////////////////////////////
 function renderCartProduct(product) {
   //je récupère mon panier
@@ -267,7 +267,7 @@ form.addEventListener("submit", (e) => {
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
   };
-
+  //j'appel ma fonction validForm pour valider mon formulaire
   validForm(formValues);
   // ///////////////////////////////////////////////
   // //////////////////Value form //////////////////
@@ -276,10 +276,6 @@ form.addEventListener("submit", (e) => {
 // ///////////////////////////////////////////////
 // ////////Send data to the localStorage/////////
 // ///////////////////////////////////////////////
-
-///////////////////////////////////////////////
-///////////////pop up message////////////////
-///////////////////////////////////////////////
 
 function orderSuccess(formValues) {
   // ///////////////////////////////////////////////
@@ -338,6 +334,9 @@ function orderSuccess(formValues) {
       console.log(error);
     });
 
+  ///////////////////////////////////////////////
+  ///////////////pop up message////////////////
+  ///////////////////////////////////////////////
   // Get the modal
   var modal = document.getElementById("confirmation");
 
@@ -363,11 +362,13 @@ function orderSuccess(formValues) {
       modal.style.display = "none";
     }
   };
+  ///////////////////////////////////////////////
+  ///////////////pop up message////////////////
+  ///////////////////////////////////////////////
 }
-
-///////////////////////////////////////////////
-///////////////pop up message////////////////
-///////////////////////////////////////////////
+  // ///////////////////////////////////////////////
+  // ///////End Send data to the localStorage///////
+  // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ////////////////Validation form////////////////
