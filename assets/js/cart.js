@@ -304,7 +304,6 @@ order.addEventListener("click", () => {
       orderSuccess();
     } else {
       //scroll to the form to watch the error
-
       throw new Error();
     }
   }
@@ -316,16 +315,17 @@ order.addEventListener("click", () => {
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
 
-  //je récupère mon panier
-  let cart = index.getCart();
+    //je récupère mon panier
+    let cart = index.getCart();
 
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
-  let panierGetProductId = [];
-  for (let i = 0; i < cart.length; i++) {
-    let idProduct = cart[i]._id;
-    // alert(idProduct);
-    panierGetProductId.push(idProduct);
-  }
+    //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+    let panierGetProductId = [];
+    for (let i = 0; i < cart.length; i++) {
+      let idProduct = cart[i]._id;
+      // alert(idProduct);
+      panierGetProductId.push(idProduct);
+    }
+
 
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////

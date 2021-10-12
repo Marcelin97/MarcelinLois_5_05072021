@@ -7,6 +7,8 @@ let id = localStorage.getItem("idOrder");
 let ordersInformation = localStorage.getItem("formValues");
 ordersInformation = JSON.parse(ordersInformation);
 
+console.log(ordersInformation);
+
 document.querySelector(
   "#orderCommande"
 ).textContent = `Voici ton numéro de commande : ${id} `;
