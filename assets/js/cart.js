@@ -407,6 +407,17 @@ function validForm(formValues) {
   } else {
     console.log("error");
     //scroll to the form to watch the error
+    let errors = [...document.querySelectorAll("span.errorInput")];
+    errors = errors.filter(function (error) {
+      if (error.innerHTML != "") {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    errors[0].scrollIntoView();
+
     throw new Error();
   }
 }
