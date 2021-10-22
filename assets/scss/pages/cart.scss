@@ -319,39 +319,21 @@ form div label input:not(:placeholder-shown) + p {
   }
 }
 .order {
-  margin: 15px 0px;
   text-align: center;
   vertical-align: middle;
   font-size: 1.2em;
-  @media only screen and (min-width: 576px) {
-    margin-right: 35px;
-    margin-top: 20px;
-  }
-  a {
-    background-color: white;
-    transition: background-color 300ms;
-    border-left: 3px solid $purple;
-    width: 100%;
-    line-height: 2em;
-    padding: 10px 25px;
-    cursor: pointer;
-    font-weight: bold;
-    span {
-      margin-right: 10px;
-    }
-    &:hover {
-      background-color: $purple;
-      span {
-        color: white;
-      }
-      i {
-        color: green;
-      }
-    }
-    span {
-      width: 100%;
-      text-transform: uppercase;
-    }
+  margin-top: 20px;
+  background-color: white;
+  transition: background-color 600ms;
+  width: 50%;
+  line-height: 2em;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: bold;
+  border: transparent;
+  &:hover {
+    background-color: $purple;
+    color: white;
   }
 }
 /*footer*/
@@ -394,7 +376,6 @@ footer {
   }
 }
 
-
 //text alert error input
 .errorInput {
   color: red;
@@ -412,14 +393,14 @@ footer {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Modal Content*/
@@ -430,7 +411,7 @@ footer {
   border: 2px solid $border;
   width: 60%;
   max-width: 600px;
-   height: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -452,18 +433,18 @@ footer {
   cursor: pointer;
 }
 
-.fa-check{
-font-size: 35px;
-color: green;
-font-weight: bold;
-height: 60px;
-width: 60px;
-border: 2px solid green;
-padding-top: 13px;
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-content: center;
-margin: 20px auto;
+.fa-check {
+  font-size: 35px;
+  color: green;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+  border: 2px solid green;
+  padding-top: 13px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 20px auto;
 }
 /* The popup message */

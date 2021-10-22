@@ -409,13 +409,14 @@ function validForm(formValues) {
     //scroll to the form to watch the error
     let errors = [...document.querySelectorAll("span.errorInput")];
     errors = errors.filter(function (error) {
+      //si le champ error n'est pas vide
       if (error.innerHTML != "") {
         return true;
       } else {
         return false;
       }
     });
-
+    //affiche la première erreur du formulaire dans le champ de vision
     errors[0].scrollIntoView();
 
     throw new Error();
