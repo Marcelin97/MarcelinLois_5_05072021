@@ -388,7 +388,7 @@ footer {
 
 /* The popup message */
 .modal {
-  display: none; /* Hidden by default */
+  // display: none; /* Hidden by default */
   position: fixed;
   z-index: 1;
   left: 0;
@@ -402,11 +402,23 @@ footer {
 
 /* Modal Content*/
 .modal-content {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   margin: 15% auto;
   padding: 20px;
   border: 2px solid $border;
-  width: 60%;
+  width: 80%;
+    h3{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    p{
+      text-align: center;
+    }
 }
 
 /* The Close Btn */
