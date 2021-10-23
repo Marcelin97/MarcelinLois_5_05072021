@@ -333,7 +333,6 @@ function orderSuccess(formValues) {
       alert(`Erreur, impossible de transmettre la requête au serveur`);
       console.log(error);
     });
-
 }
   // ///////////////////////////////////////////////
   // ///////End Send data to the localStorage///////
@@ -342,6 +341,7 @@ function orderSuccess(formValues) {
   ///////////////////////////////////////////////
   ///////////////pop up message////////////////
   ///////////////////////////////////////////////
+function popUp(){
   // Get the modal
   var modal = document.getElementById("confirmation");
 
@@ -367,6 +367,9 @@ function orderSuccess(formValues) {
       modal.style.display = "none";
     }
   };
+};
+
+popUp();
   ///////////////////////////////////////////////
   ///////////////pop up message////////////////
   ///////////////////////////////////////////////
