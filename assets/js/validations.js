@@ -14,7 +14,7 @@ function emptyEntryText(querySelectorId) {
 }
 ////////////////////////////Text alert input//////////////////////////////
 
-export const street = "^([0-9]*) ?([a-zA-Z,. ]*)$";
+export const street = "^([0-9]{1,4}) ([a-z]+) ([ A-Za-zÀ-ÿ-']+)$";
 export const stringWithoutSpecials = "^([a-zA-ZÀ-ÿ-']{1,20})$";
 export const email =
   "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
