@@ -278,6 +278,8 @@ form.addEventListener("submit", (e) => {
 // ///////////////////////////////////////////////
 
 function orderSuccess(formValues) {
+popUp("message");
+
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
@@ -369,7 +371,7 @@ function popUp(){
   };
 };
 
-popUp();
+
   ///////////////////////////////////////////////
   ///////////////pop up message////////////////
   ///////////////////////////////////////////////
@@ -378,7 +380,7 @@ popUp();
 // ////////////////Validation form////////////////
 // ///////////////////////////////////////////////
 function validForm(formValues) {
-  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+validations.changeStatus(false)  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
   validations.checkWithRegex(
     stringWithoutSpecials,
     formValues.lastName,

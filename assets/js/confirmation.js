@@ -1,5 +1,15 @@
 import * as index from "./index";
 
+function redirectIfNoOrder() {
+  if (!localStorage.getItem("idOrder")) {
+    window.location = "../index.html";
+  }
+}
+
+redirectIfNoOrder();
+
+
+
 //Voici le numéro de commande
 let id = localStorage.getItem("idOrder");
 
@@ -27,17 +37,8 @@ function displayClientReferences() {
           </ul> 
         </p>
     `;
+    localStorage.clear();
 };
 
-displayClientReferences().then(() => {
-  deleteKey("idOrder");
-});
+displayClientReferences();
 
-
-function deleteKey(key) {
-  localStorage.clear(key);
-  //Retour sur la page d'accueil après actualisation un délai
-  setTimeout(function () {
-    window.location = "../index.html";
-  }, 30000);
-};

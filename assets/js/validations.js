@@ -24,12 +24,16 @@ export const phone =
 
 export let errorStatus = false;
 
+export function changeStatus(boolean) {
+  errorStatus = boolean;
+}
+
 export function checkWithRegex(regex, value, id) {
   const regexTest = new RegExp(regex).test(value);
   if (regexTest) {
     emptyEntryEmptyText(id);
   } else {
-    errorStatus = true;
+    changeStatus(true);
     emptyEntryText(id);
   }
 }
