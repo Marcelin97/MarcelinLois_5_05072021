@@ -380,7 +380,9 @@ function popUp(){
 // ////////////////Validation form////////////////
 // ///////////////////////////////////////////////
 function validForm(formValues) {
-validations.changeStatus(false)  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+  validations.changeStatus(false)
+  
+//Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
   validations.checkWithRegex(
     stringWithoutSpecials,
     formValues.lastName,
