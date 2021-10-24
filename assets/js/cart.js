@@ -43,10 +43,30 @@ function emptyCart() {
       <a class="btn" href="../index.html">Trouver des idées</a>
   </section>
   `;
-}
+};
 // ///////////////////////////////////////////////
 // /////////////////End Empty Cart////////////////
 // ///////////////////////////////////////////////
+
+
+function hideElement() {
+  const hideClearCart = document.getElementById("clear");
+  const hideSummury = document.getElementById("summCart");
+  const hideForm = document.getElementById("form");
+
+
+  if (cart.length === 0) {
+    hideClearCart.style.display = "none";
+    hideSummury.style.display = "none";
+    hideForm.style.display = "none";
+  } else {
+    hideClearCart.style.display = "block";
+    hideSummury.style.display = "block";
+    hideForm.style.display = "block";
+
+  }
+}
+hideElement();
 
 // ///////////////////////////////////////////////
 // ////dynamic display of products in the cart////
@@ -90,14 +110,14 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update" id="decrement" value="-1"
+                                <button type="button" class="btn-update increment" id="decrement" value="-1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
                                 <input type="number" min="0" id="quantity" value="${
                                   cart[i].qty
                                 }">
-                                <button type="button" class="btn-update" id="increment" value="+1"
+                                <button type="button" class="btn-update decrement" id="increment" value="+1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-plus"></i></button>
                               </div>
@@ -131,46 +151,52 @@ function renderCartProduct(product) {
 // ///////////////////////////////////////////////
 function updateItemsOnTheCart() {
   document.addEventListener("DOMContentLoaded", () => {
-    let btnIncrement = document.getElementById("increment");
-    let input = document.getElementById("quantity");
-    let btnDecrement = document.getElementById("decrement");
 
-    btnIncrement.addEventListener("click", function () {
-      input.value = parseInt(input.value) + 1;
-      const productId = btnIncrement.getAttribute("productId");
-      //On crée un panier temporaire pour stocker le panier actuel
-      const newCart = cart.map((element) => {
-        //si l'élément dans la panier est identique au produit que l'on veut ajouter
-        if (element._id === productId) {
-          //ajoute la quantité
-          element.qty++;
-        }
-        //retourne moi le nouvelle élément à jour
-        return element;
+    let allBtnIncrements = document.querySelectorAll(".increment");
+    let allBtnDecrements = document.querySelectorAll(".decrement");
+    
+    allBtnIncrements.forEach((element) => {
+      element.addEventListener("click", function (event) {
+        let inputPrev = event.target.previousElementSibling;
+        inputPrev.value = parseInt(inputPrev.value) + 1;
+        const productId = element.getAttribute("productId");
+        //On crée un panier temporaire pour stocker le panier actuel
+        const newCart = cart.map((elementCart) => {
+          //si l'élément dans la panier est identique au produit que l'on veut ajouter
+          if (elementCart._id === productId) {
+            //ajoute la quantité
+            elementCart.qty++;
+          }
+          //retourne moi le nouvelle élément à jour
+          return elementCart;
+        });
+        //get the new cart
+        // Send data back to storage as a STRING
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        location.reload();
       });
-      //get the new cart
-      // Send data back to storage as a STRING
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      location.reload();
     });
 
-    btnDecrement.addEventListener("click", () => {
-      input.value = parseInt(input.value) - 1;
-      const productId = btnDecrement.getAttribute("productId");
-      //On crée un panier temporaire pour stocker le panier actuel
-      const newCart = cart.map((element) => {
-        //si l'élément dans la panier est identique au produit que l'on veut ajouter
-        if (element._id === productId) {
-          //enlève la quantité
-          element.qty--;
-        }
-        //retourne moi le nouvelle élément à jour
-        return element;
+    allBtnDecrements.forEach((element) => {
+      element.addEventListener("click", function (event) {
+        let inputNext = event.target.nextElementSibling;
+        inputNext.value = parseInt(inputNext.value) - 1;
+        const productId = element.getAttribute("productId");
+        //On crée un panier temporaire pour stocker le panier actuel
+        const newCart = cart.map((elementCart) => {
+          //si l'élément dans la panier est identique au produit que l'on veut ajouter
+          if (elementCart._id === productId) {
+            //ajoute la quantité
+            elementCart.qty--;
+          }
+          //retourne moi le nouvelle élément à jour
+          return elementCart;
+        });
+        //get the new cart
+        // Send data back to storage as a STRING
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        location.reload();
       });
-      //get the new cart
-      // Send data back to storage as a STRING
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      location.reload();
     });
   });
 }
@@ -381,7 +407,7 @@ function popUp(){
 // ///////////////////////////////////////////////
 function validForm(formValues) {
   validations.changeStatus(false)
-  
+
 //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
   validations.checkWithRegex(
     stringWithoutSpecials,

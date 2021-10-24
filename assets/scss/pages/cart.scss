@@ -312,6 +312,7 @@ form div label input:not(:placeholder-shown) + p {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  width: 100%;
   @media only screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -362,17 +363,16 @@ footer {
     margin-left: 10px;
     font-size: 1.2em;
   }
-  a {
+  span {
     border: 1px solid red;
     border-radius: 15px;
     padding: 15px;
+    color: red;
     transition: border 600ms;
     &:hover {
       border: 1px solid white;
     }
-    span {
-      color: red;
-    }
+
   }
 }
 
