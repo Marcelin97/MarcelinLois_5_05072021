@@ -234,7 +234,7 @@ btnRemove.forEach(function (element, index, array) {
 let positionBtnClearCart = document.querySelectorAll("#clear");
 positionBtnClearCart.forEach(function (element, index, array) {
   positionBtnClearCart[index].addEventListener("click", function () {
-    if (cart.length > 1) {
+    if (cart.length = 1) {
       localStorage.removeItem("cart");
       alert("Le panier a été vider");
       location.reload();
