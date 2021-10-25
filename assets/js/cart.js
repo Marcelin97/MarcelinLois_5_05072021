@@ -110,14 +110,14 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update increment" id="decrement" value="-1"
+                                <button type="button" class="btn-update decrement" value="1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
                                 <input type="number" min="0" id="quantity" value="${
                                   cart[i].qty
                                 }">
-                                <button type="button" class="btn-update decrement" id="increment" value="+1"
+                                <button type="button" class="btn-update increment" value="1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-plus"></i></button>
                               </div>

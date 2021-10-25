@@ -1,5 +1,6 @@
 import * as index from "./index";
 
+//redirection sur la page d'accueil si il n'y a pas de numéro de commande
 function redirectIfNoOrder() {
   if (!localStorage.getItem("idOrder")) {
     window.location = "../index.html";
@@ -7,8 +8,6 @@ function redirectIfNoOrder() {
 }
 
 redirectIfNoOrder();
-
-
 
 //Voici le numéro de commande
 let id = localStorage.getItem("idOrder");
