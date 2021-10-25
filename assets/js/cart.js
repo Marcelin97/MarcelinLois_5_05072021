@@ -304,8 +304,6 @@ form.addEventListener("submit", (e) => {
 // ///////////////////////////////////////////////
 
 function orderSuccess(formValues) {
-popUp("message");
-
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
@@ -374,7 +372,7 @@ function popUp(){
   var modal = document.getElementById("confirmation");
 
   // // Get the button that opens the modal
-  var btn = document.getElementById("order");
+  var btn = document.getElementById("Order");
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -396,8 +394,7 @@ function popUp(){
     }
   };
 };
-
-
+popUp();
   ///////////////////////////////////////////////
   ///////////////pop up message////////////////
   ///////////////////////////////////////////////
