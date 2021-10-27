@@ -107,7 +107,7 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update decrement" data-index="${i}" value="1"
+                                <button type="button" class="btn-update decrement" data-index="${cart[i]}" value="1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
@@ -185,24 +185,23 @@ function updateItemsOnTheCart() {
         const newCart = cart.map((elementCart) => {
           //si l'élément dans la panier est identique au produit que l'on veut ajouter
           if (elementCart._id === productId) {
-            //ajoute la quantité
-            let newQty = elementCart.qty - 1;
+            //enlève la quantité
+            let newQty = elementCart.qty-1;
             if (newQty < 1) {
               removeOnCart(event.target.dataset.index);
             } else {
               return elementCart;
             }
           }
+          //get the new cart
+          // Send data back to storage as a STRING
+          console.log(newCart);
+          location.reload();
         });
-        //get the new cart
-        // Send data back to storage as a STRING
-        console.log(newCart);
-            location.reload();
-
         //Test if new cart is array undefined
         if (newCart != null) {
           localStorage.setItem("cart", JSON.stringify(newCart));
-          // location.reload();
+         location.reload();
         }
       });
     });
@@ -235,6 +234,7 @@ function removeOnCart(index) {
         location.reload();
 
   } else {
+    console.log('ici');
     localStorage.removeItem("cart");
         location.reload();
 
