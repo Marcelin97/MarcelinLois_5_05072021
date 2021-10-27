@@ -36,7 +36,8 @@ function displayClientReferences() {
           </ul> 
         </p>
     `;
-    localStorage.clear();
+  localStorage.clear();
+  index.setCounterCart();
 };
 
 displayClientReferences();

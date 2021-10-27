@@ -13,19 +13,19 @@ import {
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
-  //je stocke mon panier dans une variable pour pouvoir la réutiliser
-  let cart = index.getCart();
+//je stocke mon panier dans une variable pour pouvoir la réutiliser
+let cart = index.getCart();
 
-  //si mon index.getCart() est vide...
-  if (cart.length === 0) {
-    //...j'appel ma fonction emptyCart
-    emptyCart();
-  } else {
-    //sinon parcours tout le panier pour me rendre les produits
-    cart.map((element) => {
-      renderCartProduct(element);
-    });
-  }
+//si mon index.getCart() est vide...
+if (cart.length === 0) {
+  //...j'appel ma fonction emptyCart
+  emptyCart();
+} else {
+  //sinon parcours tout le panier pour me rendre les produits
+  cart.map((element) => {
+    renderCartProduct(element);
+  });
+}
 // ///////////////////////////////////////////////
 // //////End I get my cart from LocalStorage//////
 // ///////////////////////////////////////////////
@@ -43,17 +43,15 @@ function emptyCart() {
       <a class="btn" href="../index.html">Trouver des idées</a>
   </section>
   `;
-};
+}
 // ///////////////////////////////////////////////
 // /////////////////End Empty Cart////////////////
 // ///////////////////////////////////////////////
-
 
 function hideElement() {
   const hideClearCart = document.getElementById("clear");
   const hideSummury = document.getElementById("summCart");
   const hideForm = document.getElementById("form");
-
 
   if (cart.length === 0) {
     hideClearCart.style.display = "none";
@@ -63,7 +61,6 @@ function hideElement() {
     hideClearCart.style.display = "block";
     hideSummury.style.display = "block";
     hideForm.style.display = "block";
-
   }
 }
 hideElement();
@@ -110,7 +107,7 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update decrement" value="1"
+                                <button type="button" class="btn-update decrement" data-index="${i}" value="1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
@@ -151,12 +148,12 @@ function renderCartProduct(product) {
 // ///////////////////////////////////////////////
 function updateItemsOnTheCart() {
   document.addEventListener("DOMContentLoaded", () => {
-
     let allBtnIncrements = document.querySelectorAll(".increment");
     let allBtnDecrements = document.querySelectorAll(".decrement");
-    
+
     allBtnIncrements.forEach((element) => {
       element.addEventListener("click", function (event) {
+        event.stopPropagation();
         let inputPrev = event.target.previousElementSibling;
         inputPrev.value = parseInt(inputPrev.value) + 1;
         const productId = element.getAttribute("productId");
@@ -173,12 +170,14 @@ function updateItemsOnTheCart() {
         //get the new cart
         // Send data back to storage as a STRING
         localStorage.setItem("cart", JSON.stringify(newCart));
-        location.reload();
+            location.reload();
+
       });
     });
 
     allBtnDecrements.forEach((element) => {
       element.addEventListener("click", function (event) {
+        event.stopPropagation();
         let inputNext = event.target.nextElementSibling;
         inputNext.value = parseInt(inputNext.value) - 1;
         const productId = element.getAttribute("productId");
@@ -187,15 +186,24 @@ function updateItemsOnTheCart() {
           //si l'élément dans la panier est identique au produit que l'on veut ajouter
           if (elementCart._id === productId) {
             //ajoute la quantité
-            elementCart.qty--;
+            let newQty = elementCart.qty - 1;
+            if (newQty < 1) {
+              removeOnCart(event.target.dataset.index);
+            } else {
+              return elementCart;
+            }
           }
-          //retourne moi le nouvelle élément à jour
-          return elementCart;
         });
         //get the new cart
         // Send data back to storage as a STRING
-        localStorage.setItem("cart", JSON.stringify(newCart));
-        location.reload();
+        console.log(newCart);
+            location.reload();
+
+        //Test if new cart is array undefined
+        if (newCart != null) {
+          localStorage.setItem("cart", JSON.stringify(newCart));
+          // location.reload();
+        }
       });
     });
   });
@@ -212,18 +220,27 @@ updateItemsOnTheCart();
 let btnRemove = document.querySelectorAll(".info-items-remove");
 btnRemove.forEach(function (element, index, array) {
   btnRemove[index].addEventListener("click", function () {
-    if (cart.length > 1) {
-      cart.splice(index, 1);
-      //on envoie la variable dans le local Storage
-      //la transformation en format JSON
-      localStorage.setItem("cart", JSON.stringify(cart));
-      location.reload();
-    } else {
-      localStorage.removeItem("cart");
-      location.reload();
-    }
+    removeOnCart(index);
+    location.reload();
   });
 });
+
+function removeOnCart(index) {
+  console.log(index);
+  if (cart.length > 1) {
+    cart.splice(index, 1);
+    //on envoie la variable dans le local Storage
+    //la transformation en format JSON
+    localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+
+  } else {
+    localStorage.removeItem("cart");
+        location.reload();
+
+  }
+  // location.reload();
+}
 // ///////////////////////////////////////////////
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
@@ -234,7 +251,7 @@ btnRemove.forEach(function (element, index, array) {
 let positionBtnClearCart = document.querySelectorAll("#clear");
 positionBtnClearCart.forEach(function (element, index, array) {
   positionBtnClearCart[index].addEventListener("click", function () {
-    if (cart.length = 1) {
+    if ((cart.length = 1)) {
       localStorage.removeItem("cart");
       alert("Le panier a été vider");
       location.reload();
@@ -304,6 +321,8 @@ form.addEventListener("submit", (e) => {
 // ///////////////////////////////////////////////
 
 function orderSuccess(formValues) {
+  popUp();
+
   // ///////////////////////////////////////////////
   // /////////////// Get id product ////////////////
   // ///////////////////////////////////////////////
@@ -360,14 +379,14 @@ function orderSuccess(formValues) {
       console.log(error);
     });
 }
-  // ///////////////////////////////////////////////
-  // ///////End Send data to the localStorage///////
-  // ///////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// ///////End Send data to the localStorage///////
+// ///////////////////////////////////////////////
 
-  ///////////////////////////////////////////////
-  ///////////////pop up message////////////////
-  ///////////////////////////////////////////////
-function popUp(){
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
+function popUp() {
   // Get the modal
   var modal = document.getElementById("confirmation");
 
@@ -393,19 +412,19 @@ function popUp(){
       modal.style.display = "none";
     }
   };
-};
-popUp();
-  ///////////////////////////////////////////////
-  ///////////////pop up message////////////////
-  ///////////////////////////////////////////////
+}
+
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ////////////////Validation form////////////////
 // ///////////////////////////////////////////////
 function validForm(formValues) {
-  validations.changeStatus(false)
+  validations.changeStatus(false);
 
-//Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
   validations.checkWithRegex(
     stringWithoutSpecials,
     formValues.lastName,
