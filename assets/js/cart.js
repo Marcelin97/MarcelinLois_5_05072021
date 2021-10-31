@@ -111,7 +111,7 @@ function renderCartProduct(product) {
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="number" min="0" id="quantity" value="${
+                                <input type="number" min="1" id="quantity" value="${
                                   cart[i].qty
                                 }">
                                 <button type="button" class="btn-update increment" value="1"
@@ -186,7 +186,7 @@ function updateItemsOnTheCart() {
           //si l'élément dans la panier est identique au produit que l'on veut ajouter
           if (elementCart._id === productId) {
             //enlève la quantité
-            let newQty = elementCart.qty-1;
+            let newQty = elementCart.qty--;
             if (newQty < 1) {
               removeOnCart(event.target.dataset.index);
             } else {
@@ -196,7 +196,7 @@ function updateItemsOnTheCart() {
           //get the new cart
           // Send data back to storage as a STRING
           console.log(newCart);
-          location.reload();
+          // location.reload();
         });
         //Test if new cart is array undefined
         if (newCart != null) {
@@ -322,62 +322,63 @@ form.addEventListener("submit", (e) => {
 
 function orderSuccess(formValues) {
   popUp();
+  setTimeout(function () {
+    // ///////////////////////////////////////////////
+    // /////////////// Get id product ////////////////
+    // ///////////////////////////////////////////////
+    //je récupère mon panier
+    let cart = index.getCart();
 
-  // ///////////////////////////////////////////////
-  // /////////////// Get id product ////////////////
-  // ///////////////////////////////////////////////
-  //je récupère mon panier
-  let cart = index.getCart();
+    //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+    let panierGetProductId = [];
+    for (let i = 0; i < cart.length; i++) {
+      let idProduct = cart[i]._id;
+      // alert(idProduct);
+      panierGetProductId.push(idProduct);
+    }
+    // ///////////////////////////////////////////////
+    // /////////////// Get id product ////////////////
+    // ///////////////////////////////////////////////
 
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
-  let panierGetProductId = [];
-  for (let i = 0; i < cart.length; i++) {
-    let idProduct = cart[i]._id;
-    // alert(idProduct);
-    panierGetProductId.push(idProduct);
-  }
-  // ///////////////////////////////////////////////
-  // /////////////// Get id product ////////////////
-  // ///////////////////////////////////////////////
+    // ///////////////////////////////////////////////
+    // ////////Send data to the localStorage/////////
+    // ///////////////////////////////////////////////
 
-  // ///////////////////////////////////////////////
-  // ////////Send data to the localStorage/////////
-  // ///////////////////////////////////////////////
+    //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
+    const elementToSend = { contact: formValues, products: panierGetProductId };
 
-  //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
-  const elementToSend = { contact: formValues, products: panierGetProductId };
+    //envoi des valuesServeur vers le serveur avec fetch et post
+    const promise = "http://localhost:3000/api/cameras/order";
+    const fetchData = {
+      method: "POST",
+      body: JSON.stringify(elementToSend),
+      headers: { "Content-Type": "application/json" },
+    };
 
-  //envoi des valuesServeur vers le serveur avec fetch et post
-  const promise = "http://localhost:3000/api/cameras/order";
-  const fetchData = {
-    method: "POST",
-    body: JSON.stringify(elementToSend),
-    headers: { "Content-Type": "application/json" },
-  };
-
-  fetch(promise, fetchData)
-    .then(async (response) => {
-      try {
-        const dataResponse = await response.json();
-        console.log("OK");
-        if (response.ok) {
-          // alert(dataResponse.orderId);
-          localStorage.setItem("idOrder", dataResponse.orderId);
-          setTimeout(function () {
-            window.location = "confirmation.html";
-          }, 2000);
-        } else {
+    fetch(promise, fetchData)
+      .then(async (response) => {
+        try {
+          const dataResponse = await response.json();
+          console.log("OK");
+          if (response.ok) {
+            // alert(dataResponse.orderId);
+            localStorage.setItem("idOrder", dataResponse.orderId);
+            setTimeout(function () {
+              window.location = "confirmation.html";
+            }, 2000);
+          } else {
+            console.log("KO");
+          }
+        } catch (e) {
+          console.log(e);
           console.log("KO");
         }
-      } catch (e) {
-        console.log(e);
-        console.log("KO");
-      }
-    })
-    .catch(function (error) {
-      alert(`Erreur, impossible de transmettre la requête au serveur`);
-      console.log(error);
-    });
+      })
+      .catch(function (error) {
+        alert(`Erreur, impossible de transmettre la requête au serveur`);
+        console.log(error);
+      });
+  }, 3000);
 }
 // ///////////////////////////////////////////////
 // ///////End Send data to the localStorage///////
@@ -396,10 +397,15 @@ function popUp() {
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-  // // When the user clicks on the button, open the modal
-  btn.onclick = function () {
+    console.log(window.getComputedStyle(modal)['display']);
+
+  
+  // When the user clicks on the button, open the modal
+  // the modal will open on the window, if this style is on display none
+  // it's will be change on display = block
+  if (window.getComputedStyle(modal)["display"] == "none") {
     modal.style.display = "block";
-  };
+  }
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = function () {
