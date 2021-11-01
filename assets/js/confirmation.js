@@ -38,7 +38,7 @@ ordersInformation = JSON.parse(ordersInformation);
 function displayClientReferences() {
   let clientReferences = document.getElementById("orderCommandeText");
   clientReferences.innerHTML += `
-        <p>Salut <span class="font-weight-bold">${ordersInformation.firstName}</span>, </p>
+        <span class="font-weight-bold">${ordersInformation.firstName}</span>,
         <p>Merci d'avoir commandé chez Orinoco !</p>
         <p>On es ravi de confirmer que ta commande a bien été reçue</p>
         <p>Un mail de confirmation vous sera envoyé à <span class="font-weight-bold">${ordersInformation.email}</span> contenant le récapitulatif de
