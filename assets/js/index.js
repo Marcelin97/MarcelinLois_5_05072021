@@ -46,7 +46,6 @@ export function getCart() {
     // get the items stored and put them in the cart
     cart = JSON.parse(localStorage.getItem("cart"));
   }
-  // return the cart to me
   return cart;
 }
 ////////////////////////////////////////////////

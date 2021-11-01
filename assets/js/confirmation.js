@@ -1,25 +1,40 @@
 import * as index from "./index";
 
-//redirection sur la page d'accueil si il n'y a pas de numéro de commande
+// ///////////////////////////////////////////////
+// ///Redirection on the home page, if no order///
+// ///////////////////////////////////////////////
 function redirectIfNoOrder() {
   if (!localStorage.getItem("idOrder")) {
     window.location = "../index.html";
   }
 }
-
 redirectIfNoOrder();
+// ///////////////////////////////////////////////
+// ///Redirection on the home page, if no order///
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// ////////////////Order number///////////////////
+// ///////////////////////////////////////////////
 
 //Voici le numéro de commande
 let id = localStorage.getItem("idOrder");
+
+document.querySelector(
+  "#orderCommande"
+).textContent = `Voici ton numéro de commande : ${id} `;  
+// ///////////////////////////////////////////////
+// ////////////////Order number///////////////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// Personalized message with customer information//
+// ///////////////////////////////////////////////
 
 //les informations du clients
 let ordersInformation = localStorage.getItem("formValues");
 ordersInformation = JSON.parse(ordersInformation);
 
-document.querySelector(
-  "#orderCommande"
-).textContent = `Voici ton numéro de commande : ${id} `;
-  
 function displayClientReferences() {
   let clientReferences = document.getElementById("orderCommandeText");
   clientReferences.innerHTML += `
@@ -37,8 +52,10 @@ function displayClientReferences() {
         </p>
     `;
   localStorage.clear();
+  //j'appel ma fonction compteur du panier, pour réactualisation sur cette page
   index.setCounterCart();
 };
-
 displayClientReferences();
-
+// ///////////////////////////////////////////////
+// Personalized message with customer information//
+// ///////////////////////////////////////////////

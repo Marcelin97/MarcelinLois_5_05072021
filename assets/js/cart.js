@@ -1,5 +1,6 @@
 import * as index from "./index";
 import * as validations from "./validations";
+
 //importation des regex
 import {
   stringWithoutSpecials,
@@ -48,6 +49,9 @@ function emptyCart() {
 // /////////////////End Empty Cart////////////////
 // ///////////////////////////////////////////////
 
+// ///////////////////////////////////////////////
+// /////////Hide element if cart empty////////////
+// ///////////////////////////////////////////////
 function hideElement() {
   const hideClearCart = document.getElementById("clear");
   const hideSummury = document.getElementById("summCart");
@@ -64,6 +68,9 @@ function hideElement() {
   }
 }
 hideElement();
+// ///////////////////////////////////////////////
+// /////End of Hide element if cart empty/////////
+// ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ////dynamic display of products in the cart////
@@ -187,7 +194,7 @@ function updateItemsOnTheCart() {
           if (elementCart._id === productId) {
             //enlève la quantité
             let newQty = elementCart.qty--;
-            if (newQty < 1) {
+            if (newQty < 1 + 1) {
               removeOnCart(event.target.dataset.index);
             } else {
               return elementCart;
@@ -234,10 +241,8 @@ function removeOnCart(index) {
         location.reload();
 
   } else {
-    console.log('ici');
     localStorage.removeItem("cart");
-        location.reload();
-
+    location.reload();
   }
   // location.reload();
 }
@@ -253,7 +258,6 @@ positionBtnClearCart.forEach(function (element, index, array) {
   positionBtnClearCart[index].addEventListener("click", function () {
     if ((cart.length = 1)) {
       localStorage.removeItem("cart");
-      alert("Le panier a été vider");
       location.reload();
     }
   });
@@ -333,7 +337,6 @@ function orderSuccess(formValues) {
     let panierGetProductId = [];
     for (let i = 0; i < cart.length; i++) {
       let idProduct = cart[i]._id;
-      // alert(idProduct);
       panierGetProductId.push(idProduct);
     }
     // ///////////////////////////////////////////////
@@ -397,9 +400,8 @@ function popUp() {
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-    console.log(window.getComputedStyle(modal)['display']);
+  console.log(window.getComputedStyle(modal)['display']);
 
-  
   // When the user clicks on the button, open the modal
   // the modal will open on the window, if this style is on display none
   // it's will be change on display = block
@@ -419,7 +421,6 @@ function popUp() {
     }
   };
 }
-
 ///////////////////////////////////////////////
 ///////////////pop up message////////////////
 ///////////////////////////////////////////////
@@ -458,7 +459,7 @@ function validForm(formValues) {
   if (!errorStatus) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
-    // alert("Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande");
+    //on valide que le formulaire est bien rempli avec cette fonction
     orderSuccess(formValues);
   } else {
     console.log("error");
