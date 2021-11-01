@@ -61,7 +61,7 @@ function renderProduct(product) {
   document.getElementsByTagName("select")[0].innerHTML =
     '<option value="">Veuillez choisir une option</option>' +
     getOptions(product[getCustomisation(product)]);
-  document.getElementsByName("price")[0].innerHTML = index.priceToEuros(
+  document.getElementsByClassName("priceProduct")[0].innerHTML = index.priceToEuros(
     product.price
   );
 }
@@ -86,7 +86,6 @@ getProduct().then((result) => {
     .addEventListener("submit", function (event) {
       //on stop la propagation du click
       event.preventDefault();
-
       addToCart(result);
     });
 });
@@ -126,8 +125,12 @@ index.incrementDecrement();
 //Button decrement and increment with my input//
 ////////////////////////////////////////////////
 
+////////////////////////////////////////////////
+/////////addToCart and if product exist/////////
+////////////////////////////////////////////////
 function addToCart(result) {
-  let cart = index.getCart(); //j'appel mon panier qui est stocké dans une fonction dans mon index.js
+  //j'appel mon panier qui est stocké dans une fonction dans mon index.js
+  let cart = index.getCart();
 
   // Cette fonction assigne les valeurs du produit à envoyer dans le localStorage
   let product = {
@@ -143,15 +146,14 @@ function addToCart(result) {
   //on déclare une constante produit est = trouvé dans le panier
   const isProduct = cart.find(
     (element) =>
-      // Le nouvel élement avec son id et égale au produit avec son id ET son option et égale au produit
+      // Le nouvel élément avec son id et égale au produit avec son id ET son option et égale au produit
       element._id === product._id && element.optionValue === product.optionValue
   );
   //si le produit n'existe pas déjà dans le panier, alors ajoute le
   if (isProduct === undefined) {
     //pour ajouté au panier
     cart.push(product);
-    alert("Le produit est dans le panier ! ");
-            window.location = "cart.html";
+    window.location = "cart.html";
 
     // Send data back to storage as a STRING
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -165,7 +167,6 @@ function addToCart(result) {
         element.qty = product.qty + isProduct.qty;
       }
       //retourne moi le nouvelle élément à jour
-      alert("Le panier a été mis a jour ! ");
       window.location = "cart.html";
       return element;
     });
@@ -175,3 +176,6 @@ function addToCart(result) {
   }
   index.setCounterCart();
 }
+////////////////////////////////////////////////
+/////////addToCart and if product exist/////////
+////////////////////////////////////////////////

@@ -99,9 +99,6 @@
               <a href="../index.html">Accueil</a>
             </li>
             <li>
-              <a href="./product.html">Nos produits</a>
-            </li>
-            <li>
               <a href="../index.html"
                 ><i class="fas fa-user-circle"></i>Mon compte</a
               >
@@ -117,49 +114,70 @@
       </nav>
     </header>
     <!-- End of header-->
+
     <main>
+      <!-- JavaScript product.js -->
       <section id="product">
         <div id="container">
           <div class="col-1">
             <div>
-              <img src="" alt="Appareil photo"
-              />
+              <img src="#" alt="Appareil photo" loading="lazy" />
             </div>
           </div>
-          
-                      <!-- JavaScript product.js -->
 
           <div class="col-2">
             <div>
-              <h1></h1>
+              <h1>Produits</h1>
               <p></p>
-              <div name="price"></div>
+              <div class="priceProduct"></div>
               <form action="#" method="post">
                 <fieldset>
                   <legend>Personnalisation du produit</legend>
                   <label for="options">Choisir une option</label>
                   <div>
                     <select name="option" id="options" required>
-
+                      <option label="Veuillez choisir une option"></option>
                     </select>
                   </div>
                   <div class="quantity">
                     <label for="quantity">Quantité</label>
                     <div class="cart-update">
-                      <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
-                      <input type="number" min="0" id="quantity" value="1">
-                      <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
+                      <button
+                        type="button"
+                        class="btn-update"
+                        id="decrement"
+                        value="-1"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <input type="number" min="0" id="quantity" value="1" />
+                      <button
+                        type="button"
+                        class="btn-update"
+                        id="increment"
+                        value="+1"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
                     </div>
                   </div>
                 </fieldset>
-                <button class="btn" type="submit" title="ajouter au panier" value="ajouter au panier">Ajouter au panier<i class="fas fa-shopping-cart"></i></button>
+                <button
+                  class="btn"
+                  type="submit"
+                  title="ajouter au panier"
+                  value="ajouter au panier"
+                >
+                  Ajouter au panier<i class="fas fa-shopping-cart"></i>
+                </button>
               </form>
             </div>
           </div>
         </div>
-        </div>
       </section>
+      <!-- JavaScript product.js -->
     </main>
+
     <!-- Footer-->
     <footer>
       <div>
@@ -180,5 +198,3 @@
     <!-- les scripts-->
   </body>
 </html>
-
-

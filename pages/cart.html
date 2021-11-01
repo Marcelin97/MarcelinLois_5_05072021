@@ -95,9 +95,6 @@
               <a href="../index.html">Accueil</a>
             </li>
             <li>
-              <a href="./product.html">Nos produits</a>
-            </li>
-            <li>
               <a href="../index.html"
                 ><i class="fas fa-user-circle"></i>Mon compte</a
               >
@@ -114,34 +111,43 @@
     </header>
     <!-- End of header-->
     <main>
-      <div class="container-cart">
+      <section class="container-cart">
         <div>
+          <!--TITLE PAGE-->
           <div class="header-cart">
             <h1 id="titre-cart">Mon panier</h1>
           </div>
+          <!--TITLE PAGE-->
+
           <div class="main">
             <div class="main-cart">
+              <!--BACK TO HOME-->
               <div class="back-to-home">
                 <a href="../index.html">
                   <i class="fas fa-angle-double-left backHome"></i>
                   <span>Continuer mes achats</span>
                 </a>
               </div>
+              <!--BACK TO HOME-->
+
               <div id="items">
                 <!-- cart.js -->
                 <!-- renderCartProduct -->
                 <!-- cart.js -->
               </div>
-              <div id="clear">
+
+              <!--CLEAR CART-->
+              <div id="clear" style="display: none">
                 <div class="clear-cart">
-                  <a href="#">
-                    <span>Vider le panier</span>
-                  </a>
+                  <span>Vider le panier</span>
                 </div>
               </div>
+              <!--CLEAR CART-->
             </div>
           </div>
-          <div class="sidebar-cart">
+
+          <!--SUMMURY CART-->
+          <div class="sidebar-cart" style="display: none" id="summCart">
             <div class="summury-cart">
               <h2>Récapitulatif</h2>
               <div>
@@ -150,7 +156,6 @@
               </div>
               <div>
                 <div>
-                 
                   <div>
                     <span>Livraison</span>
                     <span>gratuit</span>
@@ -169,9 +174,91 @@
               </div>
             </div>
           </div>
-          <div id="form" class="finish">
-            <!-- form cart.js -->
+          <!--SUMMURY CART-->
+
+          <!--FORM-->
+          <div id="form" class="finish" style="display: none">
+            <div>
+              <form method="GET">
+                <h3>Finalisez votre commande</h3>
+                <div>
+                  <label for="last-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="last-name"
+                      id="last-name"
+                    />
+                    <small>Nom</small>
+                    <span id="errorName" class="errorInput"></span>
+                  </label>
+
+                  <label for="first-name">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="first-name"
+                      id="first-name"
+                    />
+                    <small>Prénom</small>
+                    <span id="errorFirstName" class="errorInput"></span>
+                  </label>
+
+                  <label class="label" for="address">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      name="address"
+                      id="address"
+                    />
+                    <small>Adresse</small>
+                    <span id="errorAddress" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="postal-code">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="postal-code"
+                      id="postal-code"
+                    />
+                    <small>Code postal</small>
+                    <span id="errorPostalCode" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="city">
+                    <input type="text" placeholder=" " name="city" id="city" />
+                    <small>Ville</small>
+                    <span id="errorCity" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="phone">
+                    <input
+                      type="number"
+                      placeholder=" "
+                      name="phone"
+                      id="phone"
+                    />
+                    <small>Téléphone</small>
+                    <span id="errorPhone" class="errorInput"></span>
+                  </label>
+                  <label class="label" for="email">
+                    <input
+                      type="email"
+                      placeholder=" "
+                      name="email"
+                      id="email"
+                    />
+                    <small>E-mail</small>
+                    <span id="errorEmail" class="errorInput"></span>
+                  </label>
+                </div>
+                <button type="submit" id="Order" class="order">
+                  Commander
+                </button>
+              </form>
+            </div>
           </div>
+          <!--FORM-->
+
+          <!--BACK TO HOME-->
           <div class="action">
             <div class="back-to-home">
               <a href="../index.html">
@@ -179,15 +266,26 @@
                 <span>Continuer mes achats</span>
               </a>
             </div>
-            <div id="order" class="order">
-              <a href="#">
-                <span>Commander</span><i class="fas fa-check"></i>
-              </a>
-            </div>
           </div>
+          <!--BACK TO HOME-->
         </div>
-      </div>
+      </section>
     </main>
+
+    <!-- Popup for confirmation of submission -->
+    <div role="alert" id="confirmation" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close"><i class="fas fa-times"></i></span>
+        <h3>Votre commande est validée</h3>
+        <i class="fas fa-check"></i>
+        <p>
+          Vous allez être redirigé vers une page de confirmation de commande !
+        </p>
+      </div>
+    </div>
+    <!-- Popup for confirmation of submission -->
+
     <!-- Footer-->
     <footer>
       <div>

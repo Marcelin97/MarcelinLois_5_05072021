@@ -38,13 +38,11 @@ function renderProducts(products, category) {
                     src="` +
       element.imageUrl +
       `"
-                    alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+                    alt="Appareil photo vintage sur un gard-corp bois en extérieur" loading=lazy
                   />
                   <div><i class="fas fa-plus"></i></div>
-                  </a>
                 </figure>
                 <div>
-                  <a href="./pages/product.html">
                     <div>
                       <h3>` +
       element.name +
@@ -64,10 +62,16 @@ function renderProducts(products, category) {
   });
   container.innerHTML = content;
 }
-console.log(getProducts("cameras"));
+////////////////////////////////////////////
+////////////renderProducts in HTML//////////
+////////////////////////////////////////////
+
+////////////////////////////////////////////
+/////I call my function with an argument////
+////////////////////////////////////////////
 getProducts("cameras").then((result) => {
   renderProducts(result, "cameras");
 });
 ////////////////////////////////////////////
-////////////renderProducts in HTML//////////
+/////I call my function with an argument////
 ////////////////////////////////////////////

@@ -42,5 +42,10 @@ section div div p {
   color: $purple;
 }
 .backHome {
-  @include back @include shakeHome;
+  @include back;
+  @include shakeHome;
+}
+
+.font-weight-bold{
+  font-weight: bold;
 }

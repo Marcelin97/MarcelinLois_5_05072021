@@ -1,26 +1,28 @@
 import * as index from "./index";
+import * as validations from "./validations";
 
-////////////////////////////////////////////////
-//Button decrement and increment with my input//
-////////////////////////////////////////////////
-index.incrementDecrement();
-////////////////////////////////////////////////
-//End Button decrement and increment with my input
-////////////////////////////////////////////////
+//importation des regex
+import {
+  stringWithoutSpecials,
+  street,
+  postalCode,
+  email,
+  phone,
+  errorStatus,
+} from "./validations";
 
 // ///////////////////////////////////////////////
 // ////////I get my cart from LocalStorage////////
 // ///////////////////////////////////////////////
-
 //je stocke mon panier dans une variable pour pouvoir la réutiliser
 let cart = index.getCart();
 
-//si mon index.getCart() est vide mettre un message 'votre panier est vide'
+//si mon index.getCart() est vide...
 if (cart.length === 0) {
-  console.log("le panier est vide");
-  emptyCart(); //j'appel ma fonction emptyCart
+  //...j'appel ma fonction emptyCart
+  emptyCart();
 } else {
-  //sinon parcours tout le panier
+  //sinon parcours tout le panier pour me rendre les produits
   cart.map((element) => {
     renderCartProduct(element);
   });
@@ -48,14 +50,37 @@ function emptyCart() {
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
-// ////dynamic display of products in the cart/////
+// /////////Hide element if cart empty////////////
+// ///////////////////////////////////////////////
+function hideElement() {
+  const hideClearCart = document.getElementById("clear");
+  const hideSummury = document.getElementById("summCart");
+  const hideForm = document.getElementById("form");
+
+  if (cart.length === 0) {
+    hideClearCart.style.display = "none";
+    hideSummury.style.display = "none";
+    hideForm.style.display = "none";
+  } else {
+    hideClearCart.style.display = "block";
+    hideSummury.style.display = "block";
+    hideForm.style.display = "block";
+  }
+}
+hideElement();
+// ///////////////////////////////////////////////
+// /////End of Hide element if cart empty/////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// ////dynamic display of products in the cart////
 // ///////////////////////////////////////////////
 function renderCartProduct(product) {
-  let containerCart = document.getElementsByClassName("main-cart");
-  let cart = index.getCart(); //je récupère mon panier
-  let fullPanier = [];
+  //je récupère mon panier
+  let cart = index.getCart();
+  let fullCart = [];
   for (let i = 0; i < cart.length; i++) {
-    fullPanier += `
+    fullCart += `
               <ul>
                 <li>
                   <div class="details-items">
@@ -89,11 +114,16 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update" id="decrement" value="-1"><i class="fas fa-minus"></i></button>
-                                <input type="number" id="quantity" value="${
+                                <button type="button" class="btn-update decrement" data-index="${i}" value="1"
+                                productId="${cart[i]._id}">
+                                  <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" min="1" id="quantity" value="${
                                   cart[i].qty
                                 }">
-                                <button type="button" class="btn-update" id="increment" value="+1"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn-update increment" value="1"
+                                productId="${cart[i]._id}">
+                                  <i class="fas fa-plus"></i></button>
                               </div>
                               <div class="info-items-total">
                                 <span name="price">${
@@ -113,11 +143,69 @@ function renderCartProduct(product) {
                   </div>
                 </li>
               </ul>`;
-    document.getElementById("items").innerHTML = fullPanier;
+    document.getElementById("items").innerHTML = fullCart;
   }
 }
 // ///////////////////////////////////////////////
 // /End dynamic display of products in the cart///
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// ////////////updateItemsOnTheCart/////////////
+// ///////////////////////////////////////////////
+function updateItemsOnTheCart() {
+  document.addEventListener("DOMContentLoaded", () => {
+    let allBtnIncrements = document.querySelectorAll(".increment");
+    let allBtnDecrements = document.querySelectorAll(".decrement");
+
+    allBtnIncrements.forEach((element) => {
+      element.addEventListener("click", function (event) {
+        event.stopPropagation();
+        let inputPrev = event.currentTarget.previousElementSibling;
+        inputPrev.value = parseInt(inputPrev.value) + 1;
+        const productId = element.getAttribute("productId");
+        //On crée un panier temporaire pour stocker le panier actuel
+        const newCart = cart.map((elementCart) => {
+          //si l'élément dans la panier est identique au produit que l'on veut ajouter
+          if (elementCart._id === productId) {
+            //ajoute la quantité
+            elementCart.qty++;
+          }
+          //retourne moi le nouvelle élément à jour
+          return elementCart;
+        });
+        //get the new cart
+        // Send data back to storage as a STRING
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        location.reload();
+      });
+    });
+
+    allBtnDecrements.forEach((element) => {
+      element.addEventListener("click", function (event) {
+        event.stopImmediatePropagation();
+        let inputNext = event.currentTarget.nextElementSibling;
+        inputNext.value = parseInt(inputNext.value) - 1;
+        const productId = element.getAttribute("productId");
+        //On crée un panier temporaire pour stocker le panier actuel
+
+        let elementCurrent = cart[event.currentTarget.dataset.index];
+        elementCurrent["qty"] = elementCurrent.qty - 1;
+        if (elementCurrent["qty"] < 1) {
+          removeOnCart(event.currentTarget.dataset.index);
+        } else {
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        location.reload();
+      });
+    });
+  });
+};
+//j'appel ma fonction pour l'exécuté
+updateItemsOnTheCart();
+// ///////////////////////////////////////////////
+// ////////////updateItemsOnTheCart/////////////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
@@ -126,173 +214,78 @@ function renderCartProduct(product) {
 let btnRemove = document.querySelectorAll(".info-items-remove");
 btnRemove.forEach(function (element, index, array) {
   btnRemove[index].addEventListener("click", function () {
-    if (cart.length > 1) {
-      cart.splice(index, 1);
-      //on envoie la variable dans le local Storage
-      //la transformation en format JSON
-      localStorage.setItem("cart", JSON.stringify(cart));
-      location.reload();
-    } else {
+    removeOnCart(index);
+    location.reload();
+  });
+});
+
+function removeOnCart(index) {
+  console.log(index);
+  if (cart.length > 1) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  } else {
+    localStorage.removeItem("cart");
+  }
+};
+// ///////////////////////////////////////////////
+// /////////End removeOneItemsOnTheCart///////////
+// ///////////////////////////////////////////////
+
+// ///////////////////////////////////////////////
+// //////////clear all products in cart///////////
+// ///////////////////////////////////////////////
+let positionBtnClearCart = document.querySelectorAll("#clear");
+positionBtnClearCart.forEach(function (element, index, array) {
+  positionBtnClearCart[index].addEventListener("click", function () {
+    if ((cart.length = 1)) {
       localStorage.removeItem("cart");
       location.reload();
     }
   });
 });
 // ///////////////////////////////////////////////
-// /////////End removeOneItemsOnTheCart///////////
+// ////////End clear all products in cart/////////
 // ///////////////////////////////////////////////
-
-
-  // ///////////////////////////////////////////////
-  // //////////clear all products in cart///////////
-  // ///////////////////////////////////////////////
-  let positionBtnClearCart = document.querySelectorAll("#clear");
-  positionBtnClearCart.forEach(function (element, index, array) {
-    positionBtnClearCart[index].addEventListener("click", function () {
-      if (cart.length > 1) {
-        localStorage.removeItem("cart");
-        alert("Le panier a été vider");
-        location.reload();
-      }
-    });
-  });
-  // ///////////////////////////////////////////////
-  // ////////End clear all products in cart/////////
-  // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
 // ///////////////Price Total Cart////////////////
 // ///////////////////////////////////////////////
-//Déclaration d'une variable pour pouvoir y mettre les prix qui sont dans présent dans le panier
+// Déclaration d'une variable pour pouvoir y mettre les prix qui sont dans présent dans le panier
 let priceTotalCart = [];
 
 //Je récupère les prix dans le panier
 for (let m = 0; m < cart.length; m++) {
   let priceProductCart = cart[m].price * cart[m].qty;
-
   //Mettre les prix du panier dans la variable "priceTotalCart"
   priceTotalCart.push(priceProductCart);
-
-  console.log(priceTotalCart);
 }
 
 //Additionner les prix qu'il y a dans le tableau de la variable "priceTotalCart" avec la méthode reduce
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const prixTotal = priceTotalCart.reduce(reducer, 0);
-console.log(index.priceToEuros(prixTotal));
 
 //Je crée une fonction pour insérer mon prix total dans mon html
 function totalProduct() {
-  let positionSummury = document.getElementsByClassName("summury-cart");
   document.getElementsByClassName("total")[0].textContent =
     index.priceToEuros(prixTotal);
 }
-totalProduct(); //j'appel ma fonction pour l'exécuté
-
+//j'appel ma fonction pour l'exécuté
+totalProduct();
 // ///////////////////////////////////////////////
 // /////////////End Price Total Cart//////////////
 // ///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
-// /////////////////Display form//////////////////
+// //////////////////Value form///////////////////
 // ///////////////////////////////////////////////
-
-const displayForm = () => {
-  //sélection élément du DOM pour le positionnement du form dans le HTML
-  let positionForm = document.querySelector("#form");
-  let formHtml = `
-            <div>
-              <form action="GET">
-                <h3>Finalisez votre commande</h3>
-                <div>
-                  <label for="last-name">
-                    <input
-                      type="text"
-                      placeholder=" "
-                      name="last-name"
-                      id="last-name"
-                    />
-                    <p>Nom</p><span id="errorName" class="errorInput"></span>
-                  </label>
-
-                  <label for="first-name">
-                    <input
-                      type="text"
-                      placeholder=" "
-                      name="first-name"
-                      id="first-name"
-                    />
-                    <p>Prénom</p><span id="errorFirstName" class="errorInput"></span>
-                  </label>
-
-                  <label class="label" for="address">
-                    <input
-                      type="text"
-                      placeholder=" "
-                      name="address"
-                      id="address"
-                    />
-                    <p>Adresse</p><span id="errorAddress" class="errorInput"></span>
-                  </label>
-                  <label class="label" for="postal-code">
-                    <input
-                      type="number"
-                      placeholder=" "
-                      name="postal-code"
-                      id="postal-code"
-                    />
-                    <p>Code postal</p><span id="errorPostalCode" class="errorInput"></span>
-                  </label>
-                  <label class="label" for="city">
-                    <input
-                      type="text"
-                      placeholder=" "
-                      name="city"
-                      id="city" />
-                    <p>Ville</p><span id="errorCity" class="errorInput"></span>
-                  </label>
-                  <label class="label" for="phone">
-                    <input
-                      type="number"
-                      placeholder=" "
-                      name="phone"
-                      id="phone"
-                    />
-                    <p>Téléphone</p><span id="errorPhone" class="errorInput"></span>
-                  </label>
-                  <label class="label" for="email">
-                    <input
-                      type="email"
-                      placeholder=" "
-                      name="email"
-                      id="email"
-                    />
-                    <p>E-mail</p><span id="errorEmail" class="errorInput"></span>
-                  </label>
-                </div>
-              </form>
-            </div>
-  `;
-  positionForm.innerHTML = formHtml;
-};
-
-//J'appel ma fonction pour injecter mon formulaire dans mon HTML
-displayForm();
-
-// ///////////////////////////////////////////////
-// ///////////////End Display form////////////////
-// ///////////////////////////////////////////////
-
-// ///////////////////////////////////////////////
-// //////////Value form in localStorage///////////
-// ///////////////////////////////////////////////
-
-//selectionner du bouton "commander" pour envoyer le formulaire
-let order = document.querySelector("#order");
+//selection du formulaire
+let form = document.querySelector("form");
 
 //addEventListener pour que le formulaire soit envoyé au localStorage à la commande
 //je récupère mon bouton et j'écoute le click
-order.addEventListener("click", () => {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
   //récupération des valeurs du formulaire pour les mettre dans le localStorage via une key
   let formValues = {
     lastName: document.querySelector("#last-name").value,
@@ -303,289 +296,171 @@ order.addEventListener("click", () => {
     phone: document.querySelector("#phone").value,
     email: document.querySelector("#email").value,
   };
-  console.log("formValues");
-  console.log(formValues);
-
+  //j'appel ma fonction validForm pour valider mon formulaire
+  validForm(formValues);
   // ///////////////////////////////////////////////
-  // ////////////////validation form////////////////
+  // //////////////////Value form //////////////////
   // ///////////////////////////////////////////////
+});
+// ///////////////////////////////////////////////
+// ////////Send data to the localStorage/////////
+// ///////////////////////////////////////////////
 
-  ////////////////////////////Text alert input//////////////////////////////
+function orderSuccess(formValues) {
+  popUp();
+  setTimeout(function () {
+    // ///////////////////////////////////////////////
+    // /////////////// Get id product ////////////////
+    // ///////////////////////////////////////////////
+    //je récupère mon panier
+    let cart = index.getCart();
 
-  //Fonction pour gérer l'affichage du texte alerte à côté de l'input
-  //pour indiquer à l'utilisateur qu'il faut bien remplir le champ
-  function emptyEntryEmptyText(querySelectorId) {
-    // if yes, display a small icon to let the client know that the input value is correct
-    document.querySelector(`#${querySelectorId}`).innerHTML = "";
-  }
-
-  function emptyEntryText(querySelectorId) {
-    // if not, display a small message to let the client know what's going wrong
-    document.querySelector(`#${querySelectorId}`).textContent =
-      "Veuillez bien renseigner ce champ.";
-  }
-
-  ////////////////////////////Text alert input//////////////////////////////
-
-  ////////////////////////////name & first name//////////////////////////////
-
-  //Je crée une variable d'expession de fonction pour stocker mon regex sur le prénom, le nom et la ville
-  //je vais pouvoir utiliser cette variable dans mes fonctions
-  const regexFirstnameLastname = (value) => {
-    return /^([a-zA-ZÀ-ÿ\-']{2,20})$/.test(value);
-  };
-
-  //je crée une variable d'expression de fonction avec mon "text alert"
-  const textAlert = (value) => {
-    return `${value}: ne doit pas comporter des chiffres et symboles. \n Il doit avoir un minimum de 2 caractères et ne doit pas dépasser 20 caractères.`;
-  };
-
-  function valideName() {
-    //controle de la validité du nom de famille
-    let leNom = formValues["last-name"];
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom
-    if (regexFirstnameLastname(leNom)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorName");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorName");
-      //j'appel ma variable d'expression de fonction "text alert"
-      //je remplace ma value par mon paramètre changeant
-      alert(textAlert("Le nom "));
-      return false;
+    //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
+    let panierGetProductId = [];
+    for (let i = 0; i < cart.length; i++) {
+      let idProduct = cart[i]._id;
+      panierGetProductId.push(idProduct);
     }
-  }
+    // ///////////////////////////////////////////////
+    // /////////////// Get id product ////////////////
+    // ///////////////////////////////////////////////
 
-  function valideFirstName() {
-    //contrôle de la validité du nom de famille
-    let lePrenom = formValues["first-name"];
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom
-    if (regexFirstnameLastname(lePrenom)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorFirstName");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorFirstName");
-      //j'appel ma variable d'expression de fonction "text alert"
-      //je remplace ma value par mon paramètre changeant
-      alert(textAlert("Le prénom "));
-      return false;
-    }
-  }
-  ///////////////////////////End name & first name////////////////////////////////////
+    // ///////////////////////////////////////////////
+    // ////////Send data to the localStorage/////////
+    // ///////////////////////////////////////////////
 
-  ///////////////////////////////Address//////////////////////////////////////////
-  const regexAddress = (value) => {
-    return /^([0-9]*) ?([a-zA-Z,\. ]*)$/.test(value);
-  };
+    //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
+    const elementToSend = { contact: formValues, products: panierGetProductId };
 
-  function valideAddress() {
-    //contrôle de la validité du nom de famille
-    let ladresse = formValues.address;
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable leNom | lePrenom | city
-    if (regexAddress(ladresse)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorAddress");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorAddress");
-      //je crée un message d'alerte
-      alert("Veuillez entrer votre adresse au bon format.");
-      return false;
-    }
-  }
-  /////////////////////////////End Address////////////////////////////////////////
+    //envoi des valuesServeur vers le serveur avec fetch et post
+    const promise = "http://localhost:3000/api/cameras/order";
+    const fetchData = {
+      method: "POST",
+      body: JSON.stringify(elementToSend),
+      headers: { "Content-Type": "application/json" },
+    };
 
-  //////////////////////////////City///////////////////////////////////////////
-
-  const regexCity = (value) => {
-    return /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value);
-  };
-
-  function valideCity() {
-    //contrôle de la validité de la ville
-    let laVille = formValues.city;
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable "city"
-    if (regexCity(laVille)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorCity");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorCity");
-      //je crée un message d'alerte
-      alert("Veuillez entrer votre ville de résidence au bon format.");
-      return false;
-    }
-  }
-  ////////////////////////////////End City//////////////////////////////////////////
-
-  ///////////////////////////////Postal Code//////////////////////////////////////////
-
-  //Je crée une variable d'expression de fonction pour stocker mon regex pour le CP
-  //je vais pouvoir utiliser cette variable dans ma fonction
-  const regexPostalCode = (value) => {
-    //Regex : je contrôle les chiffres de 0 à 9 et je veux 5 chiffres
-    return /^[0-9]{5}$/.test(value);
-  };
-
-  function validePostal() {
-    //contrôle de la validité du code postal
-    let leCodePostal = formValues["postal-code"];
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable "leCodePostal"
-    if (regexPostalCode(leCodePostal)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorPostalCode");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorPostalCode");
-      //je crée un message d'alerte
-      alert("Le code-postal doit être composé de 5 chiffres. ");
-      return false;
-    }
-  }
-  ///////////////////////////////End Postal Code//////////////////////////////////////////
-
-  ///////////////////////////////Phone//////////////////////////////////////////
-
-  const regexPhone = (value) => {
-    return /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(value);
-  };
-
-  function validePhone() {
-    //contrôle de la validité de l'email
-    let phone = formValues.phone;
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable "email"
-    if (regexPhone(phone)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorPhone");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorPhone");
-      //je crée un message d'alerte
-      alert("Veuillez entrer votre numéro de téléphone au bon format.");
-      return false;
-    }
-  }
-
-  /////////////////////////////End Phone////////////////////////////////////////
-
-  ///////////////////////////////Email//////////////////////////////////////////
-
-  const regexEmail = (value) => {
-    return /^[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)*@[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)+$/i.test(
-      value
-    );
-  };
-
-  function valideEmail() {
-    //contrôle de la validité de l'email
-    let email = formValues.email;
-    //dans mon if j'appel ma variable d'expression de fonction
-    //avec un argument "value" qui sera ma variable "email"
-    if (regexEmail(email)) {
-      //j'appel ma fonction "text alert input" à coté de l'input
-      emptyEntryEmptyText("errorEmail");
-      return true;
-    } else {
-      //j'appel ma fonction "text alert input" avec le texte en cas d'erreur de saisie
-      emptyEntryText("errorEmail");
-      //je crée un message d'alerte
-      alert("Veuillez entrer votre e-mail au bon format.");
-      return false;
-    }
-  }
-
-  /////////////////////////////End Email////////////////////////////////////////
-
-  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
-  if (
-    valideName() &&
-    valideFirstName() &&
-    validePostal() &&
-    valideCity() &&
-    valideAddress() &&
-    valideEmail() &&
-    validePhone()
-  ) {
-    //mettre l'objet formValues dans le localStorage
-    localStorage.setItem("formValues", JSON.stringify(formValues));
-    alert(
-      "Merci. Votre formulaire est correctement rempli et nous venons de valider votre commande.\n Nous vous feront parvenir une confirmation de commande dès que votre commande sera traitée."
-    );
-  } else {
-    alert("Veuillez remplir correctement le formulaire");
-  }
-  // ///////////////////////////////////////////////
-  // //////////////End validation form//////////////
-  // ///////////////////////////////////////////////
-
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
-
-  let cart = index.getCart(); //je récupère mon panier
-  let panierGetProductId = [];
-  for (let i = 0; i < cart.length; i++) {
-    let idProduct = cart[i]._id;
-    alert(idProduct);
-    panierGetProductId.push(idProduct);
-  }
-
-  const elementToSend = { contact: formValues, products: panierGetProductId };
-  //////Je récupère l'id de chaque produit présent dans le panier que j'envoi au serveur//////
-
-  // //mettre les valeurs du formulaire et les produits du paniers dans un objet à envoyé vers le serveur
-  // let valuesServeur = {
-  //   cart,
-  //   formValues,
-  // };
-  // console.log("Voici les valeurs envoyé vers le serveurs :");
-  // console.log(valuesServeur);
-
-  //envoi des valuesServeur vers le serveur avec fetch et post
-  let promise = "http://localhost:3000/api/cameras/order";
-  let fetchData = {
-    method: "POST",
-    body: JSON.stringify(elementToSend),
-    headers: { "Content-Type": "application/json" },
-  };
-
-  fetch(promise, fetchData)
-    .then(async (response) => {
-      try {
-        console.log(response);
-        const dataResponse = await response.json();
-        console.log("OK");
-        if (response.ok) {
-          alert(dataResponse.orderId);
-          // localStorage.setItem("formValues", dataResponse.orderValues);
-          localStorage.setItem("idresponse", dataResponse.orderId);
-          window.location = "confirmation.html";
-        } else {
+    fetch(promise, fetchData)
+      .then(async (response) => {
+        try {
+          const dataResponse = await response.json();
+          console.log("OK");
+          if (response.ok) {
+            localStorage.clear;
+            localStorage.setItem("idOrder", dataResponse.orderId);
+            setTimeout(function () {
+              window.location = "confirmation.html";
+            }, 2000);
+          } else {
+            console.log("KO");
+          }
+        } catch (e) {
+          console.log(e);
           console.log("KO");
         }
-      } catch (e) {
-        console.log(e);
-        console.log("KO");
-      }
-    })
-    .catch(function (error) {
-      alert(`Erreur, impossible de transmettre la requête au serveur`);
-      console.log(error);
-    });
-});
+      })
+      .catch(function (error) {
+        alert(`Erreur, impossible de transmettre la requête au serveur`);
+        console.log(error);
+      });
+  }, 3000);
+}
+// ///////////////////////////////////////////////
+// ///////End Send data to the localStorage///////
+// ///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
+function popUp() {
+  // Get the modal
+  var modal = document.getElementById("confirmation");
+
+  // // Get the button that opens the modal
+  var btn = document.getElementById("Order");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  console.log(window.getComputedStyle(modal)['display']);
+
+  // When the user clicks on the button, open the modal
+  // the modal will open on the window, if this style is on display none
+  // it's will be change on display = block
+  if (window.getComputedStyle(modal)["display"] == "none") {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+///////////////////////////////////////////////
+///////////////pop up message////////////////
+///////////////////////////////////////////////
 
 // ///////////////////////////////////////////////
-// ////////End Value form in localStorage/////////
+// ////////////////Validation form////////////////
+// ///////////////////////////////////////////////
+function validForm(formValues) {
+  validations.changeStatus(false);
+
+  //Contrôle validité de mon formulaire est complet je l'envoi sinon je ne l'envoi pas
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.lastName,
+    "errorName"
+  );
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.firstName,
+    "errorFirstName"
+  );
+  validations.checkWithRegex(street, formValues.address, "errorAddress");
+  validations.checkWithRegex(
+    stringWithoutSpecials,
+    formValues.city,
+    "errorCity"
+  );
+  validations.checkWithRegex(
+    postalCode,
+    formValues.postalCode,
+    "errorPostalCode"
+  );
+  validations.checkWithRegex(phone, formValues.phone, "errorPhone");
+  validations.checkWithRegex(email, formValues.email, "errorEmail");
+  //si je n'ai pas d'erreur dans mon formulaire
+  if (!errorStatus) {
+    //mettre l'objet formValues dans le localStorage
+    localStorage.setItem("formValues", JSON.stringify(formValues));
+    //on valide que le formulaire est bien rempli avec la fonction orderSuccess
+    orderSuccess(formValues);
+  } else {
+    console.log("error");
+    //scroll to the form to watch the error
+    let errors = [...document.querySelectorAll("span.errorInput")];
+    errors = errors.filter(function (error) {
+      //si le champ error n'est pas vide
+      if (error.innerHTML != "") {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    //affiche la première erreur du formulaire dans le champ de vision
+    errors[0].scrollIntoView();
+
+    throw new Error();
+  }
+}
+// ///////////////////////////////////////////////
+// //////////////End validation form//////////////
 // ///////////////////////////////////////////////
