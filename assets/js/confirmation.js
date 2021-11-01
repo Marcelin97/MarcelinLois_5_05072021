@@ -22,7 +22,7 @@ let id = localStorage.getItem("idOrder");
 
 document.querySelector(
   "#orderCommande"
-).textContent = `Voici ton numéro de commande : ${id} `;  
+).textContent = `Voici ton numéro de commande : ${id} `;
 // ///////////////////////////////////////////////
 // ////////////////Order number///////////////////
 // ///////////////////////////////////////////////
@@ -54,7 +54,7 @@ function displayClientReferences() {
   localStorage.clear();
   //j'appel ma fonction compteur du panier, pour réactualisation sur cette page
   index.setCounterCart();
-};
+}
 displayClientReferences();
 // ///////////////////////////////////////////////
 // Personalized message with customer information//

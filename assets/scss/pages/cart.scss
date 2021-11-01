@@ -251,7 +251,7 @@ form div label input {
     background-color: white;
   }
 }
-form div label > p {
+form div label > small {
   position: absolute;
   top: 30px;
   left: 25px;
@@ -263,8 +263,8 @@ form div label > p {
   max-width: 160px;
 }
 
-form div label input:focus + p,
-form div label input:not(:placeholder-shown) + p {
+form div label input:focus + small,
+form div label input:not(:placeholder-shown) + small {
   top: 0px;
   left: 0px;
   font-size: 1em;
@@ -422,16 +422,16 @@ footer {
 }
 
 /* The Close Btn */
-.close {
+.close i{
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
+.close i:hover,
+.close i:focus {
+  color: red;
   text-decoration: none;
   cursor: pointer;
 }

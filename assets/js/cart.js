@@ -114,7 +114,7 @@ function renderCartProduct(product) {
                         <div class="info-items-quantity">
                           <div>
                               <div class="cart-update">
-                                <button type="button" class="btn-update decrement" data-index="${cart[i]}" value="1"
+                                <button type="button" class="btn-update decrement" data-index="${i}" value="1"
                                 productId="${cart[i]._id}">
                                   <i class="fas fa-minus"></i>
                                 </button>
@@ -161,7 +161,7 @@ function updateItemsOnTheCart() {
     allBtnIncrements.forEach((element) => {
       element.addEventListener("click", function (event) {
         event.stopPropagation();
-        let inputPrev = event.target.previousElementSibling;
+        let inputPrev = event.currentTarget.previousElementSibling;
         inputPrev.value = parseInt(inputPrev.value) + 1;
         const productId = element.getAttribute("productId");
         //On crée un panier temporaire pour stocker le panier actuel
@@ -177,43 +177,31 @@ function updateItemsOnTheCart() {
         //get the new cart
         // Send data back to storage as a STRING
         localStorage.setItem("cart", JSON.stringify(newCart));
-            location.reload();
-
+        location.reload();
       });
     });
 
     allBtnDecrements.forEach((element) => {
       element.addEventListener("click", function (event) {
-        event.stopPropagation();
-        let inputNext = event.target.nextElementSibling;
+        event.stopImmediatePropagation();
+        let inputNext = event.currentTarget.nextElementSibling;
         inputNext.value = parseInt(inputNext.value) - 1;
         const productId = element.getAttribute("productId");
         //On crée un panier temporaire pour stocker le panier actuel
-        const newCart = cart.map((elementCart) => {
-          //si l'élément dans la panier est identique au produit que l'on veut ajouter
-          if (elementCart._id === productId) {
-            //enlève la quantité
-            let newQty = elementCart.qty--;
-            if (newQty < 2) {
-              removeOnCart(event.target.dataset.index);
-            } else {
-              return elementCart;
-            }
-          }
-          //get the new cart
-          // Send data back to storage as a STRING
-          console.log(newCart);
-          // location.reload();
-        });
-        //Test if new cart is array undefined
-        if (newCart != null) {
-          localStorage.setItem("cart", JSON.stringify(newCart));
-         location.reload();
+
+        let elementCurrent = cart[event.currentTarget.dataset.index];
+        elementCurrent["qty"] = elementCurrent.qty - 1;
+        if (elementCurrent["qty"] < 1) {
+          removeOnCart(event.currentTarget.dataset.index);
+        } else {
+          localStorage.setItem("cart", JSON.stringify(cart));
         }
+
+        location.reload();
       });
     });
   });
-}
+};
 //j'appel ma fonction pour l'exécuté
 updateItemsOnTheCart();
 // ///////////////////////////////////////////////
@@ -235,17 +223,11 @@ function removeOnCart(index) {
   console.log(index);
   if (cart.length > 1) {
     cart.splice(index, 1);
-    //on envoie la variable dans le local Storage
-    //la transformation en format JSON
     localStorage.setItem("cart", JSON.stringify(cart));
-        location.reload();
-
   } else {
     localStorage.removeItem("cart");
-    location.reload();
   }
-  // location.reload();
-}
+};
 // ///////////////////////////////////////////////
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
@@ -364,7 +346,7 @@ function orderSuccess(formValues) {
           const dataResponse = await response.json();
           console.log("OK");
           if (response.ok) {
-            // alert(dataResponse.orderId);
+            localStorage.clear;
             localStorage.setItem("idOrder", dataResponse.orderId);
             setTimeout(function () {
               window.location = "confirmation.html";
@@ -459,7 +441,7 @@ function validForm(formValues) {
   if (!errorStatus) {
     //mettre l'objet formValues dans le localStorage
     localStorage.setItem("formValues", JSON.stringify(formValues));
-    //on valide que le formulaire est bien rempli avec cette fonction
+    //on valide que le formulaire est bien rempli avec la fonction orderSuccess
     orderSuccess(formValues);
   } else {
     console.log("error");
