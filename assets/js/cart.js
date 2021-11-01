@@ -194,7 +194,7 @@ function updateItemsOnTheCart() {
           if (elementCart._id === productId) {
             //enlève la quantité
             let newQty = elementCart.qty--;
-            if (newQty < 1 + 1) {
+            if (newQty < 2) {
               removeOnCart(event.target.dataset.index);
             } else {
               return elementCart;
