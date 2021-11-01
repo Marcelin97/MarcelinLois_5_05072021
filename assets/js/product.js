@@ -61,7 +61,7 @@ function renderProduct(product) {
   document.getElementsByTagName("select")[0].innerHTML =
     '<option value="">Veuillez choisir une option</option>' +
     getOptions(product[getCustomisation(product)]);
-  document.getElementsByName("price")[0].innerHTML = index.priceToEuros(
+  document.getElementsByClassName("priceProduct")[0].innerHTML = index.priceToEuros(
     product.price
   );
 }

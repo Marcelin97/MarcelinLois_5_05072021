@@ -38,7 +38,7 @@ function renderProducts(products, category) {
                     src="` +
       element.imageUrl +
       `"
-                    alt="Appareil photo vintage sur un gard-corp bois en extérieur"
+                    alt="Appareil photo vintage sur un gard-corp bois en extérieur" loading=lazy
                   />
                   <div><i class="fas fa-plus"></i></div>
                 </figure>
