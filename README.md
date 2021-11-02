@@ -31,7 +31,6 @@ git clone https://github.com/Marcelin97/MarcelinLois_5_05072021.git
 |--|--|
 | for production | npm run start |
 
-
+## Thanks for reading 🙇
 > 💬 ask me about anything, i am happy to help;
 
-### Thanks for reading 🙇
