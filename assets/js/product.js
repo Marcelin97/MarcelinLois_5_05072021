@@ -55,7 +55,6 @@ function displayError() {
 ////////////////renderProduct///////////////
 ////////////////////////////////////////////
 function renderProduct(product) {
-  let container = document.getElementById("container");
   document.getElementsByTagName("img")[0].src = product.imageUrl;
   document.getElementsByTagName("h1")[0].innerHTML = product.name;
   document.getElementsByTagName("select")[0].innerHTML =

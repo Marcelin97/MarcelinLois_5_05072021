@@ -51,6 +51,7 @@ function displayClientReferences() {
           </ul> 
         </p>
     `;
+  //Je vite mon panier
   localStorage.clear();
   //j'appel ma fonction compteur du panier, pour réactualisation sur cette page
   index.setCounterCart();

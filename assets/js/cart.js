@@ -174,8 +174,6 @@ function updateItemsOnTheCart() {
           //retourne moi le nouvelle élément à jour
           return elementCart;
         });
-        //get the new cart
-        // Send data back to storage as a STRING
         localStorage.setItem("cart", JSON.stringify(newCart));
         location.reload();
       });
@@ -186,8 +184,6 @@ function updateItemsOnTheCart() {
         event.stopImmediatePropagation();
         let inputNext = event.currentTarget.nextElementSibling;
         inputNext.value = parseInt(inputNext.value) - 1;
-        const productId = element.getAttribute("productId");
-        //On crée un panier temporaire pour stocker le panier actuel
 
         let elementCurrent = cart[event.currentTarget.dataset.index];
         elementCurrent["qty"] = elementCurrent.qty - 1;
@@ -196,7 +192,6 @@ function updateItemsOnTheCart() {
         } else {
           localStorage.setItem("cart", JSON.stringify(cart));
         }
-
         location.reload();
       });
     });
