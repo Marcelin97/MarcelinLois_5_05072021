@@ -11,11 +11,11 @@ git clone https://github.com/OpenClassrooms-Student-Center/JWDP5
 cd JWDP5
 ```
 #### 🔧 Install Node.js & NPM directly in the project folder
-```bash
+
 | node.js | [node.js](https://nodejs.org/en/) |
 |--|--|
 | npm | npm install |
-```
+
 #### How to run the server
 ```bash
 Now you can run the server with commande "node server".
@@ -32,6 +32,6 @@ git clone https://github.com/Marcelin97/MarcelinLois_5_05072021.git
 | for production | npm run start |
 
 
- - 💬 ask me about anything, i am happy to help;
+> 💬 ask me about anything, i am happy to help;
 
 ### Thanks for reading 🙇
