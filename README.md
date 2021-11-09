@@ -1,6 +1,7 @@
 # MarcelinLois_5_05072021
 
 ## 👨🏻‍💻 How to install project
+You need to install npm package for the API and front-end.
 ## 👉 Setup API (back-end)
 #### Clone this repository
 ```bash
@@ -17,15 +18,20 @@ cd JWDP5
 | npm | npm install |
 
 #### How to run the server
-```bash
-Now you can run the server with commande "node server".
+
+Now you can run the server with commande ```bash "node server".```
 The server should run on localhost with default port 3000.
-```
+
 ## 👉 Setup website e-commerce (front-end)
 #### Clone this repository
 ```bash
 git clone https://github.com/Marcelin97/MarcelinLois_5_05072021.git
 ```
+#### 🔧 Install Node.js & NPM directly in the project folder
+
+| node.js | [node.js](https://nodejs.org/en/) |
+|--|--|
+| npm | npm install |
 #### How to run the front-end
 | for development | npm run serve |
 |--|--|
