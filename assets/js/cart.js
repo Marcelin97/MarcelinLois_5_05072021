@@ -1,7 +1,7 @@
 import * as index from "./index";
 import * as validations from "./validations";
 
-//importation des regex
+//importation des regEX
 import {
   stringWithoutSpecials,
   street,
@@ -174,8 +174,6 @@ function updateItemsOnTheCart() {
           //retourne moi le nouvelle élément à jour
           return elementCart;
         });
-        //get the new cart
-        // Send data back to storage as a STRING
         localStorage.setItem("cart", JSON.stringify(newCart));
         location.reload();
       });
@@ -186,8 +184,6 @@ function updateItemsOnTheCart() {
         event.stopImmediatePropagation();
         let inputNext = event.currentTarget.nextElementSibling;
         inputNext.value = parseInt(inputNext.value) - 1;
-        const productId = element.getAttribute("productId");
-        //On crée un panier temporaire pour stocker le panier actuel
 
         let elementCurrent = cart[event.currentTarget.dataset.index];
         elementCurrent["qty"] = elementCurrent.qty - 1;
@@ -196,12 +192,11 @@ function updateItemsOnTheCart() {
         } else {
           localStorage.setItem("cart", JSON.stringify(cart));
         }
-
         location.reload();
       });
     });
   });
-};
+}
 //j'appel ma fonction pour l'exécuté
 updateItemsOnTheCart();
 // ///////////////////////////////////////////////
@@ -227,7 +222,7 @@ function removeOnCart(index) {
   } else {
     localStorage.removeItem("cart");
   }
-};
+}
 // ///////////////////////////////////////////////
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
@@ -382,7 +377,7 @@ function popUp() {
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-  console.log(window.getComputedStyle(modal)['display']);
+  console.log(window.getComputedStyle(modal)["display"]);
 
   // When the user clicks on the button, open the modal
   // the modal will open on the window, if this style is on display none

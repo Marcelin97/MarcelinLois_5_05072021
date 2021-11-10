@@ -55,15 +55,13 @@ function displayError() {
 ////////////////renderProduct///////////////
 ////////////////////////////////////////////
 function renderProduct(product) {
-  let container = document.getElementById("container");
   document.getElementsByTagName("img")[0].src = product.imageUrl;
   document.getElementsByTagName("h1")[0].innerHTML = product.name;
   document.getElementsByTagName("select")[0].innerHTML =
     '<option value="">Veuillez choisir une option</option>' +
     getOptions(product[getCustomisation(product)]);
-  document.getElementsByClassName("priceProduct")[0].innerHTML = index.priceToEuros(
-    product.price
-  );
+  document.getElementsByClassName("priceProduct")[0].innerHTML =
+    index.priceToEuros(product.price);
 }
 ////////////////////////////////////////////
 ////////////////renderProduct///////////////
