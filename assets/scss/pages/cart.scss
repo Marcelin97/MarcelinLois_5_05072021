@@ -372,7 +372,6 @@ footer {
     &:hover {
       border: 1px solid white;
     }
-
   }
 }
 
@@ -409,20 +408,20 @@ footer {
   padding: 20px;
   border: 2px solid $border;
   width: 80%;
-    h3{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-    }
-    p{
-      text-align: center;
-    }
+  h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  p {
+    text-align: center;
+  }
 }
 
 /* The Close Btn */
-.close i{
+.close i {
   color: #aaa;
   float: right;
   font-size: 28px;

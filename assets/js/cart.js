@@ -1,7 +1,7 @@
 import * as index from "./index";
 import * as validations from "./validations";
 
-//importation des regex
+//importation des regEX
 import {
   stringWithoutSpecials,
   street,
@@ -196,7 +196,7 @@ function updateItemsOnTheCart() {
       });
     });
   });
-};
+}
 //j'appel ma fonction pour l'exécuté
 updateItemsOnTheCart();
 // ///////////////////////////////////////////////
@@ -222,7 +222,7 @@ function removeOnCart(index) {
   } else {
     localStorage.removeItem("cart");
   }
-};
+}
 // ///////////////////////////////////////////////
 // /////////End removeOneItemsOnTheCart///////////
 // ///////////////////////////////////////////////
@@ -377,7 +377,7 @@ function popUp() {
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-  console.log(window.getComputedStyle(modal)['display']);
+  console.log(window.getComputedStyle(modal)["display"]);
 
   // When the user clicks on the button, open the modal
   // the modal will open on the window, if this style is on display none

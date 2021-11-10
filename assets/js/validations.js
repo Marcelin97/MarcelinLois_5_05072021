@@ -36,8 +36,8 @@ export const phone =
 //////////////////changeStatus//////////////////
 ////////////////////////////////////////////////
 
-//change le statut de notre fonction checkWithRegex 
-//si il y a une erreur que cela puisse refaire 
+//change le statut de notre fonction checkWithRegex
+//si il y a une erreur que cela puisse refaire
 //une vérification après correction
 export let errorStatus = false;
 
